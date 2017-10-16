@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Requirement
 # Example
 
@@ -13,6 +15,3 @@ Corner cases:
 # Test Cases
 if __name__ == "__main__":
 	solution = Solution()
-	# 1. 
-	# 2. 
-	# 3.
