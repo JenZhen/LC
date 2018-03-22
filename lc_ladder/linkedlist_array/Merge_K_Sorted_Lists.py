@@ -37,7 +37,7 @@ class Solution(object):
             if ll:
                 self.heapPushNode(heap, ll)
         while heap:
-            runner.next = heapq.heappop(heap)[1]
+            runner.next = heappop(heap)[1]
             runner = runner.next
             if runner.next:
                 self.heapPushNode(heap, runner.next)
@@ -46,8 +46,33 @@ class Solution(object):
     # heap item is a tuple (value, node)
     # value is the comparison
     def heapPushNode(self, heap, node):
-        heapq.heappush(heap, (node.val, node))
+        heappush(heap, (node.val, node))
 
+from heapq import heappop, heappush, heapify
+class Solution2(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        if not lists:
+            return None
+
+        preHead = ListNode(-1)
+        runner = preHead
+        heap = [(head.val, head) for head in lists if head is not None]
+        heapify(heap)
+        """
+        for ll in lists:
+            if ll:
+                self.heapPushNode(heap, ll)
+        """
+        while heap:
+            runner.next = heappop(heap)[1]
+            runner = runner.next
+            if runner.next:
+                heappush(heap, (runner.next.val, runner.next))
+        return preHead.next
 # Test Cases
 if __name__ == "__main__":
 	solution = Solution()
