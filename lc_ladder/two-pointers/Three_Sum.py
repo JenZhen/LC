@@ -34,6 +34,7 @@ class Solution(object):
         res = []
         for i in range(length - 2):
             # note if fixing point need to check dup
+            # this is to remove[[-1,0,1],[-1,0,1]], starting with -1 won't show twice
             # note that this is an "if" not "while"
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
@@ -62,6 +63,11 @@ class Solution(object):
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
-    nums = [-1,0,1,2,-1,-4,-1]
-    print(solution.threeSum(nums))
+    testCases = [
+        [-1,0,1,2,-1,-4,-1], #[[-1,0,1],[-1,-1,2]]
+        [1,0,-1,-1,-1,-1,0,1,1,1] #[[-1,0,1]]
+    ]
+    for t in testCases:
+        nums = t
+        print("solution: %s" %solution.threeSum(nums))
 
