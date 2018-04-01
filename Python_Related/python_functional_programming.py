@@ -14,7 +14,7 @@
 # Benefit
 # - Lazy way of generate values
 # - Save memory
-# - Save time ??
+# - Save time
 
 # Construct iterators
 # Example
@@ -59,7 +59,33 @@ print("\n")
 # Iterators
 #############
 
-# TODO:
+# Explicit Use
+l = [1, 2, 3, 4]
+l_it = iter(l)
+print("Iter value from list: %s" %l_it.__next__())
+
+# Implicit Use
+# for loop, "for" factory method in dictionay, set, tuple, list
+# that after each loop, element will use next() to do auto-increment
+# Example
+# for i in range(4):
+    # do something
+    # i auto increase
+l = [1, 2, 3]
+t = (1, 2, 3)
+s = {1, 2, 3}
+dic = {1: "a", 2: "b", 3: "c"}
+
+for i in l:
+    print("in l: %s" %i)
+for i in t:
+    print("in t: %s" %i)
+for i in s:
+    print("in s: %s" %i)
+for i in dic:
+    print("in dic: [%s, %s]" %(i, dic[i]))
+
+print("\n")
 
 ###################
 # function/lambda
@@ -283,7 +309,6 @@ print("\n")
 # Decorators
 #############
 
-# TODO:
 # See python_decorator.py
 
 

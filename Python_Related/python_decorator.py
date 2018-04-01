@@ -138,7 +138,7 @@ def div_decorator(func):                       # ---- func: function to be decor
     return funcWrapper
 decorated = greet("Zhen")                      # ---- This is the use case where name passed
 """
-# This patten's limitation is that this decorator can only decorate function with ONLY ONE argument
+# This pattern's limitation is that this decorator can only decorate function with ONLY ONE argument
 # as func(name)
 # To solve this issue and accomodate all sorts of functions
 
