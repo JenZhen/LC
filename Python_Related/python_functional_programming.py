@@ -68,9 +68,11 @@ print("Iter value from list: %s" %l_it.__next__())
 # for loop, "for" factory method in dictionay, set, tuple, list
 # that after each loop, element will use next() to do auto-increment
 # Example
-# for i in range(4):
+for i in range(4):
+    pass
     # do something
     # i auto increase
+
 l = [1, 2, 3]
 t = (1, 2, 3)
 s = {1, 2, 3}
@@ -311,6 +313,13 @@ print("\n")
 
 # See python_decorator.py
 
+
+#############
+# Metaclass
+#############
+
+# Documentation:
+# https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python
 
 
 
