@@ -1,0 +1,20 @@
+- What is a segment-tree/interval-tree
+- What can it be used for?
+    - interval with min/max/sum/...
+    - an interval of length n, tree height of log(n)
+- How to construct a segment-tree keeping track of min of the interval
+    https://www.lintcode.com/en/problem/segment-tree-build/
+- How to update a tree node
+    https://www.lintcode.com/en/problem/segment-tree-modify/
+- How to query within a segment-tree
+    https://www.lintcode.com/en/problem/segment-tree-query/
+
+Important:
+- How to add/remove a tree node
+    Cannot add/remove node within the interval
+
+Segment-tree Tutorial
+https://www.jiuzhang.com/tutorial/segment-tree/90
+Related practices
+https://www.lintcode.com/ladder/26
+pw:xianduanshu2
