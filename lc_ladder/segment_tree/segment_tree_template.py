@@ -2,3 +2,4 @@
 
 # TODO:
 # Write a template for segment tree implementation
+# Include min/max/sum/cnt
