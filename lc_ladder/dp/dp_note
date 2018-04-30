@@ -1,0 +1,25 @@
+1. Essense of Dynamic Programming
+- Divide big problem into small problems
+- Solve small problems first, save the value, derive bigger problem from memorized small problems
+
+2. Ideas:
+- Memoried Search
+- Iteration
+
+3. Frequently Asked Questions:
+- Matrix DP (10%): Unique Path
+- Sequence DP (40%): Clime Stairs
+- Two Sequences DP (40%)
+- Backpack (10%)
+
+4. Steps
+- State: How to represent problems and save the value
+- Function: How to derive big problem from small problems
+- Initialization: How to init corner cases, ie the ones that cannot be derived from
+- Answer: Which part the problem is the answer
+
+5. Hint of DP
+- One of the keywords in the problem
+1) Max/Min 2) Yes/No 3) Count
+
+- Input type of data cannot be sorted/swapped

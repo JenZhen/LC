@@ -8,6 +8,13 @@ Algo:
 D.S.:
 
 Solution:
+- State:
+- Function:
+- Initialization:
+- Answer:
+
+Time: O()
+Space: O()
 
 Corner cases:
 """

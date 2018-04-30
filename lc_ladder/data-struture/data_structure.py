@@ -25,6 +25,7 @@ print(myList[-1:]) # list contains only last element
 # - Remove an element
 ele = myList.pop(0) # return and pop the index 0 element
 
+
 # - append an element
 myList.append(1) # append at the end of list
 
@@ -45,6 +46,7 @@ for ele in myList:
     print(ele)
 
 print("\n")
+
 
 #######
 # Sets
@@ -124,6 +126,7 @@ print("\n")
 # Queue
 ########
 
+
 # Features:
 # - FIFO
 # - Main functions: 1) size(), 2) isEmpty(), 3) push(x), 4) pop() (Raise exception on exhaustion)
@@ -180,6 +183,7 @@ print(qList) # [3, 4, 5, 6]
 
 print(qList.front()) # 3
 print(qList.pop())  # 3
+
 qList.pop(); qList.pop(); qList.pop();
 print(qList.isEmpty()) # True
 # qList.pop(); # Exception
@@ -231,7 +235,6 @@ print("\n")
 ########
 # Stack
 ########
-
 # Features:
 # - LIFO
 # - Main functions: 1) size(), 2) isEmpty(), 3) push(x), 4) pop() (Raise exception on exhaustion)
@@ -287,6 +290,7 @@ print(sList) # [1, 2, 3, 6]
 
 print(sList.top()) # 6
 print(sList.pop())  # 6
+
 sList.pop(); sList.pop(); sList.pop();
 print(sList.isEmpty()) # True
 try:
@@ -314,6 +318,7 @@ print("\n")
 # Documentation:
 # https://docs.python.org/3.6/library/heapq.html
 # Featuers: min/max heap
+
 # Main functions
 # - heapify:
 # - heappush: add a new value to a heap
