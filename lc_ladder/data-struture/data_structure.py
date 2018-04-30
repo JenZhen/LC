@@ -25,7 +25,8 @@ print(myList[-1:]) # list contains only last element
 # - Remove an element
 ele = myList.pop(0) # return and pop the index 0 element
 
-# - append an element 
+
+# - append an element
 myList.append(1) # append at the end of list
 
 # - Sorting O(nlogn)
@@ -46,11 +47,87 @@ for ele in myList:
 
 print("\n")
 
+
+#######
+# Sets
+#######
+
+# Features: A set is an unordered collection with no duplicate elements.
+# Examples:
+# - Init
+# 1) Init an empty set
+myEmptySet = set()
+print("Empty set size: %s." %len(myEmptySet))
+# myEmptySet = {} is an init of dictionary not a set
+
+# 2) Init non-empty set
+mySet1 = {3, 2, 1, 1} # => {1, 2, 3}
+print("mySet1: %s" %repr(mySet1))
+mySet2 = set("abac") # => {"a", "b", "c"}
+print("mySet2: %s" %repr(mySet2))
+
+# - Check Existence
+if 1 in mySet1: # if i not in mySet1:
+    print("1 is in mySet1")
+else:
+    print("1 is not in mySet1")
+
+# - Add new element
+mySet1.add(9)
+mySet1.add(10)
+
+# - Remove element
+# Remove non-existed element raise KeyError
+if 10 in mySet1:
+    mySet1.remove(10)
+
+# - Iteration
+eleLists = ", ".join([str(ele) for ele in mySet1])
+print("{%s}" %eleLists)
+
+print("\n")
+
+############
+# Dictionary
+############
+
+# Features: key-mapping structure
+# Examples:
+
+# - Init
+# 1) Init an empty
+myDict = {}
+# 2) Init non-emtpy
+myDict = {"a":1, "b":2}
+
+# - Check Existence
+if "a" in myDict:
+    print("\"a\" is in dict")
+
+# - Add new element
+myDict["c"] = 3
+myDict["d"] = 4
+
+# - Remove element
+# Remove non-existed element raise KeyError
+if "c" in myDict:
+    del myDict["c"]
+
+# Iteration
+for ele in myDict:
+    print("ele key: %s" %ele) # this iterate the key only
+
+for k, v in myDict.items():
+    print("[Key: %s, Val: %s]" %(k, v))
+
+print("\n")
+
 ########
 # Queue
 ########
 
-# Features: 
+
+# Features:
 # - FIFO
 # - Main functions: 1) size(), 2) isEmpty(), 3) push(x), 4) pop() (Raise exception on exhaustion)
 #                   5) Fixed-size queue delete oldest-added on extra push(x)
@@ -106,7 +183,8 @@ print(qList) # [3, 4, 5, 6]
 
 print(qList.front()) # 3
 print(qList.pop())  # 3
-qList.pop(); qList.pop(); qList.pop(); 
+
+qList.pop(); qList.pop(); qList.pop();
 print(qList.isEmpty()) # True
 # qList.pop(); # Exception
 
@@ -136,12 +214,12 @@ print("Get the oldest: %s. Queue size is now: %s" %(q.get(), q.qsize())) # 1, 3
 print("\n")
 
 # 3. Implmented using "collections.deque" -- two-ended deck
-# Essentially a list 
+# Essentially a list
 # d = deque([], maxlen=3)               // Init an empty deck/list/queue with max length of 3
 # len(d)                                // For queue.size(), queue.isEmpty()
 # d.append(x)                           // For queue.push(x), add on the rightmost element, when full leftmost element will be removed
-# d.pop()                               // Remove the "rightmost" element, can be used for stack(rightside side is new data)                       
-# d.appendleft(x)                       
+# d.pop()                               // Remove the "rightmost" element, can be used for stack(rightside side is new data)
+# d.appendleft(x)
 # d.popleft()                           // Remove the "leftmost" element, can be used for queue(leftside data is old data)
 # Example
 from collections import deque
@@ -157,8 +235,7 @@ print("\n")
 ########
 # Stack
 ########
-
-# Features: 
+# Features:
 # - LIFO
 # - Main functions: 1) size(), 2) isEmpty(), 3) push(x), 4) pop() (Raise exception on exhaustion)
 #                   5) Fixed-size stack delete oldest-added on extra push(x)
@@ -213,7 +290,8 @@ print(sList) # [1, 2, 3, 6]
 
 print(sList.top()) # 6
 print(sList.pop())  # 6
-sList.pop(); sList.pop(); sList.pop(); 
+
+sList.pop(); sList.pop(); sList.pop();
 print(sList.isEmpty()) # True
 try:
     sList.pop()
@@ -223,9 +301,9 @@ except IndexError:
 print("\n")
 
 # 2. Implmented using "collections.deque" -- two-ended deck
-# Essentially a list 
+# Essentially a list
 # stack = []    - d = deque([], maxlen=3)           // Init an empty deck/list/stack with max length of 3
-# stack.size()  - len(d) 
+# stack.size()  - len(d)
 # stack.push(x) - d.append(x) or d.appendleft(x)    // When stack is full, append(x) will remove the leftmost element;
 #                                                   // appendleft(x) will remove the rightmost elemnt. Inconsistent wiht stack feature
 #                                                   // Need to manually check d.maxlen with len(d) to remove newest element
@@ -240,7 +318,8 @@ print("\n")
 # Documentation:
 # https://docs.python.org/3.6/library/heapq.html
 # Featuers: min/max heap
-# Main functions 
+
+# Main functions
 # - heapify:
 # - heappush: add a new value to a heap
 # - heappop: return the min value in heap, and "will be removed"
@@ -357,7 +436,7 @@ class NthLargest(object):
 
     def findNthLargest(self, arr):
         self.heap = []
-        if not arr: 
+        if not arr:
             print("Invalid input!")
             return
         for ele in arr:
