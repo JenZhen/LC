@@ -13,9 +13,10 @@ D.S.: With help of set/dictionary
 Solution:
 
 Corner cases:
+Extremely difficult to handle corner cases
 """
 
-class Solution:
+class Solution1:
     """
     @param s: A string
     @param k: An integer
@@ -23,17 +24,59 @@ class Solution:
     """
     def lengthOfLongestSubstringKDistinct(self, s, k):
         # write your code here
-        if not s or not k:
+        class Solution:
+    """
+    @param s: A string
+    @param k: An integer
+    @return: An integer
+    """
+    def lengthOfLongestSubstringKDistinct(self, s, k):
+        # write your code here
+        if not s:
             return 0
 
-        i, j, ans = 0, 0, 0
-        length = len(s)
         charDict = {}
-        for i in range(length):
-            # TODO NOT FINISHED YET
+        length = len(s)
+        i, j, ans = 0, 0, 0
 
+        def addToDict(val):
+            if val not in charDict:
+                charDict[val] = 1
+            else:
+                charDict[val] += 1
+        def delFromDict(val):
+            if val in charDict:
+                charDict[val] -= 1
+                if charDict[val] == 0:
+                    del charDict[val]
+
+        for i in range(length):
+            while j < length:
+                if s[j] in charDict:
+                    addToDict(s[j])
+                else:
+                    if len(charDict) == k:
+                        break;
+                    addToDict(s[j])
+                j += 1
+
+            ans = max(ans, j - i)
+            delFromDict(s[i])
+
+        return ans
 
 
 # Test Cases
 if __name__ == "__main__":
-    solution = Solution()
+    testCases = [
+        {
+         "s": "eceba",
+         "k": 3
+        },
+    ]
+    s1 = Solution1()
+    for t in testCases:
+        s = t["s"]
+        k = t["k"]
+        res1 = s1.lengthOfLongestSubstringKDistinct(s, k)
+        print("res1: %s" %res1)
