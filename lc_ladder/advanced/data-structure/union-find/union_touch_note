@@ -1,0 +1,56 @@
+Uninon Find 并查集
+- 用来解决“查询合并”的数据结构
+- find O(1); union O(1)
+
+- find: check if nodes are in the same set, ie. find the root
+
+// Find template, WITHOUT compression
+int find(int x) {
+  if (Father(x) == x) {
+    return x
+  }
+  return Find(Father(x))
+}
+
+Example
+A <- B <- C
+Given C, return its final root A
+
+// Find template, WITH compression
+int find(int x) {
+  if (Father(x) == x) {
+    return x
+  }
+  // Eventually find x's root and update x' father node
+  return Father(x) = Find(Father(x))
+}
+
+Example
+A <- B <- C (A's father points at itself)
+Given C, return its final root A, and update father node along the way.
+C -> A <- B (A's father points at itself)
+
+Amortized cost for find operation is O(1)
+
+- union: make sets of nodes together, ie. union the root
+It refers to union of 2 roots not related to it's leaves
+
+// Union template
+void union(int a, int b) {
+  int root_a = find(a) // O(1)
+  int root_b = find(b) // O(1)
+  if (root_a != root_b) {
+    // merge root_a to root_b
+    father[root_a] = root_b
+  }
+}
+
+Time complexity: O(1)
+
+** Summary:
+- Familiar with union-find template (5min)
+- Find the root
+- Union the roots (rule defined by myself)
+
+- Find out count of elements in a set
+- Find out count of sets (ie. count of roots)
