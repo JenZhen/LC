@@ -33,9 +33,8 @@ class UnionFind(object):
     def find(self, node):
         if self.father[node] == node:
             return node
-        newFather = self.find(self.father[node])
-        self.father[node] = newFather
-        return newFather
+        self.father[node] = self.find(self.father[node])
+        return self.father[node]
 
     def union(self, a, b):
         root_a = self.find(a)

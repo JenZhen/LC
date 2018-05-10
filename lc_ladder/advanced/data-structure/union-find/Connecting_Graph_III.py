@@ -1,37 +1,40 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/connecting-graph/description
+# https://www.lintcode.com/en/old/problem/connecting-graph-iii/
 # Given n nodes in a graph labeled from 1 to n. There is no edges in the graph at beginning.
 # You need to support the following method:
-# 1. connect(a, b), add an edge to connect node a and node b. 2.query(a, b)`, check if two nodes are connected
+# 1. connect(a, b), an edge to connect node a and node b
+# 2. query(), Returns the number of connected component in the graph
+
 # Example
 # 5 // n = 5
-# query(1, 2) return false
+# query() return 5
 # connect(1, 2)
-# query(1, 3) return false
+# query() return 4
 # connect(2, 4)
-# query(1, 4) return true
+# query() return 3
+# connect(1, 4)
+# query() return 3
 
 """
 Algo:
 D.S.: Union-Find
 
 Solution:
-UnionFind template.
+UnionFind template with count of all groups.
+Starting with n nodes, then started with n groups each union reduces 1 group
 Time: O(1)
 
 Corner cases:
 """
-
-class ConnectingGraph:
+class ConnectingGraph3:
     """
     @param: n: An integer
     """
     def __init__(self, n):
         # do intialization if necessary
-        self.father = [0] * (n + 1)
-        for i in range(1, n + 1):
-            self.father[i] = i # each node is its own father
+        self.count = n
+        self.father = [i for i in range(n + 1)]
 
     def find(self, a):
         if self.father[a] == a:
@@ -50,17 +53,15 @@ class ConnectingGraph:
         root_b = self.find(b)
         if root_a != root_b:
             self.father[root_a] = root_b
+            self.count -= 1
 
     """
-    @param: a: An integer
-    @param: b: An integer
-    @return: A boolean
+    @return: An integer
     """
-    def query(self, a, b):
+    def query(self):
         # write your code here
-        root_a = self.find(a)
-        root_b = self.find(b)
-        return root_a == root_b
+        return self.count
+
 
 # Test Cases
 if __name__ == "__main__":

@@ -22,7 +22,8 @@ int find(int x) {
     return x
   }
   // Eventually find x's root and update x' father node
-  return Father(x) = Find(Father(x))
+  Father(x) = Find(Father(x))
+  return Father(x)
 }
 
 Example
