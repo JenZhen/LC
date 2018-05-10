@@ -55,3 +55,4 @@ Time complexity: O(1)
 
 - Find out count of elements in a set
 - Find out count of sets (ie. count of roots)
+- Return all sets
