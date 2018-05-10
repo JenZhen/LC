@@ -12,8 +12,10 @@ D.S.: Union-Find
 Solution:
 1. UnionFind
 
-2. BSF: O(m*n)
+2. BFS: O(m*n)
 Space O(m*n)
+
+3. DFS: # TODO: 
 
 Corner cases:
 """

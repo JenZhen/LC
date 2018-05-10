@@ -14,11 +14,12 @@
 
 """
 Algo:
-D.S.: Union-Find
+D.S.: Union-Find/BFS
 
 Solution:
-UnionFind template.
+1. UnionFind template.
 Time: O(1)
+2. BFS: # TODO: 
 
 Corner cases:
 """
