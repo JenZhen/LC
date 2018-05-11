@@ -1,0 +1,21 @@
+Tree Trie
+-
+-
+
+Operations
+-
+
+Complexity Analysis
+-
+-
+
+Compare with Hashtable
+
+
+
+** Summary **
+1. Implement a trie tree
+  - insert word
+  - check if word in there (require isWordEnd == True)
+  - check if a prefix is in there
+2.
