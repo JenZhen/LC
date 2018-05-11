@@ -48,11 +48,18 @@ void union(int a, int b) {
 
 Time complexity: O(1)
 
-** Summary:
+** Summary **
 - Familiar with union-find template (5min)
 - Find the root
 - Union the roots (rule defined by myself)
 
+Application Extension
 - Find out count of elements in a set
 - Find out count of sets (ie. count of roots)
+  Number_of_Islands
+  Number_of_Islands_II
 - Return all sets
+  Connected_Component_in_Undirected_Grap
+  Find_the_Weak_Connected_Component_in_the_Directed_Graph
+- Handle duplication, (i, j) marked as 1 then again
+  Number_of_Islands_II
