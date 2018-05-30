@@ -15,7 +15,7 @@ Solution:
 2. BFS: O(m*n)
 Space O(m*n)
 
-3. DFS: # TODO: 
+3. DFS: # TODO:
 
 Corner cases:
 """
@@ -119,7 +119,7 @@ class Solution2:
 
         m = len(grid)
         n = len(grid[0])
-        visited = [[False for i in range(n)]for j in range(m)]
+        visited = [[False for i in range(n)] for j in range(m)]
         numIslands = 0
 
         # Serves 2 purposes
