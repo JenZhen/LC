@@ -15,4 +15,4 @@ Corner cases:
 
 # Test Cases
 if __name__ == "__main__":
-    solution = Solution()
+    s = Solution()
