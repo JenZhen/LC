@@ -44,7 +44,7 @@ Time: O(logm) + O(n) + O(log(m/2)) + O(n) + ...
       O(logm * n)
 
 Solution4: binary search on rows and columns
-binary row -> binary column -> binary row -> bianry column -> ... -> find the peak
+binary row -> binary column -> binary row -> bianry column -> ... -> findc the peak
 Assume m = n:
 T(n) = O(n) + O(n/2) + T(n/2) --> changed from n*n to (n/2) * (n/2)
 T(n) = 3/2O(n) + T(n/2) ... expand
