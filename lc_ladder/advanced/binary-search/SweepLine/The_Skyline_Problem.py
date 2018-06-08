@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3
 
-# Requirement
+# https://www.lintcode.com/problem/the-skyline-problem/description
 # Example
 
 """
@@ -9,6 +9,7 @@ D.S.:
 
 Solution:
 
+# TODO: Need a better solution for heap removal by key
 
 Corner cases:
 """
