@@ -32,17 +32,22 @@ while l <= r:
 
 - 二分法的理解和应用
 1. 一维二分 （例： rotate array 找某个数）
-2. 二维二分 （例： #TODO)
+2. 二维二分 （例： sorted matrix 找peak, min rectangle enclosing black pixels)
 3. 根据值域二分 （例：sqrt(x))
 
 值域二分题目特征:
 找“最”大/小/后/前 以满足xxx条件
 
 
-
 - Sweeping line
-
-
-
+核心思路：把区间的点当做时间 (例如：（x_posiiton， start), (y_position, end))
+然后根据事件发生的顺序来排序，要慎重考虑secondary index, 在同一时间根据事件 start/end 来排序
+    - 会议室安排
+    - 几个飞机在天上
+    - 天际线
 
 - Deque 双端队列
+deque特点： 可以从两头push, pop
+适用于固定长度的sliding window，的popleft append（right)的操作
+用于维护一个单调的序列，类似于单调栈
+    - Sliding winding maximum
