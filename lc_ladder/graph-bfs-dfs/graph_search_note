@@ -1,0 +1,63 @@
+Graph
+考点1：
+Copy graph
+    - copy graph
+    - copy list with random pointer
+    - copy binary tree
+解法：
+1. BFS 搜所有点
+2. 用map 对应旧点和新点
+3. 先copy点，再copy边
+
+考点2：
+拓扑排序(Topology sorting)：给一个有向图，排出顺序
+解法：BFS NOT DFS (DFS traceback making complexity more)
+
+入度： 几个边指向他
+出度： 他指向几个其他点
+入度 = 0， meaning it's the starting point, since no other points to it
+从一开始第一个入口点（入度为0）遍历所有点。
+-每次访问入度0 的点，删去他的出度边。
+-更新整个图的点的入度，出度。
+-剩下的点里面入度为0的点就是新的起点。
+- 这样的访问顺序就是拓扑排序结果
+
+如果有多个点的入度都为0，那么哪个在前都可以
+
+**注意：给定一个起始点 来遍历整张图，通常要用BFS
+**可以对比图的BFS VS Tree BFS
+
+
+Search: 找所有可能情况：要用DFS
+考点1:
+Permutation
+如何建DFS搜索树？树的所有叶子节点就是所有的可能解。
+
+permutation 是模板题，就背下来把
+Time Complexity: O(n!) （因为有n!种可能）
+
+N-Queens:
+O(n!)
+
+考点2：
+Subsets
+如何建DFS搜索树？树的所有节点就是所有的可能解.
+Time Complexity: O(2^n)
+
+Subsets_II -- subsets with duplicate elements
+- 排序
+- 比较subset的搜说树比较，如果相同元素的第一个不取，后面的也不要
+
+Parlidrome Partitioning
+- 找所有可行解，就是DFS的经典标志
+O（2^n)
+
+Combination Sum and Combination Sum II （类似subsets II)
+
+Word Ladder
+- find the shortest path from start to end (BFS)
+
+Word Ladder
+- fina all possible solution of the shortest path
+1) shortest path (BFS)
+2) get all solution (DFS from end back to start)
