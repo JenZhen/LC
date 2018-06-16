@@ -61,3 +61,88 @@ Word Ladder
 - fina all possible solution of the shortest path
 1) shortest path (BFS)
 2) get all solution (DFS from end back to start)
+
+
+BFS Template:
+1. 用deque-implemented queue (有popleft操作)， 根据len(queue)做循环判断
+优点：容易分层，levelSize = len(q) 知道当前层有多少个nodes
+例子：Binary Tree Level Order Traverse
+
+TreeExample
+
+def getAllNodes(nodes):
+    from collections import deque
+    q = deque([])
+    q.append(root)
+    res = []
+    while len(q):
+        levelSize = len(q) # 分层
+        level = []
+        for i in range(levelSize):
+            cur = q.popleft()
+            level.append(cur.val)
+            if cur.left:
+                q.append(cur.left)
+            if cur.right:
+                q.append(cur.right）
+        res.append(level)
+    return
+
+Graph TreeExample
+def getAllNodes(self, node):
+    s1 = set()
+
+    q1 = deque([])
+    q1.append(node)
+    s1.add(node)
+    while len(q1):
+        cur = q1.popleft()
+        for neighbor in cur.neighbors:
+            if neighbor not in s1:
+                q1.append(neighbor)
+                s1.add(neighbor)
+    print("s1: %s" %(','.join([str(ele.label) for ele in s1])))
+    return s1
+
+
+2. 用List-implemented queue (保留queue的全部信息，没有popleft)， 根据index和len(q)做循环判断
+优点：queue有所有node, 方便serialization
+例子：Binary Tree Serialization & deserialization
+
+Tree Example
+def serialize(self, root):
+      # write your code here
+      if not root:
+          return "{}"
+      q = [root]
+      index = 0
+      while index < len(q):
+          if q[index] is not None:
+              q.append(q[index].left)
+              q.append(q[index].right)
+          index += 1
+      while q[-1] is None:
+          q.pop()
+      return '{%s}' % ','.join([str(node.val) if node is not None else '#' for node in q])
+
+Graph TreeExample
+def getAllNodes(self, node):
+    s2 = set()
+    q2 = [node]
+    s2.add(node)
+    idx = 0
+    while idx < len(q2):
+        cur = q2[idx]
+        for neighbor in cur.neighbors:
+            if neighbor not in s2:
+                q2.append(neighbor)
+                s2.add(neighbor)
+        idx += 1
+    print("s2: %s" %(','.join([str(ele.label) for ele in s2])))
+    return s2
+
+用bfs来处理图的节点connection问题, 通常和union-find有共同指出
+类似题目：
+- Graph valid Tree
+- Connected Component in Undirected Graph
+- Number of Islands I and II

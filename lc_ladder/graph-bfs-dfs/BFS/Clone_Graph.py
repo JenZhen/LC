@@ -28,7 +28,6 @@ class Solution:
     """
     def cloneGraph(self, node):
         # write your code here
-        # write your code here
         root = node
         if not node:
             return node
@@ -59,6 +58,34 @@ class Solution:
                     q.append(neighbor)
                     s.add(neighbor)
         return s
+
+#  additionally, compare 2 methods of getting all nodes
+def getNodes(self, node):
+        s1 = set()
+
+        q1 = deque([])
+        q1.append(node)
+        s1.add(node)
+        while len(q1):
+            cur = q1.popleft()
+            for neighbor in cur.neighbors:
+                if neighbor not in s1:
+                    q1.append(neighbor)
+                    s1.add(neighbor)
+        print("s1: %s" %(','.join([str(ele.label) for ele in s1])))
+        s2 = set()
+        q2 = [node]
+        s2.add(node)
+        idx = 0
+        while idx < len(q2):
+            cur = q2[idx]
+            for neighbor in cur.neighbors:
+                if neighbor not in s2:
+                    q2.append(neighbor)
+                    s2.add(neighbor)
+            idx += 1
+        print("s2: %s" %(','.join([str(ele.label) for ele in s2])))
+        return s2
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
