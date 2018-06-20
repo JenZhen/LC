@@ -11,6 +11,7 @@ Copy graph
 
 考点2：
 拓扑排序(Topology sorting)：给一个有向图，排出顺序
+用来解“有向无环图” 很好用！！
 解法：BFS NOT DFS (DFS traceback making complexity more)
 
 入度： 几个边指向他
