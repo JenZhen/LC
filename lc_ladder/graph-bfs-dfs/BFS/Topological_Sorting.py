@@ -64,6 +64,9 @@ class Solution:
                 inDegree[nei.label] -= 1
                 if inDegree[nei.label] == 0:
                     q.append(nei)
+        # check if there's a loop
+        # if len(res) != len(graph):
+        #     return -1 
         return res
 
 # Test Cases

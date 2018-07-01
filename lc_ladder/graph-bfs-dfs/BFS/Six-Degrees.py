@@ -10,6 +10,9 @@ D.S.: UndirectedGraphNode
 Solution:
 1. BFS
 Use dict = {} key = node, value = dist (Starting from 0) to
+Time: O(N) -- n nodes in total
+Space: O(3N) -- use visited to avoid loop
+
 2. DFS
 
 Corner cases:
@@ -50,6 +53,17 @@ class Solution1:
                     dist[nei] = dist[curNode] + 1
                     visited[nei] = True
         return -1 # t not found
+
+class Solution2:
+    '''
+    @param {UndirectedGraphNode[]} graph a list of Undirected graph node
+    @param {UndirectedGraphNode} s, t two Undirected graph nodes
+    @return {int} an integer
+    '''
+    def sixDegrees(self, graph, s, t):
+
+
+
 
 # Test Cases
 if __name__ == "__main__":
