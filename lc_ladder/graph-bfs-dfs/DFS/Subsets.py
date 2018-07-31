@@ -31,7 +31,7 @@ get temp: [1, 2, 3]
 get temp: [1, 3]
 get temp: [2]
 get temp: [2, 3]
-get temp: [3]
+get temp: [3]  
 
 Solution2:
 print order: 前序遍历顺序

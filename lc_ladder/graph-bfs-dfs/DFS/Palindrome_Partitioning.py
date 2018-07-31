@@ -1,7 +1,13 @@
 #! /usr/local/bin/python3
 
-# Requirement
+# https://www.lintcode.com/problem/palindrome-partitioning/description
 # Example
+# Given s = 'aab'
+# Return
+# [
+#   ["aa","b"],
+#   ["a","a","b"]
+# ]
 
 """
 Algo:
