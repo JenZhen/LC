@@ -14,7 +14,9 @@ Tree: [1, 2, 3]
     [1],    [2],    [3]
 [1,2] [1,3] [2,3]
 [1,2,3]
+
 Complexity:
+建议结合树的遍历一起看： 前序，中序，level-order
 Time: 经典的计算复杂度的公式 O(构造解的复杂度 * 解的个数)
 O(n * 2 ^ n) --
 Space: O(2 ^ n)
@@ -31,7 +33,7 @@ get temp: [1, 2, 3]
 get temp: [1, 3]
 get temp: [2]
 get temp: [2, 3]
-get temp: [3]  
+get temp: [3]
 
 Solution2:
 print order: 前序遍历顺序
