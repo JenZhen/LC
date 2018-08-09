@@ -7,7 +7,7 @@ from linkedlist import *
 
 """
 Algo:
-D.S.: Linked List
+D.S.: Linked List, map
 
 Solution:
 1. 2 round of traverse
@@ -19,6 +19,11 @@ Space Compelxity: O(N)
 2. 1 roudn of travese
 	- Copy next node and random node at same time
 	- for next and random check hashMap if exist then connects
+
+3. 1 -> 2 -> 3 -> 4
+   1 -> 1'-> 2 -> 2'-> 3 -> 3'-> 4- > 4', then split
+Time: O(N)
+Space: O(1)
 
 Key parts:
 - Iterate linked list, it's useful to have a dummy before head, then return dummy.next
