@@ -9,11 +9,24 @@
 # return 3
 
 """
-Algo: DP
+Algo: DP， 滚动数组
 D.S.:
 
 Solution:
+Time：O(n) Space O(1)
 
+DP 分析
+1. 状态
+f[i]: 到第i个台阶，有几种方式， i 从0开始
+2. 方程
+f[i] = f[i - 1] + f[i - 2] #可以%2
+f[i]的值可以来自f[i - 1] 和 f[i - 2]
+
+3. 初始化
+f[0] = 1 # 到台阶0，1种方式
+f[1] = 1 # 到台阶1，1种方式
+4. 答案
+f[n]
 
 Corner cases:
 n = 0, return 0

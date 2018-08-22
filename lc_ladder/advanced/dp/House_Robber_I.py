@@ -18,6 +18,19 @@ D.S.: Array 序列型dp
 Solution:
 
 Complexity: time: O(N), space: O(1)
+
+DP 分析
+1. 状态
+f[i]: 前i个房子中，偷到的最大值
+2. 方程
+f[i] = max(f[i - 1], f[i - 2] + A[i - 1])
+前i个最大值 = 1）前i-1的最大值，2）前i-2（偷i-2）的最大值加上A[i-1] （注意是A[i-1]而不是A[i] 因为有padding)
+3. 初始化
+f[0] = 0 # 前0个，ie 0
+f[1] = A[0] # 前1个， ie A[0]
+4. 答案
+f[n]
+
 Corner cases:
 [9, 3, 1, 2] ->
 [9, 9, 10, 11] -> 11
