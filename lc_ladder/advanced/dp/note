@@ -1,0 +1,101 @@
+类型1:
+滚动数组
+
+
+动态规划思路模版：
+1. 状态
+  灵感，创造力，储存小规模问题的结果
+  关键字：最优解/最大/最小
+        Yes/No
+        Count
+2. 方程
+  状态之间的联系，怎么通过小的状态（或一开始的状态），来求得大的状态
+3. 初始化
+  极限的最小状态是什么--起点
+4. 答案
+  极限的最大状态是什么--终点
+
+数据结构类型
+1. 坐标型: unique path, jump game -- 根据棋盘坐标位置来判断
+2. 序列型：在序列某个位置（前i个位置）的状态来判断后面一个位置的状态值
+**小技巧：前面加一个元素， 一行一列， 作为init padding
+
+滚动数组空间优化（只有空间优化）- 不需要的小规模问题不再保留
+Q：如何知道要%n??
+A：根据要保留的状态个数有关
+例1.f[i] = f[i - 1] + f[i - 2]
+%3 : 同时保留 这个3个状态
+%2 ：只保留2个状态， 得到的f[i] 马上覆盖f[i - 2]
+
+例2.f[i][j] 仅与f[i][j]有关，f[i%2][j] = f[(i-1)%2][j]
+
+题目：
+HouseRobber I, II
+ClimbingStairs
+MaximalSqure I, II
+UniquePaths
+MinimunPathSum
+EditDistance (2维滚动数组)
+
+
+
+类型2:
+记忆化搜索 -- 用于解决重复计算的问题
+动归的实现方式
+1. 循环 -- 从小状态到大搜
+2. 记忆化搜索 -- 从大状态往小搜
+  要搜索树，几乎能解一切动态规划
+3. 适用条件：1）不是顺序遍历，2）初始状态不好找 （可以有多个）
+4. 如何打印状态：状态改变的地方就是打印顺序
+
+**注意区别滚动数组和记忆化搜索
+题目:
+LongestContinuousIncreasingSubsequence I && II(2D)
+
+
+类型3:
+博弈型dp -- 有2方博弈/玩游戏
+要会画搜索树
+dp 分析
+1. 状态
+定义一个人的状态
+2. 方程
+考虑2个人的状态，做状态更新
+3. 初始化
+4. 答案
+从小的状态开始找，然后大的状态可以由小的状态推得，非常适合记忆化搜索
+
+**建议根据一个人的状态来分析，分析是针对先手A，而不是当前选手
+
+题目:
+CoinsInALine I & II
+
+类型4:
+区间类DP
+特点：
+1. 求一个区间内的max, min, count
+2. 转移方程通过区间更新
+3. 从大到小更新
+
+题目：
+StoneGame
+BurstBallons
+ScrambleString
+
+类型5:
+匹配类DP
+
+题目：
+LongestCommonSubsequence
+EditDistance
+K EditDistance
+DistinctSubsequence
+InterleavingString
+
+类型6:
+背包类DP
+
+题目
+Backpack I, II
+K sum
+Minimum Adjustment Cost
