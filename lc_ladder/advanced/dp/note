@@ -49,10 +49,13 @@ EditDistance (2维滚动数组)
 4. 如何打印状态：状态改变的地方就是打印顺序
 
 **注意区别滚动数组和记忆化搜索
+题目:
+LongestContinuousIncreasingSubsequence I && II(2D)
+
 
 类型3:
 博弈型dp -- 有2方博弈/玩游戏
-
+要会画搜索树
 dp 分析
 1. 状态
 定义一个人的状态
@@ -66,3 +69,33 @@ dp 分析
 
 题目:
 CoinsInALine I & II
+
+类型4:
+区间类DP
+特点：
+1. 求一个区间内的max, min, count
+2. 转移方程通过区间更新
+3. 从大到小更新
+
+题目：
+StoneGame
+BurstBallons
+ScrambleString
+
+类型5:
+匹配类DP
+
+题目：
+LongestCommonSubsequence
+EditDistance
+K EditDistance
+DistinctSubsequence
+InterleavingString
+
+类型6:
+背包类DP
+
+题目
+Backpack I, II
+K sum
+Minimum Adjustment Cost
