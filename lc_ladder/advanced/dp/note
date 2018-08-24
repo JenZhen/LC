@@ -35,7 +35,7 @@ ClimbingStairs
 MaximalSqure I, II
 UniquePaths
 MinimunPathSum
-EditDistance
+EditDistance (2维滚动数组)
 
 
 
@@ -63,3 +63,6 @@ dp 分析
 从小的状态开始找，然后大的状态可以由小的状态推得，非常适合记忆化搜索
 
 **建议根据一个人的状态来分析，分析是针对先手A，而不是当前选手
+
+题目:
+CoinsInALine I & II

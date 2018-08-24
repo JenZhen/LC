@@ -42,10 +42,60 @@ dfs(i, j, A):
     return ans
 
 Solution1: 记忆化搜索方式
+Time: O(mn) ie size of f[][], Space O(nm)
+DP 分析
+1. 状态
+f[i][j]: 以i，j 结尾的最长自序列
+2. 方程
+遍历上下左右，以i,j结尾的最长子序列
+if f[i][j] > f[nx][ny]:
+    f[i][j] = f[nx][ny] + 1
 
-Solution2: 
+3. 初始化
+f[i][j] = 1
+
+4. 答案
+max(f[i][j])
+
+Solution2:
 Corner cases:
 """
+
+class Solution1:
+    """
+    @param matrix: A 2D-array of integers
+    @return: an integer
+    """
+    def longestContinuousIncreasingSubsequence2(self, matrix):
+        # write your code here
+        if not matrix or not matrix[0]:
+            return 0
+
+        row = len(matrix)
+        col = len(matrix[0])
+        f = [[1] * col for i in range(row)]
+        flag = [[False] * col for i in range(row)]
+        res = 1
+        for i in range(row):
+            for j in range(col):
+                f[i][j] = self.dfs(i, j, f, flag, matrix)
+                res = max(res, f[i][j])
+        return res
+
+    def dfs(self, i, j, f, flag, matrix):
+        if flag[i][j] == True:
+            return f[i][j]
+        dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        ans = 1
+        for (dx, dy) in dirs:
+            nx, ny = i + dx, j + dy
+            if nx < 0 or nx >= len(f) or ny < 0 or ny >= len(f[0]):
+                continue
+            if matrix[i][j] > matrix[nx][ny]:
+                ans = max(ans, self.dfs(nx, ny, f, flag, matrix) + 1)
+        flag[i][j] = True
+        f[i][j] = ans
+        return ans
 
 class Solution2:
     """
