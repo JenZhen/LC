@@ -9,7 +9,7 @@ int find(int x) {
   if (Father(x) == x) {
     return x
   }
-  return Find(Father(x))
+  return find(Father(x))
 }
 
 Example
@@ -22,7 +22,7 @@ int find(int x) {
     return x
   }
   // Eventually find x's root and update x' father node
-  Father(x) = Find(Father(x))
+  Father(x) = find(Father(x))
   return Father(x)
 }
 
@@ -65,3 +65,4 @@ Application Extension
   Number_of_Islands_II
 - Union operation make sure all points to a certain father
   surroundedRegions
+- Accounts_Merge
