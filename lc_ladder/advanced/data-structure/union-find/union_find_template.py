@@ -5,6 +5,7 @@
 class UnionFind(object):
     def __init__(self, n):
         # init a group of isolated nodes
+        # idx -> son, father[idx] -> father
         self.count = n
         self.father = [0] * n # father mapping n empty slot
         for i in range(n):
