@@ -78,7 +78,7 @@ class Solution1:
         print("res: %s" %repr(f))
         return f[l1][l2]
 
-class Solution:
+class Solution2:
     """
     @param word1: A string
     @param word2: A string
