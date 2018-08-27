@@ -25,11 +25,38 @@ Time: O(n ^ 2) Space: O(n)
 f[i][j]: 拿前i个物品，能否正好填到体积j
 因为是考虑前i 个物品，所以要有Padding f[0][i] 应该都是False 除了f[0][0], f[i][0]都是 True
 
+DP 分析
+1. 状态
+f[i][j]：拿前i个物品，能否正好填到体积j
+2. 方程
+f[i][j] = f[i - 1][j] or f[i - 1][j - A[i - 1]]
+倒着考虑有2种拿法：
+f[i - 1][j] -- 拿前i-1个物品正好有体积i, 就不用拿第i个了
+f[i - 1][j - A[i - 1]] -- 拿了第i个物品正好有体积j,说明拿i-1的时候正好有体积j-1,
+    前提是j - A[i - 1] >= 0， 应为物品没有根据大小来排序
+
+考虑滚动数组 Space O(size_of_backpack)
+
+3. 初始化
+f[i][0] = True, #第一列，取前i个物品，能达到体积0 only if A[i] <= backpackSize
+f[0][j] = False #第一行, 除了f[0][0] = True
+考虑滚动数组，只需要init first row, 每行循环要init 第一列的元素
+4. 答案
+find the max j such as, f[n][j] = True, where n is the count of items
+
 Solution3:
 TODO: 分析明白
 so far the best solution
 Time: O(nlogn)
-)
+
+Follow-up:
+[1， 24， 5， 6], 分成2组，使得2组之和尽量相同（尽量平分为2组）
+1. 不需要排序
+2. 要学会分析出来背包 和背包大小
+sum = 1+24+5+6 = 26
+理想的平分 每组有18
+题目转化为，如何从1，24，5，6中来填满大小为18的背包
+
 Corner cases:
 """
 
