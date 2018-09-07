@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import BinaryTree
 
-# Given a binary tree, find the subtree with maximum average. 
+# Given a binary tree, find the subtree with maximum average.
 # Return the root of the subtree.
 # http://www.jiuzhang.com/solution/subtree-with-maximum-average/
 
@@ -27,7 +27,7 @@ Corner cases:
 class Solution:
 	# @param {TreeNode} root the root of binary tree
 	# @return {TreeNode} the root of the maximum average of subtree
-	
+
 	# Define as member variables
 	maxNode = None
 	maxAvg = 0.0 # defined as float
@@ -60,7 +60,7 @@ class Solution:
 
 		# Compare with global tracked avg and node, update if needed
 		# Convert to floating to precise comparison
-		avg = sumValue * 0.1 / sumNode 
+		avg = sumValue * 1.0 / sumNode 
 		if self.maxNode is None or avg > self.maxAvg:
 			self.maxNode = node
 			self.maxAvg = avg

@@ -35,9 +35,9 @@ class TreeNode:
     def __init__(self, val):
         this.val = val
         this.left, this.right = None, None
+
 Definition of Doubly-ListNode
 class DoublyListNode(object):
-
     def __init__(self, val, next=None):
         self.val = val
         self.next = self.prev = next
@@ -76,6 +76,18 @@ class Solution1:
             cursor = curNode
         return head
 
+        """
+        different way of constructing the doublylinkedList
+        head = None
+        cursor = head
+        for val in nodeList:
+            newNode = DoublyListNode(val)
+            cursor.next = newNode
+            newNode.prev = cursor
+            cursor = cursor.next
+        head.next.prev = None
+        return head.next
+        """
 
 class Solution2:
     """
