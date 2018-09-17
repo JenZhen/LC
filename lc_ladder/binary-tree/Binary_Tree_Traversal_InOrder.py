@@ -64,7 +64,7 @@ class Solution2(object):
             else:
                 top = stack.pop()
                 res.append(top.val)
-                top = top.right         
+                top = top.right
         return res
 
 # Test Cases
