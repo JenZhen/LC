@@ -45,22 +45,47 @@ class Solution1(object):
 			return res
 		self.helper(root, res, "")
 		return res
-	
+
 	def helper(self, node, res, subres):
 		if subres == "":
 			subres = str(node.val)
 		else:
 			subres = subres + "->" + str(node.val)
-		
+
 		if node.left is None and node.right is None:
 			# note here no need to deep-copy
 			res.append(subres)
 		if node.left:
-			self.helper(node.left, res, subres)
+			self.helper(node.left, res, subres) # this subres is same with node.right subres (since it's string type)
 		if node.right:
 			self.helper(node.right, res, subres)
 		# this "return is optional"
 		return
+
+class Solution1_1:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+    """
+    def binaryTreePaths(self, root):
+        # write your code here
+        res = []
+        path = []
+        if not root:
+            return res
+        self.helper(res, path, root)
+        return res
+
+    def helper(self, res, path, node):
+        path.append(node.val)
+        if node.left is None and node.right is None:
+            res.append("->".join([str(c) for c in path]))
+        if node.left:
+            self.helper(res, path, node.left)
+            path.pop() # is using path, need to pop latest, it's passing reference to recusion
+        if node.right:
+            self.helper(res, path, node.right)
+            path.pop()
 
 class Solution2(object):
 	def binaryTreePaths(self, root):
@@ -73,7 +98,7 @@ class Solution2(object):
 			return res
 		self.helper(root, res, [])
 		return res
-	
+
 	def helper(self, node, res, stack):
 		# stack is stack of string ver of node.val
 		stack.append(str(node.val))
