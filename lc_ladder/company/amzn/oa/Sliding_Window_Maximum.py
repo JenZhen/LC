@@ -27,7 +27,7 @@
 
 """
 Algo:
-D.S.: deque 
+D.S.: deque
 
 Solution:
 
