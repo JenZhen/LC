@@ -17,6 +17,10 @@ D.S.:
 
 Solution:
 
+
+Corner cases:
+"""
+
 class Solution:
     """
     @param intervalList:
@@ -31,11 +35,6 @@ class Solution:
             if itv[0] <= number <= itv[1]:
                 return "True"
         return "False"
-
-
-Corner cases:
-"""
-
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
