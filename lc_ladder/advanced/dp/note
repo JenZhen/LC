@@ -95,7 +95,14 @@ InterleavingString
 类型6:
 背包类DP
 
-题目
+特点：
+0. 注意一定不要想贪心算法
+1. 背包的大小作为DP维度
+2. DP 推导过程就是填写矩阵
+3. 可以用滚动数组优化空间大小
+4. 区别记忆化搜索，不是从大到小搜
+5. 通常考虑前i 个元素，需要有padding，前0个元素，也就是什么都不拿
+题目:
 Backpack I, II
 K sum
 Minimum Adjustment Cost

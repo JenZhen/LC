@@ -42,6 +42,10 @@ else:
 4. 答案
 f[l1][l2]
 
+Follow up:
+Q: 如果替换，减，增 的操作分别有cost 3,5,7 怎么办？
+A: 转移方程变为
+f[i][j] = (f[i - 1][j - 1] + 3, f[i - 1][j] + 5, f[i][j - 1] + 7) + 1
 Corner cases:
 """
 
@@ -78,7 +82,7 @@ class Solution1:
         print("res: %s" %repr(f))
         return f[l1][l2]
 
-class Solution:
+class Solution2:
     """
     @param word1: A string
     @param word2: A string
