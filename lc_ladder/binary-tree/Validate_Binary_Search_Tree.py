@@ -11,7 +11,7 @@ D.S.: Binary Tree
 Solution:
 1. Divide and Conquer
 Conditon:
-1. root meets min < root.val < max and 
+1. root meets min < root.val < max and
 2. children are validated as well
 
 Corner cases:

@@ -2,7 +2,7 @@
 import BinaryTree
 
 # http://www.jiuzhang.com/solution/minimum-subtree/
-# Given a binary tree, find the subtree with minimum sum. 
+# Given a binary tree, find the subtree with minimum sum.
 # Return the root of the subtree.
 
 """
@@ -19,38 +19,38 @@ Corner cases:
 """
 
 class Solution:
-	# @param {TreeNode} root the root of binary tree
-	# @return {int} the minimun weight node
+    # @param {TreeNode} root the root of binary tree
+    # @return {int} the minimun weight node
 
-	# An alternative way to init min/max other than float('inf')
-	# import sys
+    # An alternative way to init min/max other than float('inf')
+    # import sys
     # minumun_weight = sys.maxint
-	minSum = 0
-	minNode = None
+    minSum = 0
+    minNode = None
 
-	def findSubtree(self, root):
-		# Write your code here
-		if root is None:
-			return None
-		# Don't care return of self.helper(root)
-		self.helper(root)
-		return self.minNode
+    def findSubtree(self, root):
+        # Write your code here
+        if root is None:
+            return None
+        # Don't care return of self.helper(root)
+        self.helper(root)
+        return self.minNode
 
-	def helper(self, node):
-		# return each node's sum 
-		if node is None:
-			# when None node, return 0(weight 0)
-			return 0
-		leftSum = self.helper(node.left)
-		rightSum = self.helper(node.right)
-		nodeSum = leftSum + rightSum + node.val
+    def helper(self, node):
+        # return each node's sum
+        if node is None:
+            # when None node, return 0(weight 0)
+            return 0
+        leftSum = self.helper(node.left)
+        rightSum = self.helper(node.right)
+        nodeSum = leftSum + rightSum + node.val
 
-		if minNode is None or nodeSum > minSum:
-			minSum = nodeSum
-			minNode = node
-
-		return nodeSum
+        if minNode is None or nodeSum < minSum:
+            minSum = nodeSum
+            minNode = node
+        # don't forget to return nodeSum
+        return nodeSum
 
 # Test Cases
 if __name__ == "__main__":
-	solution = Solution()
+    solution = Solution()

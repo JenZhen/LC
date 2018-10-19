@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import BinaryTree
 # http://www.jiuzhang.com/solution/lowest-common-ancestor-ii/
-
+# With parent-pointer
 """
 Algo: Iteration
 D.S.: Binary Tree
