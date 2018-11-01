@@ -1,16 +1,43 @@
 This section covers
 - Two pointers problems an follow-ups
 - Heap to find Kth Smallest/largest and follow-ups
-
+- Subarray sum
+- Iterator problem
+    - iterator 必要的数据结构
+    - 主程序在hasNext（）中比较好
 
 
 题型1：Subarray Sum Follow-ups
-
 
 题型1：Continuous Subarray Sum Follow-ups
 
 题型1：Wiggle Sort Follow-ups
 
 题型1：Partition Follow-ups
+topK: heap O(nlogk) 前K个是排好顺序的
+kth largest: quick select O(n) k之前之后可能是没有排过序的
+Quick Sort 模版
+
+def findKSmallest(self, nums, start, end, k):
+    # k is the idx not the kth
+    # if find 2nd smallest, k = 1
+    if start >= end:
+        return nums[k]
+    l, r = start, end
+    pivot = nums[(start + end) // 2]
+    while l <= r:
+        while l <= r and nums[l] < pivot:
+            l += 1
+        while l <= r and nums[r] > pivot:
+            r -= 1
+        if l <= r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+    if k <= r:
+        return self.findKSmallest(nums, start, r, k)
+    if k >= l:
+        return self.findKSmallest(nums, l, end, k)
+    return nums[k]
 
 题型1：Iterator Follow-ups
