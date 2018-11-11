@@ -56,6 +56,31 @@ class Solution:
             q.pop()
         return '{%s}' % ','.join([str(node.val) if node is not None else '#' for node in q])
 
+    def serialize_II(self, root):
+        # write your code here
+        if not root:
+            return "{}"
+
+        seq = []
+        from collections import deque
+        q = deque([root])
+        cntNode = 1
+        while cntNode and len(q):
+            cur = q.popleft()
+            if cur is None:
+                seq.append("#")
+                continue # remember to continue, no need to check left, right child
+            else:
+                seq.append(str(cur.val))
+            cntNode -= 1
+            if cur.left:
+                cntNode += 1
+            q.append(cur.left)
+            if cur.right:
+                cntNode += 1
+            q.append(cur.right)
+        return "{%s}" % ','.join(seq)
+
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
