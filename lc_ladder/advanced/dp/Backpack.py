@@ -110,7 +110,7 @@ class Solution2:
                 return i
         return 0
 
-class Solution:2
+class Solution2:
     """
     @param m: An integer m denotes the size of a backpack
     @param A: Given n items with size A[i]
