@@ -1,9 +1,12 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/house-robber/description
-# You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+# You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed,
+# the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and
+# it will automatically contact the police if two adjacent houses were broken into on the same night.
 #
-# Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+# Given a list of non-negative integers representing the amount of money of each house,
+# determine the maximum amount of money you can rob tonight without alerting the police.
 #
 # Example
 # Given [3, 8, 4], return 8.
@@ -63,7 +66,7 @@ class Solution2:
         if not A:
             return 0
 
-        f = [0, 0]
+        f = [0, 0] # 表示【上一个不拿的结果，上一个拿的结果】
         for i in A:
             yes = f[1] + i
             no = max(f)

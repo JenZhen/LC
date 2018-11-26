@@ -18,7 +18,7 @@ Algo: DP 滚动数组
 D.S.:
 小技巧：以matrix[i][j]为右下角
 
-Time: O(mn), Space: O(rol)
+Time: O(mn), Space: O(col)
 
 Solution1 & Solution2: 滚动数组 2行J列
 
