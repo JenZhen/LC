@@ -2,7 +2,7 @@
 
 # http://lintcode.com/en/problem/longest-increasing-subsequence/
 # Given a sequence of integers, find the longest increasing subsequence (LIS).
-# You code should return the length of the LIS.
+# You code should return the length of the LIS. 数值和位置可以不连续
 # Example
 # For [5, 4, 1, 2, 3], the LIS is [1, 2, 3], return 3
 # For [4, 2, 4, 5, 3, 7], the LIS is [2, 4, 5, 7], return 4
@@ -16,6 +16,8 @@ Solution:
 - Function: f[i] = max(f[i], f[j] + 1)
 - Initialization: f[] init as all 1 since worst case -- decreasing sequence -- value of be 1 (the min case)
 - Answer: max of f[]
+
+2种方法，可以固定一个从前往后数，也可以固定一个往他前面的数，要从第二个数开始（下面用的是第二个方法）
 
 Time: O(n ^ 2)
 Space: O(n)

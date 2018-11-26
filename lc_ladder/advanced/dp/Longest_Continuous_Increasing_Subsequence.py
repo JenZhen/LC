@@ -5,6 +5,7 @@
 # Give an integer array，find the longest increasing continuous subsequence in this array.
 #
 # An increasing continuous subsequence:
+# 要求位置连续，数值不一定连续
 #
 # Can be from right to left or from left to right.
 # Indices of the integers in the subsequence should be continuous.

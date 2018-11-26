@@ -32,7 +32,7 @@ f[i][j]: 到位置word1的i 和word2的j，要有几步修改
 if word1[i] == word2[j]:
     f[i][j] = f[i - 1][j - 1]
 else:
-    f[i][j] = (f[i - 1][j - 1], f[i - 1][j], f[i][j - 1]) + 1
+    f[i][j] = min(f[i - 1][j - 1], f[i - 1][j], f[i][j - 1]) + 1
                 替换                 减            增
 
 3. 初始化

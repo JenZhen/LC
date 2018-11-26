@@ -2,7 +2,8 @@
 
 # https://lintcode.com/problem/k-edit-distance/description
 # Example
-# Given a set of strings which just has lower case letters and a target string, output all the strings for each the edit distance with the target no greater than k.
+# Given a set of strings which just has lower case letters and a target string,
+# output all the strings for each the edit distance with the target no greater than k.
 
 # You have the following 3 operations permitted on a word:
 
@@ -41,6 +42,7 @@ class TrieNode:
 
         node.hasWord = True
         node.str = word
+
 class Solution:
     """
     @param words: a set of stirngs
