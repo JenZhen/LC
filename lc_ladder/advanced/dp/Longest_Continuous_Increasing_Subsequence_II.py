@@ -2,7 +2,8 @@
 
 # https://www.lintcode.com/problem/longest-continuous-increasing-subsequence-ii/description
 # Example -- 从山顶滑雪问题， 最长下山路径
-# Give you an integer matrix (with row size n, column size m)，find the longest increasing continuous subsequence in this matrix. (The definition of the longest increasing continuous subsequence here can start at any row or column and go up/down/right/left any direction).
+# Give you an integer matrix (with row size n, column size m)，find the longest increasing continuous subsequence in this matrix.
+# (The definition of the longest increasing continuous subsequence here can start at any row or column and go up/down/right/left any direction).
 #
 # Example
 # Given a matrix:

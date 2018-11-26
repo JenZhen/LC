@@ -22,6 +22,8 @@ Algo: DP
 D.S.:
 
 Solution:
+Time: O(mn)
+Space: O(mn * 3) or O(n * 3 * 2) keep 2 rows and use 3 extra types of space
 
 Solution1： regular way; Solution2: 滚动数组
 DP 分析

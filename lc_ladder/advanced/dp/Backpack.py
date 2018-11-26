@@ -53,7 +53,7 @@ Follow-up:
 [1， 24， 5， 6], 分成2组，使得2组之和尽量相同（尽量平分为2组）
 1. 不需要排序
 2. 要学会分析出来背包 和背包大小
-sum = 1+24+5+6 = 26
+sum = 1+24+5+6 = 36
 理想的平分 每组有18
 题目转化为，如何从1，24，5，6中来填满大小为18的背包
 
@@ -110,7 +110,7 @@ class Solution2:
                 return i
         return 0
 
-class Solution2:
+class Solution_Followup:
     """
     @param m: An integer m denotes the size of a backpack
     @param A: Given n items with size A[i]

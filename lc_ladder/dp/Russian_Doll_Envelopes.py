@@ -2,8 +2,11 @@
 
 # http://lintcode.com/en/problem/russian-doll-envelopes/
 # Example
-# Given envelopes = [[5,4],[6,4],[6,7],[2,3]],
-# the maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+# 给一定数量的信封，带有整数对 (w, h) 分别代表信封宽度和高度。一个信封的宽高均大于另一个信封时可以放下另一个信封。
+# 求最大的信封嵌套层数。
+#
+# 样例
+# 给一些信封 [[5,4],[6,4],[6,7],[2,3]] ，最大的信封嵌套层数是 3([2,3] => [5,4] => [6,7])。
 
 """
 Algo:
@@ -21,7 +24,7 @@ Time: O(n ^ 2) -- loop within loop, will took too long
 Space: O(n)
 
 Solution2: TODO
-Time: O(nlogn)
+Time: O(n^2)
 Space: O(n)
 
 Corner cases:

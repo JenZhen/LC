@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 # http://lintcode.com/en/problem/minimum-path-sumGrid/
-# Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sumGrid of all numbers along its path. (Can only move down or right at a point.)
+# Given a m x n grid filled with non-negative numbers,
+# find a path from top left to bottom right which minimizes the sumGrid of all numbers along its path.
+# (Can only move down or right at a point.)
 # Example
 
 """
@@ -11,9 +13,13 @@ D.S.:
 Solution:
 Same as Unique Path
 - State:
+grid[m][n] at m, n the minSum
 - Function:
+grid[m][n] = min(grid[m - 1][n], grid[m][n - 1]) + val[m][n]
 - Initialization:
+init the first row and col, which can only come from left and up
 - Answer:
+grid[m][n]
 
 Time: O(m * n)
 Space: O(1) - Modify input grid
