@@ -1,13 +1,16 @@
 #!/usr/local/bin/python3
 
-# Requirement
+# https://www.lintcode.com/problem/implement-trie-prefix-tree/description?_from=ladder&&fromId=8
 # Example
 
 """
 Solution:
+See in other topic
 
 Corner cases:
 """
+
+
 
 # Test Cases
 if __name__ == "__main__":
