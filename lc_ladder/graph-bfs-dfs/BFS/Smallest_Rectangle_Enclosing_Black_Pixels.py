@@ -8,7 +8,9 @@ Algo:
 D.S.:
 
 Solution:
-
+BFS 不能通过AC
+最优解法 二分
+详见 advanced/binary-search： O(nlogn)
 
 Corner cases:
 """

@@ -147,3 +147,19 @@ def getAllNodes(self, node):
 - Graph valid Tree
 - Connected Component in Undirected Graph
 - Number of Islands I and II
+
+
+专题
+BFS
+什么时候用BFS
+1. 树、图的遍历
+    - level order traverse -- 层级遍历 (size = len(queue))
+    - connected component -- 结合union find
+    - Topological sorting**
+2. 最短路径
+    - 仅限简单图的最短路径，即途中每条边的长度都是是1 且没有方向
+3. 矩阵作为图的变换坐标 上下左右，骑士在棋盘中的位置
+
+图的BFS和树有什么区别:
+- 图要用HASHMAP 来记录Node是不是访问过。
+树没有环，图有环，意味着一个node可以多次进入queue

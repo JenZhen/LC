@@ -11,7 +11,7 @@ Solution:
 1. BFS
 Time: O(n) all nodes iterate once
 
-2. DFS #TODO
+2. DFS：not recommended
 Corner cases:
 """
 
@@ -28,7 +28,7 @@ class Solution:
     @param root: A Tree
     @return: Level order a list of lists of integer
     """
-    def levelOrder1(self, root):
+    def levelOrder(self, root):
         # write your code here
         if not root:
             return []
