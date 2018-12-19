@@ -149,7 +149,7 @@ def getAllNodes(self, node):
 - Number of Islands I and II
 
 
-专题
+专题训练笔记
 BFS
 什么时候用BFS
 1. 树、图的遍历
@@ -163,3 +163,50 @@ BFS
 图的BFS和树有什么区别:
 - 图要用HASHMAP 来记录Node是不是访问过。
 树没有环，图有环，意味着一个node可以多次进入queue
+
+DFS
+什么时候用DFS
+- 找所有方案的题一定是DFS，排列组合问题
+
+1. 组合搜索问题Combination
+问题模型：找到所有满足条件的“组合”
+判断条件：组合中的元素是**顺序无关**的
+时间复杂度：2^N
+
+DFS 都可以用recursion 来实现
+Recursion 三要素
+- 递归定义
+- 递归拆解
+- 递归出口
+
+例子：subsets， combination sum，2者有什么区别
+
+2. 排列搜索问题permutation
+问题模型：求出所有满足条件的”排列”
+判断条件：组合中的元素是**顺序相关**的
+时间复杂度：N!
+
+通用的DFS时间复杂度计算公式
+O(答案个数 * 构造每个答案的时间）
+http://www.jiuzhang.com/qa/2994
+
+Stack -- Non-Recursion DFS
+必背程序
+Tree Traversal
+- preorder
+- inorder
+- postorder
+- binary search tree iterator
+
+Combination
+- subsets
+Permutation
+- permutations
+
+stack 相关问题
+http://www.lintcode.com/en/tag/stack/
+
+必须掌握
+implement queue by two stacks
+largest rectangle in histogram **
+min stack

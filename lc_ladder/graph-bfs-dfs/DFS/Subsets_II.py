@@ -6,14 +6,14 @@
 # res = [[], [1], [1,2], [1,2,2], [2], [2,2]]
 
 """
-Algo: DFS
+Algo: 顺序无关DFS
 D.S.:
 
 Solution:
 1. DFS
 Same as Subsets I solutions1 (suggested solution)
 res: [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
-中序遍历查找顺序
+前序遍历查找顺序
 
 Complexity:
 Time: 经典的计算复杂度的公式 O(构造解的复杂度 * 解的个数)
