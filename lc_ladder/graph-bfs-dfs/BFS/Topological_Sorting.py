@@ -2,6 +2,13 @@
 
 # https://www.lintcode.com/problem/topological-sorting/description
 # Example
+# 给定一个有向图，图节点的拓扑排序定义如下:
+#
+# 对于图中的每一条有向边 A -> B , 在拓扑排序中A一定在B之前.
+# 拓扑排序中的第一个节点可以是图中的任何一个没有其他节点指向它的节点.
+# 针对给定的有向图找到任意一种拓扑排序的顺序.
+#
+# 你可以假设图中至少存在一种拓扑排序
 
 """
 Algo: BFS, topological sorting
@@ -19,6 +26,8 @@ When removing a starting node, 它指向的nodes 的入度要减1， 当入度==
 如果有环，会出现：starting node 遍历结束， len(queue) == 0, 但是还有点入度 > 0, 同时可以用这个性质来证明是否有环存在
 
 对于有向无环图，通常可以用topological sorting
+
+TODO: 用DFS实现拓扑排序
 
 Corner cases:
 """
@@ -66,7 +75,7 @@ class Solution:
                     q.append(nei)
         # check if there's a loop
         # if len(res) != len(graph):
-        #     return -1 
+        #     return -1
         return res
 
 # Test Cases

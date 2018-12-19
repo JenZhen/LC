@@ -14,7 +14,7 @@
 # ]
 
 """
-Algo: DFS, Recursion, non-Recursion
+Algo: 顺序相关DFS, Recursion, non-Recursion
 D.S.:
 
 Solution:
@@ -51,7 +51,8 @@ class Solution:
             # IMPORTANT:
             # make a copy of perm, DO NOT append perm to res
             # perm will ne modified later
-            newlist = [ele for ele in perm]
+            newList = perm[:]
+            # newlist = [ele for ele in perm]
             res.append(newlist)
             return
         for i in range(len(nums)):
@@ -60,6 +61,8 @@ class Solution:
                 continue
             perm.append(nums[i])
             visited[i] = True
+            # 和combination dfs相比，顺序无关，进入下轮递归是无需记录startIdx
+            # 通过visited来保障一个元素之访问一次
             self.dfs(nums, visited, perm, res)
             # backtrack reset visited value,
             # both visited and perm are list, in python, used by reference,

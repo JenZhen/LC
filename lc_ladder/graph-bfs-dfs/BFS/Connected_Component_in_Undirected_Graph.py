@@ -2,7 +2,19 @@
 
 # https://lintcode.com/en/problem/connected-component-in-undirected-graph/description
 # Example
-
+# 找出无向图中所有的连通块。
+#
+# 图中的每个节点包含一个label属性和一个邻接点的列表。（一个无向图的连通块是一个子图，其中任意两个顶点通过路径相连，且不与整个图中的其它顶点相连。）
+# 样例
+# 给定图:
+#
+# A------B  C
+#  \     |  |
+#   \    |  |
+#    \   |  |
+#     \  |  |
+#       D   E
+# 返回 {A,B,D}, {C,E}。其中有 2 个连通块，即{A,B,D}, {C,E}
 """
 Algo: BFS
 D.S.:
@@ -12,6 +24,9 @@ Template question
 1. build visited dict using graph
 2. bfs starting from nodes that has not been visited
 Time: O(n)
+
+Solution2:
+Union-Find
 
 Corner cases:
 """
@@ -46,8 +61,8 @@ class Solution:
         return res
 
     def bfs(self, node, visited):
-        temp = []
-        q = deque([])
+        temp = [] # store node.label
+        q = deque([]) # store node
         q.append(node)
         visited[node.label] = True
         while len(q):

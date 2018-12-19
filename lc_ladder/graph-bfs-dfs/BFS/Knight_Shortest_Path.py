@@ -2,6 +2,7 @@
 
 # https://www.lintcode.com/problem/knight-shortest-path/description
 # Example
+# 给定骑士在棋盘上的 初始 位置(一个2进制矩阵 0 表示空 1 表示有障碍物)，找到到达 终点 的最短路线，返回路线的长度。如果骑士不能到达则返回 -1 。
 # Knight can only go this way
 # (x + 1, y + 2)
 # (x + 1, y - 2)
@@ -11,6 +12,20 @@
 # (x + 2, y - 1)
 # (x - 2, y + 1)
 # (x - 2, y - 1)
+# [[0,0,0],
+#  [0,0,0],
+#  [0,0,0]]
+# source = [2, 0] destination = [2, 2] return 2
+#
+# [[0,1,0],
+#  [0,0,0],
+#  [0,0,0]]
+# source = [2, 0] destination = [2, 2] return 6
+#
+# [[0,1,0],
+#  [0,0,1],
+#  [0,0,0]]
+# source = [2, 0] destination = [2, 2] return -1
 """
 Algo: BFS
 D.S.: deque-implemented queue

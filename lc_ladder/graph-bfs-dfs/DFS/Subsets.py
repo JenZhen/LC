@@ -4,7 +4,7 @@
 # Example
 
 """
-Algo: DFS, BFS
+Algo: 顺序无关DFS, BFS
 D.S.: DFS: array; BFS: queue
 
 Solution:
@@ -25,7 +25,8 @@ result 里面subsets的order靠dfs/bfs的搜索顺序
 每个subsets里面的顺序靠nums.sort()
 
 Solution1:
-print order: 中序遍历顺序
+前序，后序，是根据决策树画出来的
+print order: 前序遍历顺序
 get temp: []
 get temp: [1]
 get temp: [1, 2]
@@ -35,8 +36,8 @@ get temp: [2]
 get temp: [2, 3]
 get temp: [3]
 
-Solution2:
-print order: 前序遍历顺序
+Solution2: SUGGESTED
+print order: 后序遍历顺序
 get temp: [1, 2, 3]
 get temp: [1, 2]
 get temp: [1, 3]
@@ -90,6 +91,8 @@ class Solution1:
         return res
 
     def dfs(self, nums, temp, idx, res):
+        # idx 表示以idx为起点遍历nums
+        # 前序遍历，每次拿到一个新组合就写入ans
         res.append(temp[:])
         print("get temp: %s" %repr(temp))
         # this loop defines the exit of dfs
@@ -107,6 +110,7 @@ class Solution2:
     def subsets(self, nums):
         # write your code here
         res = []
+        # note: nums = [] return [[]]
         if nums is None:
             return res
         nums.sort()
@@ -115,16 +119,20 @@ class Solution2:
 
     def dfs(self, nums, temp, idx, res):
         # exit: this branch has search till the end
+        # idx means: 当前考察的那个数，每个数都有2个可能，选用或不选用
         # ie. idx == len(nums)
         if idx == len(nums):
+            # 如果已经到结尾了就加进ans
             res.append(temp[:])
             print("get temp: %s" %repr(temp))
             return
         # select nums[idx]
+        # 选用当前idx数
         temp.append(nums[idx])
         # to next level
         self.dfs(nums, temp, idx + 1, res)
         # select nums[idx]
+        # 不选用当前idx数
         temp.pop()
         # to next level
         self.dfs(nums, temp, idx + 1, res)

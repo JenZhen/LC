@@ -32,7 +32,6 @@ class Solution:
     @param: :  A list of integers
     @return: A list of unique permutations
     """
-
     def permuteUnique(self, nums):
         # write your code here
         res = []
@@ -46,12 +45,17 @@ class Solution:
         return res
 
     def dfs(self, nums, visited, perm, res):
+        # 递归出口，也是判断找到一组解的条件，perm 和 nums长度一样
         if len(nums) == len(perm):
-            res.append([ele for ele in perm])
+            # res.append([ele for ele in perm])
+            res.append(perm[:])
             return
         for i in range(len(nums)):
             if visited[i]:
                 continue
+            # 重要的去重条件
+            # 和前面的不一样 **而且**前面的没有被访问
+            # 如果前面一个被访问这个可以继续用，如果没有被访问，这个被访问就是重复，因为可以访问前面一个而是后面这个
             if i > 0 and nums[i] == nums[i - 1] and visited[i - 1] == False:
                 continue
             perm.append(nums[i])
