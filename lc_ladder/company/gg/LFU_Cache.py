@@ -1,55 +1,82 @@
-#!/usr/bin/python
+#! /usr/local/bin/python3
 
-# https://leetcode.com/problems/lfu-cache/description/
+# https://www.lintcode.com/problem/lfu-cache/description?_from=ladder&&fromId=18
 # Example
-# Design and implement a data structure for Least Frequently Used (LFU) cache. It should support the following operations: get and put.
-# get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
-# put(key, value) - Set or insert the value if the key is not already present. When the cache reaches its capacity, it should invalidate the least frequently used item before inserting a new item. For the purpose of this problem, when there is a tie (i.e., two or more keys that have the same frequency), the least recently used key would be evicted.
-
-# Follow up:
-# Could you do both operations in O(1) time complexity?
+# LFU是一个著名的缓存算法
+# 实现LFU中的set 和 get
+#
+# 样例
+# capacity = 3
+#
+# set(2,2)
+# set(1,1)
+# get(2)
+# >> 2
+# get(1)
+# >> 1
+# get(2)
+# >> 2
+# set(3,3)
+# set(4,4)
+# get(3)
+# >> -1
+# get(2)
+# >> 2
+# get(1)
+# >> 1
+# get(4)
+# >> 4
 
 """
-Algo: linked list, heap
-D.S.:
+Algo:
+D.S.: Dict/hashmap, Doubly-linkedlist
 
 Solution:
+为“最不常使用缓存”（LFU cache）设计实现数据结构。应当支持get和set操作。
+
+get(key) - 如果存在key，返回其对应的value，否则返回-1。
+
+set(key, value) - 如果不存在key，新增value；否则替换原始value。当缓存容量满时，应当将最不常使用的项目移除。如果存在使用频度相同的多个项目，则移除最近最少使用（Least Recently Used）的项目。
+
+进一步思考：
+
+能否在O(1)时间完成操作？
+
+解题思路：
+双向链表（Doubly Linked List） + 哈希表（Hash Table）
+
+首先定义双向链表节点：KeyNode（Key节点）与FreqNode（频度节点）。
+
+KeyNode中保存key（键），value（值），freq（频度），prev（前驱），next（后继）
+
+FreqNode中保存freq（频度）、prev（前驱）、next（后继）、first（指向最新的KeyNode），last（指向最老的KeyNode）
+在数据结构LFUCache中维护如下属性：
+
+capacity：缓存的容量
+keyDict：从key到KeyNode的映射
+freqDict：从freq到FreqNode的映射
+head：指向最小的FreqNode
+整体数据结构设计如下图所示：
+
+head --- FreqNode1 ---- FreqNode2 ---- ... ---- FreqNodeN
+              |               |                       |
+            first           first                   first
+              |               |                       |
+           KeyNodeA        KeyNodeE                KeyNodeG
+              |               |                       |
+           KeyNodeB        KeyNodeF                KeyNodeH
+              |               |                       |
+           KeyNodeC         last                   KeyNodeI
+              |                                       |
+           KeyNodeD                                 last
+              |
+            last
+
 
 Corner cases:
 """
-import heapq
-# class ListNode(object):
-#     def __init__(self, key=None, value=None, pre=None, next=None):
-#         self.key = key
-#         self.val = value
-#         self.pre = pre
-#         self.next = next
-#
-# class DoubleLinkedList(object):
-#     # head->node1->node2->...->noden->tail
-#     # head side is MORE recently accessed
-#     # tail side is LESS recently accessed
-#     def __init__(self):
-#         self.head = ListNode()
-#         self.tail = ListNode()
-#         self.head.next = self.tail
-#         self.tail.pre = self.head
-#
-#     def removeNode(self, node):
-#         # not check node validity in this function
-#         preNode = node.pre
-#         nextNode = node.next
-#         preNode.next = nextNode
-#         nextNode.pre = preNode
-#
-#     def addAtHead(self, node):
-#         nextNode = self.head.next
-#         self.head.next = node
-#         node.next = nextNode
-#         node.pre = self.head
-#         nextNode.pre = node
 
-cclass KeyNode(object):
+class KeyNode(object):
     def __init__(self, key, value, freq = 1):
         self.key = key
         self.value = value
@@ -186,27 +213,6 @@ class LFUCache(object):
         freqNode.first = keyNode
         if freqNode.last is None: freqNode.last = keyNode
 
-
-
-# Your LFUCache object will be instantiated and called as such:
-# obj = LFUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
-
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
-
-
-    LFUCache cache = new LFUCache( 2 /* capacity */ );
-
-    cache.put(1, 1);
-    cache.put(2, 2);
-    cache.get(1);       // returns 1
-    cache.put(3, 3);    // evicts key 2
-    cache.get(2);       // returns -1 (not found)
-    cache.get(3);       // returns 3.
-    cache.put(4, 4);    // evicts key 1.
-    cache.get(1);       // returns -1 (not found)
-    cache.get(3);       // returns 3
-    cache.get(4);       // returns 4
