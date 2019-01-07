@@ -218,3 +218,19 @@ http://www.lintcode.com/en/tag/stack/
 implement queue by two stacks
 largest rectangle in histogram **
 min stack
+
+如何判断是否有环
+1. 无向图 - 拓扑排序
+从入度是1的开始，如果没有了但是入度表中还有元素则有环
+2. 有向图 - 拓扑排序 & DFS
+从入度是0的开始，如果没有了但是入度表中还有元素则有环
+
+def dfs(current):
+    if visited[current]:
+        return True
+    visited[current] = true
+    for child in current.children:
+        if dfs(child):
+            return True
+    visited[current] = False # mark this round as False, continue to next child
+    return False
