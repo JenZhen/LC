@@ -57,6 +57,8 @@ class Solution:
         for i in range(startIdx, len(candidates)):
             # 如果当前这数比findTarget还大，说明肯定不能加，以后的数更大，退出这次递归
             # 上一个加入的数也要pop （在上一轮解决）
+            # ** 这个for loop 是固定选取元素【startIdx - 1】，然后依次只尝试startIdx -> len(candidates) - 1
+            # 如果选了startIdx + 1, 说明直选了这一个，没有选startIdx, 所以这是一个重要的去重标准
             if findTarget < candidates[i]:
                 return
             subset.append(candidates[i])
@@ -64,6 +66,34 @@ class Solution:
             self.dfs(candidates, findTarget - candidates[i], i, subset, ans)
             subset.pop()
 
+class Solution_similar:
+    """
+    @param candidates: A list of integers
+    @param target: An integer
+    @return: A list of lists of integers
+    """
+    def combinationSum(self, candidates, target):
+        # write your code here
+        if not candidates or not target:
+            return []
+
+        candidates = sorted(list(set(candidates)))
+        findTarget = target
+        subset = []
+        ans = []
+        self.dfs(candidates, target, 0, subset, ans)
+        return ans
+
+    def dfs(self, candidates, target, startIdx, subset, ans):
+        if sum(subset) > target:
+            return
+        if sum(subset) == target:
+            ans.append(subset[:])
+            return
+        for i in range(startIdx, len(candidates)):
+            subset.append(candidates[i])
+            self.dfs(candidates, target, i, subset, ans)
+            subset.pop()
 
 class Solution_FollowUp:
     """

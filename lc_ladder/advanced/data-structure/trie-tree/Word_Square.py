@@ -22,43 +22,65 @@
 # Explanation:
 # The output consists of two word squares. The order of output does not matter (just the order of words in each word square matters).
 
+# 给出一系列 不重复的单词，找出所有用这些单词能构成的 单词矩阵。
+# 一个有效的单词矩阵是指, 如果从第 k 行读出来的单词和第 k 列读出来的单词相同(0 <= k < max(numRows, numColumns))，那么就是一个单词矩阵.
+# 例如，单词序列为 ["ball","area","lead","lady"] ,构成一个单词矩阵。因为对于每一行和每一列，读出来的单词都是相同的。
+#
+# b a l l
+# a r e a
+# l e a d
+# l a d y
+# 现在至少有一个单词并且不多于1000个单词
+# 所有的单词都有相同的长度
+# 单词的长度最短为 1 最长为 5
+# 每一个单词均由小写字母组成
+#
+# 样例
+# 给出单词序列 ["area","lead","wall","lady","ball"]
+# 返回 [["wall","area","lead","lady"],["ball","area","lead","lady"]]
+# 输出包含 两个单词矩阵，这两个矩阵的输出的顺序没有影响(只要求矩阵内部有序)。
+#
+# 给出单词序列 ["abat","baba","atan","atal"]
+# 返回 [["baba","abat","baba","atan"],["baba","abat","baba","atal"]]
+# 输出包含 两个单词矩阵，这两个矩阵的输出的顺序没有影响(只要求矩阵内部有序)。
+
 """
 Algo:
 D.S.: TireTree + DFS
 
 Solution:
-# TODO: Not completed yett
+Time Complexity:
+
+题中说明是无重复单词，所以不用查重
 
 Corner cases:
 """
-class TrieNode(object):
-    def __init__(self, char=""):
-        self.cahr = char # uesless here
-        self.children = {}
+class TrieNode:
+    def __init__(self, char):
+        self.char = char
+        self.children = {} # key: "char", val: TrieNode
         self.startWith = []
 
-class TrieTree(object):
+class TrieTree:
     def __init__(self):
         self.root = TrieNode("*")
 
     def addWord(self, word):
         cur = self.root
-        for char in word:
-            if char not in cur.children:
-                cur.char = char # uselsess here
-                cur.children[char] = TrieNode(char)
-            cur.children[char].startWith.append(word)
-            cur = cur.children[char]
+        for w in word:
+            if not w in cur.children:
+                cur.children[w] = TrieNode(w)
+            cur.children[w].startWith.append(word)
+            cur = cur.children[w]
 
-    def getAllStartWith(self, prefix):
-        res = []
+    def getStartWith(self, prefix):
         cur = self.root
-        for char in prefix:
-            if char not in cur.children:
+        res = []
+        for w in prefix:
+            if w not in cur.children:
                 return res
-            res.extend(cur.startWith)
-            cur = cur.children[char]
-        res = res.extend(cur.startWith)
+            cur = cur.children[w]
+        res.extend(cur.startWith)
         return res
 
 class Solution:
@@ -68,9 +90,8 @@ class Solution:
     """
     def wordSquares(self, words):
         # write your code here
-         # write your code here
         if not words:
-            return [[]]
+            return []
 
         trie = TrieTree()
         for word in words:
@@ -78,28 +99,25 @@ class Solution:
 
         res = []
         for word in words:
-            builder = []
-            builder.append(word)
-            self.dfs(trie, res, builder)
-            builder.pop() # remove the last element
+            build = [word]
+            self.dfs(res, build, trie)
+            build.pop()
         return res
 
-    def dfs(self, trie, res, builder):
-        if len(builder) == len(builder[0]): # builder is a square already
-            res.append(builder)
+    def dfs(self, res, build, trie):
+        if len(build) == len(build[0]):
+            res.append(build[:])
             return
-
-        idx = len(builder)
         prefix = ""
-        for word in builder:
-            prefix += word[idx]
-        print("prefix: %s" %prefix)
-        wordsWithPrefix = trie.getAllStartWith(prefix)
-        print("list: %s" %wordsWithPrefix)
-        for word in wordsWithPrefix:
-            builder.appen(word)
-            self.dfs(trie, res, builder)
-            builder.pop()
+        for word in build:
+            prefix += word[len(build)]
+        # print("prefix: " + prefix)
+        options = trie.getStartWith(prefix)
+        # print("options: %s" %repr(options))
+        for opt in options:
+            build.append(opt)
+            self.dfs(res, build, trie)
+            build.pop()
 
 # Test Cases
 if __name__ == "__main__":

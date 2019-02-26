@@ -11,14 +11,51 @@
 #
 # 返回 1， 因为进行一次分割可以将字符串s分割成["aa","b"]这样两个回文子串
 """
-Algo: DP
+Algo: DP, DFS(exceed memory)
 D.S.:
 
 Solution:
-
+DP:
+DFS: n * n !
 
 Corner cases:
 """
+
+class Solution_TOLONG:
+    """
+    @param s: A string
+    @return: An integer
+    """
+    def minCut(self, s):
+        ans = []
+        subStrings = []
+        self.dfs(s, subStrings, 0, ans)
+        return min([len(li) for li in ans]) - 1
+
+
+    def dfs(self, s, subStrings, startIdx, ans):
+        if startIdx == len(s):
+            ans.append(subStrings[:])
+        for i in range(startIdx, len(s)):
+            leftString = s[startIdx:(i + 1)]
+            if not self.isPalindrome(leftString):
+                continue
+            subStrings.append(leftString)
+            self.dfs(s, subStrings, i + 1, ans)
+            subStrings.pop()
+
+    def isPalindrome(self, string):
+        size = len(string)
+        if size <= 1:
+            return True
+        l, r = 0, size - 1
+        while l < r:
+            if string[l] != string[r]:
+                return False
+            else:
+                l += 1
+                r -= 1
+        return True
 
 # Test Cases
 if __name__ == "__main__":

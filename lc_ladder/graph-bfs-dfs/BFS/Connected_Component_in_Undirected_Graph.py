@@ -64,7 +64,7 @@ class Solution:
         temp = [] # store node.label
         q = deque([]) # store node
         q.append(node)
-        visited[node.label] = True
+        visited[node.label] = True # DO NOT FORGET!!!!
         while len(q):
             cur = q.popleft()
             # node enter and exit queue only once

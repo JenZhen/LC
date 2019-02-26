@@ -62,6 +62,8 @@ class Solution:
 
         m, n = len(grid), len(grid[0])
         # dist notes how many step away from source
+        # using init value of maxsize to save extra space to check visited
+        # because if visited, second visit dist is definitely longer then previous one, skip
         dist = [[sys.maxsize for j in range(n)] for i in range(m)]
         dist[source.x][source.y] = 0
 

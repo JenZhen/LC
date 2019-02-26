@@ -23,7 +23,9 @@ Solution1:
 iteration
 Time: O(2^n)
 
-# TODO: DFS Recursive way
+Solution1:
+BFS Time: O(2^n)
+
 
 Corner cases:
 """
@@ -59,6 +61,75 @@ class Solution1:
         if 'A' <= S[i] <= 'Z':
             return S[i].lower()
 
+class Solution_DFS_BEST:
+    """
+    @param S: a string
+    @return: return a list of strings
+    """
+    def letterCasePermutation(self, S):
+        # write your code here
+        if not S:
+            return [""]
+
+        res = []
+        # S = self.transform(S)
+        path = ""
+        res = []
+        startIdx = 0
+        self.dfs(S, path, res, startIdx)
+        return sorted(res)
+
+    def dfs(self, s, path, res, startIdx):
+        if startIdx == len(s):
+            res.append(path)
+            return
+        if '0' <= s[startIdx] <= '9':
+            self.dfs(s, path + s[startIdx], res, startIdx + 1)
+        else:
+            self.dfs(s, path + s[startIdx].lower(), res, startIdx + 1)
+            self.dfs(s, path + s[startIdx].upper(), res, startIdx + 1)
+
+class Solution_DFS_RUSTIC:
+    """
+    @param S: a string
+    @return: return a list of strings
+    """
+    def letterCasePermutation(self, S):
+        # write your code here
+        if not S:
+            return [""]
+
+        res = []
+        S = self.transform(S)
+        path = ""
+        res = []
+        startIdx = 0
+        self.dfs(S, path, res, startIdx)
+        return sorted(res)
+
+    def transform(self, S):
+        res = ""
+        for ch in S:
+            if 'a' <= ch <= 'z' or 'A' <= 'Z':
+                res += ch.lower()
+            else:
+                res += ch
+        return res
+
+    def dfs(self, s, path, res, startIdx):
+        if startIdx == len(s):
+            res.append(path)
+            print(path)
+            return
+        if '0' <= s[startIdx] <= '9':
+            path += s[startIdx]
+            self.dfs(s, path, res, startIdx + 1)
+        else:
+            path += s[startIdx].lower()
+            self.dfs(s, path, res, startIdx + 1)
+            path = path[:-1]
+            path += s[startIdx].upper()
+            self.dfs(s, path, res, startIdx + 1)
 
 # Test Cases
 if __name__ == "__main__":
