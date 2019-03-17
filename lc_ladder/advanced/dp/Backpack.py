@@ -82,7 +82,7 @@ class Solution1:
                 else:
                     f[i][j] = f[i - 1][j]
         for j in range(m, -1, -1):
-            if f[i][j]:
+            if f[n][j]:
                 return j
         return 0
 
