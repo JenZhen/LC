@@ -79,13 +79,14 @@ class Solution:
         self.results = [] #最终最多的结果
         self.temp = [] #动态记录result可能的值，并不断更新self.results
         self.visited = [[False for _ in range(self.col)] for _ in range(self.row)]
+
         # start from 0, 0
         self.dfs(0, 0, self.trie.root)
         return len(self.results)
 
-    def dfs(self, i, j, node):
-        for i in range(i, self.row):
-            for j in range(j, self.col):
+    def dfs(self, x, y, node):
+        for i in range(x, self.row):
+            for j in range(y, self.col):
                 paths = []
                 temp = []
                 self.getPossibleWords(i, j, paths, temp, node)
@@ -103,7 +104,7 @@ class Solution:
                     self.temp.pop()
                     for px, py in path:
                         self.visited[px][py] = False
-            j = 0
+            y = 0
 
     def getPossibleWords(self, i, j, path, temp, node):
         '''
