@@ -29,7 +29,7 @@ class Solution:
     @classmethod
     def getInstance(cls):
         # write your code here
-        if cls.instance is None:
+        if cls.instance is None: # not thread-safe
             cls.instance = Solution()
         return cls.instance
 
@@ -51,6 +51,44 @@ public:
 };
 // note: init null here
 Solution* Solution::instance = NULL;
+
+
+// Java Example
+// Key part: private constructor, making class instance not instantiable
+// solution1. not thread-safe
+public class Singleton {
+    private static Singleton instance;
+    private Singleton (){}
+
+    public static Singleton getInstance() {
+    if (instance == null) {
+        instance = new Singleton();
+    }
+    return instance;
+    }
+}
+
+// solution2. thread-safe for adding lock whe create new getInstance
+// good not create instance at beginning
+public class Singleton {
+    private static Singleton instance;
+    private Singleton (){}
+    public static synchronized Singleton getInstance() {
+    if (instance == null) {
+        instance = new Singleton();
+    }
+    return instance;
+    }
+}
+
+// solution3. thread-safe by creating the instane at the beginning
+public class Singleton {
+    private static Singleton instance = new Singleton();
+    private Singleton (){}
+    public static Singleton getInstance() {
+    return instance;
+    }
+}
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
