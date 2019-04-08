@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/en/old/problem/connected-component-in-undirected-graph/-Find
+# https://www.lintcode.com/problem/connected-component-in-undirected-graph/description
 # Find the number connected component in the undirected graph.
 # Each node in the graph contains a label and a list of its neighbors.
 # (a connected component (or just component) of an undirected graph is a subgraph in which
@@ -81,6 +81,46 @@ class Solution:
             res[group[root_node] - 1].append(node.label)
         return res
 
+
+
+
+"""
+Definition for a undirected graph node
+class UndirectedGraphNode:
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+"""
+
+
+class Solution_BFS:
+    """
+    @param {UndirectedGraphNode[]} nodes a array of undirected graph node
+    @return {int[][]} a connected set of a undirected graph
+    """
+    def connectedSet(self, nodes):
+        # write your code here
+        if not nodes:
+            return []
+        from collections import deque
+        res = []
+        visited = set()
+        for node in nodes:
+            if node not in visited:
+                group = [node.label]
+                q = deque([node])
+                visited.add(node)
+                while len(q):
+                    curnode = q.popleft()
+                    for nei in curnode.neighbors:
+                        if nei not in visited:
+                            q.append(nei)
+                            visited.add(nei)
+                            group.append(nei.label)
+                # NOTE sorted(group) ->return a sorted list
+                # group.sort()->modify group but return none
+                res.append(sorted(group))
+        return res
 # Test Cases
 if __name__ == "__main__":
     s = Solution()

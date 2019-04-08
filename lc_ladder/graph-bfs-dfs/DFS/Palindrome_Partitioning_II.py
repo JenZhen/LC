@@ -15,7 +15,7 @@ Algo: DP, DFS(exceed memory)
 D.S.:
 
 Solution:
-DP:
+DP: n ^ 2
 DFS: n * n !
 
 Corner cases:

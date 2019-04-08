@@ -78,7 +78,7 @@ class Solution:
         # using map group to organize diff roots
         res = []
         group = {}
-        cnt = 0
+        cnt = 0 # count of groups
         for node in nodes:
             father = self.find(node.label)
             if father not in group:

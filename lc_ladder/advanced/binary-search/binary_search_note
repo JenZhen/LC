@@ -3,7 +3,7 @@
 template1: for most of cases
 l, r = start, end # 找到可行解范围
 while l + 1 < end:
-    mid = (l + r) // 2 # 二分区间
+    mid = l + (r - l) // 2 # 二分区间 avoid overflow
     if checkCondition(): # 检查条件，推测答案应该在哪一侧
         l = mid # 调整区间
     else:

@@ -11,8 +11,8 @@ Algo:
 D.S.:
 
 Solution:
-
-
+BFS 找最长路径
+从长到短一次作为起始点，visited过的点就不用再做为起起始点了
 Corner cases:
 """
 
@@ -45,14 +45,17 @@ def bfs(start_str, dict, map, visited):
     visited.add(start_str)
     depth = 0
     while q:
-        cur_str = q.popleft()
-        next_strs = map[cur_str]
-        if len(next_strs):
+        level_size = len(q)
+        if level_size:
             depth += 1
-        for str in next_strs:
-            if str not in visited:
-                visited.add(str)
-                q.append(str)
+        for i in range(level_size):
+            cur_str = q.popleft()
+            next_strs = map[cur_str]
+
+            for str in next_strs:
+                if str not in visited:
+                    visited.add(str)
+                    q.append(str)
     return depth
 
 # Test Cases
