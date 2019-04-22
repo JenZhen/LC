@@ -21,6 +21,13 @@ D.S.:
 
 Solution:
 背诵quick select 模版
+Time: O(n)
+Space: O(1)
+
+快选算法，模板是基于升序findkthsmallest,
+def findKSmallest(self, nums, start, end, k): where k means 按照升序，Index为k即 第k+1小的树
+
+当求第kth大时，转化为第（len(arr) - k + 1 ）小，带入模板就是 升序排列，index位置为 len(arr) - k 的值
 
 Corner cases:
 """
@@ -63,3 +70,5 @@ class Solution:
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
+    nums = [3,1,2,4,5,0,9]
+    print(solution.findKSmallest(nums, 0, 6, 5))
