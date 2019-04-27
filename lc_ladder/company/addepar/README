@@ -1,0 +1,51 @@
+In this program, "merge_text.py" merges all line-sorted input files input one output file.
+
+The structure of the package:
+
+addepar_code_challenge
+├── README
+├── input_dir
+│   ├── input_1.txt
+│   ├── input_2.txt
+│   └── input_3.txt
+├── merge_text.py
+└── output.txt
+
+1. How to execute the program
+$cd addepar_code_challenge/
+$python merge_text.py -d input_dir -o output.txt
+
+Note:
+- merge_text.py is implemented with *python2.7*. Please make sure execute it with python2.
+- "-d" indicates input file directory. input_dir/ has 3 testing files.
+- "-o" indicates the generated output file. To keep input_dir/ clean, please do not put output file in directory input_dir/.
+
+2. Complexity Analysis
+Assume there are k input files and each file has on average n lines.
+Time Complexity: O(nk * log(k))
+Space Complexity: O(k)
+
+Analysis:
+In this algorithm, extra space is a min heap that contains k tuples -- line content as key and file handler as second element -- a tuple for each input file.
+Therefore, space complexity is O(k).
+
+All the lines in all input files will be pushed into the min heap for only one time. The min heap operation is at cost of O(logk).
+Therefore, time complexity is O(nk * log(k))
+
+3. Program Design
+In this program, I am using several key technics.
+1) min heap that maintains the smallest line lexicographically.
+2) file_handler for each input files and the output file.
+
+First, file_handler was created for each input files and output file. To avoid loading a large file into the memory,
+readline() method that effectively loads a chunk of file (in this case a line of file) then releases it from memory and reads the next chunk.
+
+Secondly, use a min heap of size k (conatains the smallest-orderd line in a file, paired with a file handler to the file), the algorithm can quickly get the next
+line to merge into the output file and use the file handler to find the next non-empty line, then push it into the min heap.
+
+Because the lines popped from min heap are ordered lexicographically, comparing the top of heap with the line previously pushed into output file is how the algorithm
+avoids duplication in output file.
+
+To check incorrectly sorted lines, the algorithm compares the newly read line with the line previously pushed into the output file. Since the lines in the output
+file is sorted, if a new line is less than the previously pushed line, it must be mis-ordered originally in the input file. In this case, the algorithm
+will raise an exception and display the mis-ordered line in stdout. In case of any error, the algorithm will abort and not commit any information in output file.
