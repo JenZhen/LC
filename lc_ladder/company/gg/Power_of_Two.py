@@ -4,14 +4,33 @@
 # Example
 
 """
-Algo: Recusion / Iteration
+Algo: Recusion / Iteration, Bit operation
 D.S.:
 
 Solution:
 Time: O(logN)
 
+Bit Operation
+Power of Two , cnt of 1 in binary code. should be only 1
+
 Corner cases:
 """
+class Solution_Bit:
+    """
+    @param n: an integer
+    @return: if n is a power of two
+    """
+    def isPowerOfTwo(self, n):
+        # Write your code here
+        if n <= 0:
+            return False
+        cnt = 0
+        while n > 0:
+            if n % 2 == 1:
+                cnt += 1
+            n = n >> 1
+        return cnt == 1
+
 
 class Solution:
     """
