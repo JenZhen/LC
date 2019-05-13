@@ -18,6 +18,13 @@ D.S.:
 8. 2(3), 3(0), 5(0)
 
 Solution:
+ugly number comes from ugly numbers
+x,   x,   x,   x,   x,   x    --- * 1
+x*2, x*2, x*2, x*2, x*2, x*2, --- * 2
+x*3, x*3, x*3, x*3, x*3, x*3, --- * 3
+x*5, x*5, x*5, x*5, x*5, x*5, --- * 5
+
+essentially it's 4 sorted array merge find the top k
 
 Corner cases:
 """
