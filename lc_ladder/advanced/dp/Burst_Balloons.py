@@ -51,6 +51,27 @@ class Solution:
 
         return dp[0][n - 1]
 
+# https://www.youtube.com/watch?v=z3hu2Be92UA
+class Solution:
+    def maxCoins(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        n = len(nums)
+        nums = [1] + nums + [1]
+
+        c = [[0 for _ in range(n + 2)] for _ in range(n + 2)]
+
+        for l in range(1, n + 1):
+            # length of interval
+            for i in range(1, n - l + 2):
+                # i is start of interval
+                j = i + l - 1
+                # j in end of interval
+                for k in range(i, j + 1):
+                    c[i][j] = max(c[i][j],
+                                  c[i][k - 1] + c[k + 1][j] + nums[i - 1] * nums[k] * nums[j + 1])
+        return c[1][n]
+
 
 # Test Cases
 if __name__ == "__main__":

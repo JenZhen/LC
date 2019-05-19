@@ -2,9 +2,12 @@
 
 def evaluate_actions(actions):
     # action is list of string, each of string denotes the an action
+    # key: location, val: list of army at the location
     location_map = {}
-    status_map = {}
+    # key: army, val: strength, init as 0
     strength_map = {}
+    # key: army, val: status, live of die
+    status_map = {}
 
     # populate location map
     for action in actions:
@@ -36,6 +39,7 @@ def evaluate_actions(actions):
                 strength_map[supportee] = supportee_strength
     print("check strength_map: %s" %repr(strength_map))
 
+    # O(number of locations * (number of army / number of location))
     for key, val in location_map.items():
         location = key
         army_list = val

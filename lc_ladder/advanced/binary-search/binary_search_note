@@ -51,3 +51,7 @@ deque特点： 可以从两头push, pop
 适用于固定长度的sliding window，的popleft append（right)的操作
 用于维护一个单调的序列，类似于单调栈
     - Sliding winding maximum
+
+
+四种类型的总结
+http://www.cnblogs.com/grandyang/p/6854825.html

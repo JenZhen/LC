@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/increasing-triplet-subsequence/description
+# https://leetcode.com/problems/increasing-triplet-subsequence/
 # Example
 # 给定未排序的数组，返回是否在数组中存在递增的长度为3的子序列。
 #

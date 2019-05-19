@@ -1,8 +1,21 @@
 #! /usr/local/bin/python3
 
-# Requirement
+# https://www.lintcode.com/problem/longest-palindromic-substring/description
 # Example
-
+# 给出一个字符串（假设长度最长为1000），求出它的最长回文子串，你可以假定只有一个满足条件的最长回文串。
+#
+# 您在真实的面试中是否遇到过这个题？
+# 样例
+# 样例 1:
+#
+# 输入:"abcdzdcab"
+# 输出:"cdzdc"
+# 样例 2:
+#
+# 输入:"aba"
+# 输出:"aba"
+# 挑战
+# O(n2) 时间复杂度的算法是可以接受的，如果你能用 O(n) 的算法那自然更好。
 """
 Algo: DP
 D.S.:
