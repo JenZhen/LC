@@ -279,3 +279,53 @@ Nov 10	125
 翻转字符串到目标字符串(Isomorphic Strings变种)	126
 Nov 7	127
 还原黑白图片	127
+
+
+
+重点：
+LC315
+
+example:
+input:
+[("a", ["1", "2", "3"]), ("b", ["2","3"]), ("c", ["1", "2"])]
+output:
+[("a", "b"), ("a", "c")]
+
+partition array into length of 5 subarray, each subarray will contain consecutive numbers in increasing order
+
+street = [[“store”, “school”, “museum”], [“hospital”, “restaurant”], [“school”, “restaurant”], [], [“museum”]], requirement = [“store”, “museum”, “restaurant”].
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=523893&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3086%5D%5Bvalue%5D%3D9%26searchoption%5B3086%5D%5Btype%5D%3Dradio%26searchoption%5B3087%5D%5Bvalue%5D%3D2%26searchoption%5B3087%5D%5Btype%5D%3Dradio%26searchoption%5B3088%5D%5Bvalue%5D%3D1%26searchoption%5B3088%5D%5Btype%5D%3Dradio%26searchoption%5B3090%5D%5Bvalue%5D%3D1%26searchoption%5B3090%5D%5Btype%5D%3Dradio%26searchoption%5B3046%5D%5Bvalue%5D%3D1%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311%26orderby%3Ddateline
+
+棋盘无限大，国际象棋的马起点在（0，0），终点在第一象限任意位置，棋盘上随机分布障碍，问能否走到终点 followup 最短路径打印
+
+ [高频题] 可删除字母，需要多少次构造
+ Given API 'guessWord' and a list of candidate words, return the secret word.似乎地里也有
+
+#TODO
+
+1. 王位继承
+2. lisp 嵌套{}
+3. 树状滴水
+ - segment tree
+lc741 cherry pick
+
+削除字符窜连续大小写像同字符 入Aa 喔1空间
+
+完全二茶树 相关问题 每个点遍号 左儿是二乘爹 右二是二乘爹迦一， 某个遍号存在吗
+   机匴二茶素迟寸
+
+
+
+采用更主动的策略删除过期的Key
+思路；创建后台线程定期清理过期的Key。
+用两个map，一个装<key, value>一个装<key, expiredTime>
+在get中采用lazy deletion，get的时候检查key是否过期，如果过期的话两个map中都删除key，返回null。put的时候每次都更新key的expiredTime。
+后台线程每过一段时间遍历所有key，调用get方法删除过期key。此处为了避免多线程冲突，Map用ConcurrentHashMap实现。
+不遍历map来删除过期key的方法：(一下方法需要斟酌)
+时间本来就是升序的，可以直接用double - queue，每个元素存加入map的时间，每次只要从头把所有满足currentTime-addTime > expiredTime 的元素删除掉不就行了
+
+
+1. 给一个tree有红的node有蓝的node，把红的去掉后剩下一堆零零散散的tree， 返回这些tree的node，只要node，不要children，也就是说把这个node的children设置成null然后加到list里。
+bfs
+2. bingo game。 给一个board然后每个col有不同的range，这个col里的number要根据这个col的range来generate，然后这个col不能有重复的元素。
+# todo

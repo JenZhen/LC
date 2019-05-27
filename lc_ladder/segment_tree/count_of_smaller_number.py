@@ -31,7 +31,7 @@ class Solution1:
 """
 Solution2: Sort A + Binary search
 A length n, queries m (ignore)
-Time Complexit: O(nlogn + logn)
+Time Complexity: O(nlogn + logn)
 Space Complexity: O(m)
 """
 class Solution2:

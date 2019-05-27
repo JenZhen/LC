@@ -21,15 +21,38 @@ Algo: DP
 D.S.:
 
 Solution:
-TODO：
-
-Time:
+Solution1: 二分
+Solution2: DP?
+Time: O(mn) ~ O(mm) ~ O(nn)
 Space:
+
+0 1 0 0
+1 0 1 1
+0 1 0 0
+
+x: (行) 1， 3， 1 （行0 1个，行1 3个，行2 1个）
+y:（列) 1, 2, 1, 1 （列0 1个，列1 2个， 列2 1个，列3 1个）
+
+x 轴上
+x = 0, 到各个房子的x 距离为 1*(0-0) + 3*(1-0) + 1*(2-0) = 5
+x = 1, 到各个房子的x 距离为 1*|0-1| + 3*(1-1) + 1*(2-1) = 2
+x = 2, 到各个房子的x 距离为 1*|0-2| + 3*|1-2| + 1*(2-2) = 5
+x_sum = [5,2,5]
+
+y轴上
+y = 0, 到各个房子y 距离为 1*(0-0) + 2*(1-0) + 1*(2-0) + 1*(3-0) = 7
+y = 1, 到各个房子y 距离为 1*|0-1| + 2*(1-1) + 1*(2-1) + 1*(3-1) = 4
+y = 2, 到各个房子y 距离为 1*|0-2| + 2*|1-2| + 1*(2-2) + 1*(3-2) = 5
+y = 3, 到各个房子y 距离为 1*|0-3| + 2*|1-3| + 1*|2-3| + 1*(3-3) = 8
+
+y_sum = [7,4,5,8]
+
+x = 1, y = 1 satisfying grid[i][j] == 0 and x_sum + y_sum 最小
 
 Corner cases:
 """
 
-class Solution:
+class Solution1:
     """
     @param grid: a 2D grid
     @return: An integer
@@ -93,8 +116,79 @@ class Solution:
             idx = l
         return sumx[total] - sumx[idx + 1] - pos * (total - idx - 1) + (idx + 1) * pos - sumx[idx + 1]
 
+class Solution2:
+    """
+    @param grid: a 2D grid
+    @return: An integer
+    """
+    def shortestDistance(self, grid):
+        import sys
+        # write your code here
+        m = len(grid)
+        n = len(grid[0])
+        if m == 0 or n == 0:
+            return -1
 
+        x_cnt = [0] * m
+        y_cnt = [0] * n
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    x_cnt[i] += 1
+                    y_cnt[j] += 1
+        x_sum = [0] * m
+        y_sum = [0] * n
+        for i in range(m):
+            sum = 0
+            for k in range(m):
+                sum += x_cnt[k] * abs(i - k)
+            x_sum[i] = sum
+        for j in range(n):
+            sum = 0
+            for k in range(n):
+                sum += y_cnt[k] * abs(j - k)
+            y_sum[j] = sum
+        print('x_sum: %s' %repr(x_sum))
+        print('y_sum: %s' %repr(y_sum))
+
+        res = sys.maxsize
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 0:
+                    # if it is an empty Space
+                    res = min(res, x_sum[i] + y_sum[j])
+        return res
 
 # Test Cases
 if __name__ == "__main__":
-    solution = Solution()
+    testCases = [
+        [
+            [0, 1, 0, 0],
+            [1, 0, 1, 1],
+            [0, 1, 0, 0]
+        ],#6
+        [
+            [0, 1, 0, 0],
+            [1, 1, 0, 1],
+            [0, 1, 0, 0]
+        ], #8
+        [
+            [0, 1, 0, 0],
+            [1, 1, 1, 1],
+            [0, 1, 0, 0]
+        ], #12
+        [
+            [1, 1, 0, 0],
+            [1, 1, 1, 1],
+            [0, 1, 1, 0]
+        ], #12
+    ]
+    solution1 = Solution1()
+    solution2 = Solution2()
+
+    for t in testCases:
+        res1 = solution1.shortestDistance(t)
+        res2 = solution2.shortestDistance(t)
+        print("res1: %s" %res1)
+        print("res2: %s" %res2)
