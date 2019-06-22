@@ -72,6 +72,68 @@ class Solution:
                 return False
         return True
 
+
+class Solution2:
+    def minWindow(self, s: str, t: str) -> str:
+        if not s or not t or len(t) > len(s):
+            return ""
+        import sys
+        lt, ls = len(t), len(s)
+        slot_t = [0] * 256
+        slot_s = [0] * 256
+        self.init(slot_t, len(t), t)
+        # print(slot_t)
+        fast, slow = 0, 0
+        slot_s[ord(s[fast])] = 1
+        res = [None, None]
+        length = sys.maxsize
+        while fast < len(s):
+            while self.canCover(slot_t, slot_s):
+                print('s: %s, f: %s' %(slow, fast))
+                if fast - slow < length:
+                    length = fast - slow
+                    res = [slow, fast]
+                slot_s[ord(s[slow])] -= 1
+                slow += 1
+            if fast < len(s) - 1:
+                slot_s[ord(s[fast + 1])] += 1
+            fast += 1
+        print('res: %s' %repr(res))
+        # NOTE: 一定要查最后可能根本找不到的情况
+        if res == [None, None]:
+            return ""
+        else:
+            return s[res[0]: res[1] + 1]
+
+    def init(self, slot, length, string):
+        for i in range(length):
+            slot[ord(string[i])] += 1
+
+    def canCover(self, slot_t, slot_s):
+        for i in range(256):
+            if slot_t[i] > slot_s[i]:
+                return False
+        return True
 # Test Cases
 if __name__ == "__main__":
-    solution = Solution()
+    s2 = Solution2()
+    testcases = [
+        {
+            's': 'a',
+            't': 'b'
+        },
+        {
+            's': 'abc',
+            't': 'b'
+        },
+        {
+            's': 'ADOBECODEBANC',
+            't': 'ABC'
+        }
+    ]
+
+    for test in testcases:
+        s = test['s']
+        t = test['t']
+        res2 = s2.minWindow(s, t)
+        print(res2)

@@ -53,6 +53,37 @@ class Solution:
             return False
 
 
+
+class Solution_DFS:
+    def decodeString(self, s: str) -> str:
+        self.idx = 0 # 这个一定是递归结构以外的变量，递归中会不断增加它的值，如果传入递归，跳出来之后，增加的值没有了
+        return self.decode(s) # start from index 0
+
+    def decode(self, s):
+        num = 0
+        tempstring = ""
+        while self.idx < len(s):
+            curchar = s[self.idx]
+            self.idx += 1
+            if curchar.isalpha(): # python built-in
+                tempstring += curchar
+            elif curchar.isdigit(): # python built-in
+                num = num * 10 + int(curchar)
+            elif curchar == '[':
+                substring = self.decode(s)
+                tempstring += substring * num
+                num = 0
+            elif curchar == ']':
+                return tempstring
+            # print('idx: %s' %self.idx)
+        return tempstring
+
+    # def isAlpha(self, char):
+    #     return ('a' <= char <= 'z') or ('A' <= char <= 'Z')
+    #
+    # def isNum(self, char):
+    #     return '0' <= char <= '9'
+
 # Test Cases
 if __name__ == "__main__":
     testCases = [

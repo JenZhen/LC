@@ -62,6 +62,7 @@ class Solution:
         for key, val in cntMap.items():
             if val == maxlen:
                 res += 1
+                # max with len(tasks) 是考虑到 n = 0的情况
         return max(res, len(tasks))
 
 # Test Cases

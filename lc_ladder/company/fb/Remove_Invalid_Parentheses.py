@@ -2,6 +2,7 @@
 
 # https://www.lintcode.com/problem/remove-invalid-parentheses/description
 # Example
+# https://www.youtube.com/watch?v=2k_rS_u6EBk÷
 # 删除最小数目的无效括号，使得输入字符串有效，返回所有可能的结果。
 #
 # Example
@@ -25,7 +26,7 @@ Solution:
 3. dfs 要带着每层的startIdx
 
 Time：O(2 ^(l + r)) recursion depth l + r ~ n
-Space: O((l + r) ^ 2)
+Space: O((l + r) ^ 2) ~ O(n^2)
 
 Corner cases:
 """
@@ -88,6 +89,56 @@ class Solution:
                 if r > l:
                     return False
         return l == r
+
+
+class Solution2:
+    """
+    @param s: The input string
+    @return: Return all possible results
+    """
+    def removeInvalidParentheses(self, s):
+        # Write your code here
+        if not s:
+            return [s]
+        if self._is_valid(s):
+            return [s]
+        # cnt of '(' and cnt of ')' to remove to make it valid
+        l, r = 0, 0
+        for char in s:
+            l += (char == "(")
+            if l == 0:
+                # find extra )
+                r += (char == ")")
+            else:
+                # offset extra (
+                l -= (char == ")")
+
+        res = self.dfs(s, 0, l, r)
+        return res
+    # // return only 1 result
+    # public String removeInvalid(String input) {
+    #     Stack<Integer> stack = new Stack<Integer>();
+    #
+    #     for (int i = 0; i < input.length(); i++) {
+    #         char c = input.charAt(i);
+    #         if (c == '(') {
+    #             stack.push(i);
+    #         } else if (c == ')') {
+    #             if (stack.isEmpty() || input.charAt(stack.peek()) != '(') {
+    #                 stack.push(i);
+    #             } else {
+    #                 stack.pop();
+    #             }
+    #         }
+    #     }
+    #
+    #     StringBuilder sb = new StringBuilder(input);
+    #     while (!stack.isEmpty()) {
+    #         sb.deleteCharAt(stack.pop());
+    #     }
+    #
+    #     return sb.toString();
+    # }
 
 # Test Cases
 if __name__ == "__main__":

@@ -49,7 +49,7 @@ import heapq
 #         node.pre = self.head
 #         nextNode.pre = node
 
-cclass KeyNode(object):
+class KeyNode(object):
     def __init__(self, key, value, freq = 1):
         self.key = key
         self.value = value
