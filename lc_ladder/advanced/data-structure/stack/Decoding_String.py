@@ -84,15 +84,63 @@ class Solution_DFS:
     # def isNum(self, char):
     #     return '0' <= char <= '9'
 
+
+class Solution_test:
+    def decodeString(self, s: str) -> str:
+        self.idx = 0 # 这个一定是递归结构以外的变量，递归中会不断增加它的值，如果传入递归，跳出来之后，增加的值没有了
+        return self.decode(s) # start from index 0
+
+    def decode(self, s):
+        prelist = [""]
+        templist = []
+        while self.idx < len(s):
+            curchar = s[self.idx]
+            self.idx += 1
+            if curchar.isalpha(): # python built-in
+                prelist[-1] += curchar
+            if curchar == ",":
+                prelist.append("")
+            # elif curchar.isdigit(): # python built-in
+            #     num = num * 10 + int(curchar)
+            elif curchar == '{':
+                sublist = self.decode(s)
+                templist = self.helper(prelist, sublist)
+                prelist = [""]
+            elif curchar == '}':
+                return templist[:]
+            # print('idx: %s' %self.idx)
+        return templist[:]
+
+    def helper(self, l1 ,l2):
+        print(l1)
+        print(l2)
+        res = []
+        for i in range(len(l1)):
+            for j in range(len(l2)):
+
+                res.append(l1[i] + l2[j])
+        # print(res)
+        return res
+
 # Test Cases
 if __name__ == "__main__":
+    # testCases = [
+    #     "3[abc]",
+    #     "4[ac]dy",
+    #     "3[2[ad]3[pf]]xyz",
+    #     "5[10[abcd]Ac20[abcde]]"
+    # ]
+    # s1 = Solution()
+    # for s in testCases:
+    #     res1 = s1.expressionExpand(s)
+    #     print("res1: %s" %res1)
+
     testCases = [
-        "3[abc]",
-        "4[ac]dy",
-        "3[2[ad]3[pf]]xyz",
-        "5[10[abcd]Ac20[abcde]]"
+        "a{abc}",
+        # "a{b,c}",
+        # "a{b{c,d},e}",
     ]
-    s1 = Solution()
+    s_test = Solution_test()
     for s in testCases:
-        res1 = s1.expressionExpand(s)
+        res1 = s_test.decodeString(s)
         print("res1: %s" %res1)

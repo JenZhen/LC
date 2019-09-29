@@ -27,7 +27,7 @@ class Solution:
         # clean current location
         robot.clean()
         # if a place is cleaned, put in set
-        visited.insert(str(i) + '-' + str(j))
+        visited.insert(str(x) + '-' + str(y))
         for i in range(4):
             next_dir = (i + dir) % 4
             newx, newy = x + self.dirs[next_dir][0], y + self.dirs[next_dir][1]
