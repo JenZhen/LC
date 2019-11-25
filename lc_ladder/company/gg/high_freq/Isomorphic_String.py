@@ -21,7 +21,7 @@
 # Input: s = "paper", t = "title"
 # Output: true
 # Note:
-You may assume both s and t have the same length.
+# You may assume both s and t have the same length.
 
 """
 Algo:
