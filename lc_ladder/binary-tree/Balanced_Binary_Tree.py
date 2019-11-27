@@ -4,10 +4,10 @@ import BinaryTree
 
 
 """
-Algo: Divide and Conquer
+Algo: Divide-and-Conquer
 D.S.: Binary Tree
 
-Solution1:
+Solution_1:
 Time: O(N ^ 2)， where N is # of nodes in the tree
 isBalanced condition:
 1. height of left and right child tree different no greater than 1, and
@@ -18,9 +18,8 @@ getHeight -> O(n), n is the # of nodes in the tree,  因为每个NODE 都要访�
 isBalanced -> O(n)，因为每个NODE 都要访问一遍，但是访问每个NODE的O(n) 中又要个getHeight O(n)
 综合isBalanced复杂度O(n ^ 2)
 
-Follow-Up:
-Add a field in TreeNode structure to note the depth of the node
-Same node's information can be re-used
+Solution_2:
+return type 将每层高度同时返回上来
 降低复杂度是通过不在单独计算getHeight, 在一遍计算isBalanced访问每个Node的同时计算它的高度，从叶子往根算
 
 Time: O(N) each node will be caculated only once.
@@ -28,7 +27,7 @@ Time: O(N) each node will be caculated only once.
 Corner cases:
 """
 
-class Solution1(object):
+class Solution_1(object):
     def isBalanced(self, root):
         """
         :type root: TreeNode
@@ -47,32 +46,22 @@ class Solution1(object):
             return 0
         return max(self.getHeight(node.left), self.getHeight(node.right)) + 1
 
-class Solution1(object):
-    class Height(object):
-        def __init__(self):
-            self.height = 0
+class Solution_2:
+    def isBalanced(self, root: TreeNode) -> bool:
+        is_balanced, height = self.helper(root)
+        return is_balanced
 
-    # input root of the tree, height of the root (init a Height object for root)
-    # return bool (is balanced or not)
-    def isBalanced(self, root, root_height):
-        if not root:
-            return True
+    def helper(self, node):
+        if not node:
+            return True, 0
+        left_is_balanced, left_height = self.helper(node.left)
+        right_is_balanced, right_height = self.helper(node.right)
+        if not left_is_balanced or not right_is_balanced:
+            return False, 0 # height doesn't matter
+        if abs(left_height - right_height) >= 2:
+            return False, 0 # height doesn't matter
+        return True, max(left_height, right_height) + 1
 
-        lh = Height()
-        rh = Height()
-
-        l_balanced = self.isBalanced(root.left, lh)
-        r_balanced = self.isBalanced(root.right, rh)
-
-        root_height.height = max(lh, rh) + 1
-
-        if abs(lh - rh) <= 1 and l_balanced and r_balanced:
-            return True
-        return False
-
-# root = TreeNode(10)
-# root_height = Height(0)
-# return isBalanced(root, root_height)
 
 # Test Cases
 if __name__ == "__main__":

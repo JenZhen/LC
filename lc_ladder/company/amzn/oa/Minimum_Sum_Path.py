@@ -4,7 +4,7 @@
 # Example
 
 """
-Algo: Recursion, divide and conquer
+Algo: Recursion, Divide-and-Conquer
 D.S.: Binary Tree
 
 Solution:

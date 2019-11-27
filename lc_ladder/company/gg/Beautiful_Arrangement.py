@@ -27,7 +27,7 @@
 # N is a positive integer and will not exceed 15.
 
 """
-Algo: DFS, Backtrace
+Algo: DFS, Backtracking
 D.S.:
 
 Solution:

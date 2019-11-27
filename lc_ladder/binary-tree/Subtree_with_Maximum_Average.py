@@ -10,7 +10,7 @@ Algo: Divide Conquer
 D.S.: Binary Tree
 
 Solution:
-Divide and Conquer to calculate 2 metrics
+Divide-and-Conquer to calculate 2 metrics
 	- sumValue
 	- sumNode
 Keep a global maxNode(root) and update when needed

@@ -6,11 +6,11 @@ import BinaryTree
 # he root node down to the nearest leaf node.
 
 """
-Algo: DFS(Traverse) / Divide and Conquer
+Algo: DFS(Traverse) / Divide-and-Conquer
 D.S.: Binary Tree
 
 Solution:
-1. Divide and Conquer
+1. Divide-and-Conquer
 Calculate left/right sub tree then get the min + 1
 Similar to "Maximum Depth of Binary Tree"
 

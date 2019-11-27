@@ -64,7 +64,7 @@ class Solution:
             # 和combination dfs相比，顺序无关，进入下轮递归是无需记录startIdx
             # 通过visited来保障一个元素之访问一次
             self.dfs(nums, visited, perm, res)
-            # backtrack reset visited value,
+            # Backtracking reset visited value,
             # both visited and perm are list, in python, used by reference,
             # Their value is being modified in dfs
             visited[i] = False

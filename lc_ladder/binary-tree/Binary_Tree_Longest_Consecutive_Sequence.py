@@ -11,7 +11,7 @@ import BinaryTree
 #   5   4 5
 # Return 4 (1,2,3,4)
 """
-Algo: Divide and Conquer
+Algo: Divide-and-Conquer
 D.S.: Binary Tree
 
 Solution:

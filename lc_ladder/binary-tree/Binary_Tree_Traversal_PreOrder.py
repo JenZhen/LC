@@ -11,6 +11,8 @@ Solution:
 1. Recursion -- refer to illustration
 2. Iteration *** Important
 
+Time Complexity: O(n), n is number of nodes
+
 Corner cases:
 """
 
@@ -37,7 +39,7 @@ class Solution1(object):
 			helper(res, root.left)
 			helper(res, root.right)
 		helper(res, root)
-		return res  
+		return res
 
 class Solution2(object):
 	def preorderTraversal(self, root):
@@ -49,7 +51,7 @@ class Solution2(object):
 		if root is None:
 			return res
 		top = root
-		stack = [None] #Sentinal, when top reads None meaning all elements read 
+		stack = [None] #Sentinal, when top reads None meaning all elements read
 		while top:
 			res.append()
 			if top.right:

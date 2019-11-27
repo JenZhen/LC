@@ -15,7 +15,7 @@
 # 输出: ["0","1","8"]
 
 """
-Algo: DFS, Backtrace,
+Algo: DFS, Backtracking,
 D.S.: map
 
 Solution:

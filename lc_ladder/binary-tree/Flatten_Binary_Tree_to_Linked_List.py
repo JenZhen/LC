@@ -4,16 +4,16 @@ import BinaryTree
 # Example
 
 """
-Algo: DFS/Divide and Conquer/Traverse/Iteration
+Algo: DFS/Divide-and-Conquer/Traverse/Iteration
 D.S.: Binary Tree
 
 Solution:
-1. Divide and conquer
+1. Divide-and-Conquer
 - Given root, get left child tree right-most end node and right child tree
 - If left child tree right most node non-None, connect to right.child
 - return the right-most node of root (check right child then left child, if both None return root)
 
-1.1 Divide and conquer (no helper)
+1.1 Divide-and-Conquer (no helper)
 - Same as soluton1, recursion function don't return anything
 
 Time Complexity: O(N) all nodes are visited

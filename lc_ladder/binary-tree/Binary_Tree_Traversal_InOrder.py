@@ -10,6 +10,8 @@ Solution:
 1. Recursion -- refer to illustration
 2. Ireration *** Important
 
+Time Complexity: O(n), n is number of nodes
+
 Corner cases:
 """
 
@@ -36,7 +38,7 @@ class Solution1(object):
             helper(res, top.left)
             res.append(top.val)
             helper(res, top.right)
-            
+
         helper(res, top)
         return res
 

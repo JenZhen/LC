@@ -10,6 +10,8 @@ Solution:
 1.Recursion -- refer to illustration
 2.Iteration -- Important yet complicate, memorize it
 
+Time Complexity: O(n), n is number of nodes
+
 Corner cases:
 """
 
@@ -29,7 +31,7 @@ class Solution1(object):
 		res = []
 		if root is None:
 			return res
-		
+
 		top = root
 		def helper(res, top):
 			# left, right, mid
@@ -38,7 +40,7 @@ class Solution1(object):
 			helper(res, top.left)
 			helper(res, top.right)
 			res.append(top.val)
-			
+
 		helper(res, top)
 		return res
 

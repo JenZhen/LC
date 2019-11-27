@@ -9,7 +9,7 @@ D.S.: Back-Trace
 
 Solution 1:
 DFS
-** BackTrace Condition: idx is at the last of nums (all has tried to append)
+** Backtracking Condition: idx is at the last of nums (all has tried to append)
 
 [] --> init
 [1] -> [1,2] -> [1,2,3]

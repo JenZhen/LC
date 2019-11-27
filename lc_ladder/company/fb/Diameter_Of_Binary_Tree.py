@@ -19,7 +19,7 @@
 
 
 """
-Algo: Recursion, Divide and conquer
+Algo: Recursion, Divide-and-Conquer
 D.S.: Tree,
 
 Solution:

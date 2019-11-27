@@ -4,7 +4,7 @@ import linkedlist
 # Example
 
 """
-Algo: Divide and Conquer
+Algo: Divide-and-Conquer
 D.S.: Linked List/Array
 
 Solution:

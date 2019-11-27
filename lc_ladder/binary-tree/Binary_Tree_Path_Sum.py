@@ -5,7 +5,7 @@ import BinaryTree
 # has a root-to-leaf path such that adding up all the values along the path equals the given sum
 
 """
-Algo: Divide and Conquer
+Algo: Divide-and-Conquer
 D.S.: Binary Tree
 
 Core variations of this problems:

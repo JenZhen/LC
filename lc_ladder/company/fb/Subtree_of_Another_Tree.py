@@ -41,7 +41,7 @@ Algo: divide-conquer
 D.S.: Tree
 
 Solution:
-2层divide and conquer
+2层Divide-and-Conquer
 
 Corner cases:
 

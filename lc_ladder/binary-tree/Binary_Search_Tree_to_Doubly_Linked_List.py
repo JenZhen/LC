@@ -13,7 +13,7 @@ import BinaryTree
 # Inorder traversal: 1<=>2<=>3<=>4<=>5<=>6<=>7<=>8<=>9
 
 """
-Algo: DFS/Divide and Conquer
+Algo: DFS/Divide-and-Conquer
 D.S.: Binary Search Tree
 
 Solution:

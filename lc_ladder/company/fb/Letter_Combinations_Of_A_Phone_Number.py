@@ -41,7 +41,7 @@
 # 以上的答案是按照词典编撰顺序进行输出的，不过，在做本题时，你也可以任意选择你喜欢的输出顺序。
 
 """
-Algo: DFS, backtrack
+Algo: DFS, Backtracking
 D.S.:
 
 Solution:

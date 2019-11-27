@@ -11,7 +11,7 @@ import BinaryTree
 # https://leetcode.com/problems/binary-tree-paths/description/
 
 """
-Algo: DFS
+Algo: DFS, Divide-and-Conquer
 D.S.: Binary Tree
 
 Core variations of this problems:
@@ -19,12 +19,20 @@ Core variations of this problems:
 - How many does it have?
 - What are they?
 
-Solution:
+Solution_0: Divide-and-Conquer
+Time Complexity: O(N) -- N is number of nodes
+Space Complexity: ## TODO:
+
+Solution_1 to Solution_4: DFS traversal (Backtracking)
+Time Complexity: O(N) -- N is number of node
+Space Complexity: ## TODO:
+
 Classic DFS questions, template, very important
 1. recursively handle subres and push to res when necessary
 	res in each recursion level is different
 2. Use a stack to control path
 	DFS template, memorize it.
+
 
 FollowUp1:
 How many paths does this tree have?
@@ -34,101 +42,124 @@ Keys: how to handle the first element
 Corner cases:
 """
 
-class Solution1(object):
-	def binaryTreePaths(self, root):
-		"""
-		:type root: TreeNode
-		:rtype: List[str]
-		"""
-		res = []
-		if root is None:
-			return res
-		self.helper(root, res, "")
-		return res
+class Solution_0:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+		# 返回以当前节点为root所有的paths
+        if not root:
+			# null node 返回[]
+            return []
+        if not root.left and not root.right:
+            # at leaf node, return value built from leaves up to root
+			# 叶节点返回自己
+            return [str(root.val)]
 
-	def helper(self, node, res, subres):
-		if subres == "":
-			subres = str(node.val)
-		else:
-			subres = subres + "->" + str(node.val)
+		# 左孩子为root时的所有paths
+        leftPaths = self.binaryTreePaths(root.left)
+		# 右孩子为root时的所有paths
+        rightPaths = self.binaryTreePaths(root.right)
 
-		if node.left is None and node.right is None:
-			# note here no need to deep-copy
-			res.append(subres)
-		if node.left:
-			self.helper(node.left, res, subres) # this subres is same with node.right subres (since it's string type)
-		if node.right:
-			self.helper(node.right, res, subres)
-		# this "return is optional"
-		return
+		# 合并左右的paths 把当前node加在前面
+        curNodePath = []
+        for path in rightPaths + leftPaths:
+			# 巧用[]不会进入这层循环
+            curNodePath.append(str(root.val) + '->' + path)
+        return curNodePath
 
-class Solution1_1:
-    """
-    @param root: the root of the binary tree
-    @return: all root-to-leaf paths
-    """
-    def binaryTreePaths(self, root):
-        # write your code here
+class Solution_1:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
         res = []
         path = []
-        if not root:
-            return res
-        self.helper(res, path, root)
+        self.helper(root, res, path)
         return res
 
-    def helper(self, res, path, node):
+    def helper(self, node, res, path):
+		# append current level node
         path.append(node.val)
-        if node.left is None and node.right is None:
-            res.append("->".join([str(c) for c in path]))
+        if not node.left and not node.right:
+            res.append('->'.join([str(ele) for ele in path]))
+            return
         if node.left:
-            self.helper(res, path, node.left)
-            path.pop() # is using path, need to pop latest, it's passing reference to recusion
+            self.helper(node.left, res, path)
+			# pop node.left, path ends with current level node
+            path.pop()
         if node.right:
-            self.helper(res, path, node.right)
+            self.helper(node.right, res, path)
+			# pop node.right, path ends with current level node
             path.pop()
 
-class Solution2(object):
-	def binaryTreePaths(self, root):
-		"""
-		:type root: TreeNode
-		:rtype: List[str]
-		"""
-		res = []
-		if root is None:
-			return res
-		self.helper(root, res, [])
-		return res
+class Solution_2:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        res = []
+        path = []
+        self.helper(root, res, path)
+        return res
 
-	def helper(self, node, res, stack):
-		# stack is stack of string ver of node.val
-		stack.append(str(node.val))
-		if node.left is None and node.right is None:
-			res.append('->'.join(stack))
-		if node.left:
-			self.helper(node.left, res, stack)
-		if node.right:
-			self.helper(node.right, res, stack)
-		# Important
-		# After a node is recgonized as leaf and pushed in stack
-		# or it's both children are handled
-		# Meaning path thru this node is done, pop it.
-		stack.pop()
-		# This "return" is optional
-		return
+    def helper(self, node, res, path):
+		# append current level node
+        path.append(node.val)
+        if not node.left and not node.right:
+            res.append('->'.join([str(ele) for ele in path]))
+			# pop leaf, which is current level node
+            path.pop()
+            return
+        if node.left:
+            self.helper(node.left, res, path)
+        if node.right:
+            self.helper(node.right, res, path)
+		# pop current level node
+        path.pop()
 
-	# Alternative way of dfs function, same as above
-	# Most suggested way!!!!
-	def dfs(self, node, res, path):
-		# stack is stack of node.val
-		if node is None:
-			return
-		path.append(str(node.val))
-		if node.left is None and node.right is None:
-			res.append('->'.join(path))
-		self.helper(node.left, res, path)
-		self.helper(node.right, res, path)
-		path.pop()
-		return
+class Solution_3:
+	# same as Solution_2
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        res = []
+        path = []
+        self.helper(root, res, path)
+        return res
+
+    def helper(self, node, res, path):
+        if node is None:
+            return
+		# path append current level node
+        path.append(str(node.val))
+        if node.left is None and node.right is None:
+            res.append('->'.join(path))
+        self.helper(node.left, res, path)
+        self.helper(node.right, res, path)
+        path.pop()
+
+class Solution_4:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        res = []
+		# append current level node to path before recursion level starts
+        path = [root.val]
+        self.helper(root, res, path)
+        return res
+
+    def helper(self, node, res, path):
+		# path ends with current level node
+        if node.left is None and node.right is None:
+            res.append('->'.join(str(ele) for ele in path))
+        if node.left:
+			# path append node.left before recursion of node.left
+            path.append(node.left.val)
+            self.helper(node.left, res, path)
+			# path pop node.left, ends with current level node
+            path.pop()
+        if node.right:
+			# path append node.right before recursion of node.right
+            path.append(node.right.val)
+            self.helper(node.right, res, path)
+			# path pop node.right, ends with current level node
+            path.pop()
 
 class Solution_FollowUp_1(object):
 	def binaryTreePaths(self, root):
