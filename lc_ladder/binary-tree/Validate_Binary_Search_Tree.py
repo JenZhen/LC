@@ -14,28 +14,30 @@ Conditon:
 1. root meets min < root.val < max and
 2. children are validated as well
 
+Time Complexity: O(N) -- N is number of nodes
+c
 Corner cases:
 - child cannot be of the same value of parent
 
 """
-# tbd
-class Solution(object):
-    def isValidBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        def helper(node, min, max):
-            if node is None:
-                return True
-            if min < node.val and node.val < max:
-                return helper(node.left, min, node.val) and \
-                       helper(node.right, node.val, max)
-            else:
-                return False
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-        import sys
-        return helper(root, -sys.maxint, sys.maxint)
+class Solution:
+    import sys
+    def isValidBST(self, root: TreeNode) -> bool:
+        return self.helper(root, -sys.maxsize, sys.maxsize)
+
+    def helper(self, node, low, high):
+        if not node:
+            return True
+        return low < node.val < high and \
+               self.helper(node.left, low, node.val) and \
+               self.helper(node.right, node.val, high)
 
 # Test Cases
 if __name__ == "__main__":

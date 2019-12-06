@@ -79,7 +79,7 @@ class Solution_1:
         path.append(node.val)
         if not node.left and not node.right:
             res.append('->'.join([str(ele) for ele in path]))
-            return
+            return # return optional
         if node.left:
             self.helper(node.left, res, path)
 			# pop node.left, path ends with current level node
@@ -105,7 +105,7 @@ class Solution_2:
             res.append('->'.join([str(ele) for ele in path]))
 			# pop leaf, which is current level node
             path.pop()
-            return
+            return # must have this return
         if node.left:
             self.helper(node.left, res, path)
         if node.right:
@@ -132,6 +132,31 @@ class Solution_3:
             res.append('->'.join(path))
         self.helper(node.left, res, path)
         self.helper(node.right, res, path)
+		# path pop current level node
+        path.pop()
+
+class Solution_3_1:
+	# same as Solution_2
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        res = []
+        path = []
+        self.helper(root, res, path)
+        return res
+
+    def helper(self, node, res, path):
+        if node is None:
+            return
+		# path append current level node
+        path.append(str(node.val))
+        if node.left is None and node.right is None:
+            res.append('->'.join(path))
+			path.pop()
+			return # this return is a must
+        self.helper(node.left, res, path)
+        self.helper(node.right, res, path)
+		# path pop current level node
         path.pop()
 
 class Solution_4:

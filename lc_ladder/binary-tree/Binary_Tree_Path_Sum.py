@@ -1,11 +1,11 @@
 #!/usr/bin/python
 import BinaryTree
 # https://leetcode.com/problems/path-sum/description/
-# Given a binary tree and a sum, determine if the tree 
+# Given a binary tree and a sum, determine if the tree
 # has a root-to-leaf path such that adding up all the values along the path equals the given sum
 
 """
-Algo: Divide-and-Conquer
+Algo: DFS, Divide-and-Conquer, Backtracking
 D.S.: Binary Tree
 
 Core variations of this problems:
@@ -54,7 +54,7 @@ class Solution1_1(object):
 		"""
 		def dfs(node, res, path, target):
 			path.append(node.val)
-			# subSum += node.val 
+			# subSum += node.val
 			if node.left is None and node.right is None and sum(path) == target:
 				# Each time find target push in
 				# a bit waste of space
@@ -65,12 +65,12 @@ class Solution1_1(object):
 				dfs(node.right, res, path, target)
 			path.pop()
 			return
-		
+
 		res = []
 		path = []
 		if root is None:
 			return False
-		
+
 		dfs(root, res, path, target)
 		if len(res):
 			return True
@@ -90,7 +90,7 @@ class Solution1_2(object):
 		# Compared with 1_1 save much space for path[] and res[]
 		numPath = self.dfs(root, target)
 		return True if numPath != 0 else False
-	
+
 	def dfs(self, node, target):
 		res = 0
 		if node is None:
@@ -100,7 +100,7 @@ class Solution1_2(object):
 		res += self.dfs(node.left, target - node.val)
 		res += self.dfs(node.right, target - node.val)
 		return res
-		
+
 class Solution_FollowUp(object):
 	def pathSum(self, root, target):
 		"""
@@ -108,7 +108,7 @@ class Solution_FollowUp(object):
 		:type sum: int
 		:rtype: List[List[int]]
 		"""
-		
+
 		def dfs(node, res, path, target):
 			if node is None:
 				return
@@ -121,7 +121,7 @@ class Solution_FollowUp(object):
 			dfs(node.right, res, path, target - node.val)
 			path.pop()
 			return
-			
+
 		res = []
 		path = []
 		if root is None:
