@@ -9,7 +9,7 @@ D.S.: deque implmented queue;
 
 Solution:
 1. BFS
-Time: O(n) all nodes iterate once
+Time: O(N) all nodes iterate once
 
 2. DFS：not recommended
 Corner cases:
