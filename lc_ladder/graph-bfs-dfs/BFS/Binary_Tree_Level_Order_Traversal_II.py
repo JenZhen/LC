@@ -9,7 +9,7 @@ D.S.:
 
 Solution:
 BFS -- Same with Level Order traversal, just need to append at head or reverse the whole order
-Time: O(n)
+Time: O(N)
 Corner cases:
 """
 
