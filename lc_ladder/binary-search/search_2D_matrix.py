@@ -29,7 +29,7 @@ Solution 2: Recursion
 Corner cases:
 
 """
-# Solution 1 Loop 
+# Solution 1 Loop
 class Solution1(object):
 	def searchMatrix(self, matrix, target):
 		"""
@@ -43,6 +43,7 @@ class Solution1(object):
 		m = len(matrix)
 		n = len(matrix[0])
 		# Sticke to template 3
+		lo, hi = 0, m * n - 1
 		while lo + 1 < hi:
 		 	mid = (lo + hi) / 2
 		 	x = mid / n
@@ -59,7 +60,7 @@ class Solution1(object):
 			return True
 		else:
 			return False
-		
+
 
 # Solution 2 Recursion
 class Solution2(object):
@@ -75,7 +76,7 @@ class Solution2(object):
 		self.n = len(matrix[0]) # use self member varible easier for later use
 		lo, hi = 0, self.m * self.n - 1
 		return self.helper(lo, hi, matrix, target)
-	
+
 	def helper(self, lo, hi, matrix, target):
 		if lo > hi:
 			return False
@@ -93,6 +94,6 @@ class Solution2(object):
 if __name__ == "__main__":
 	solution1 = Solution1()
 	Solution2 = Solution2()
-	# 1. 
-	# 2. 
+	# 1.
+	# 2.
 	# 3.
