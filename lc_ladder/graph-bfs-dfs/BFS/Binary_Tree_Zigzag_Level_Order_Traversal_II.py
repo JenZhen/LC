@@ -30,8 +30,7 @@ class Solution:
         res = []
         if not root:
             return res
-        q = deque([])
-        q.append(root)
+        q = deque([root])
         isReversed = False
         while len(q):
             level = []
