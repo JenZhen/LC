@@ -11,11 +11,12 @@
 # By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,2,3,4,5,6].
 
 """
-Algo:
+Algo: Iterator
 D.S.:
 
 Solution:
-
+hasNext() method 只返回是否有下个数，不做找到下一个数的逻辑。否则每次调用都会找到下一个数
+next() method 返回下个数，并将iterator挪到下一个数的位置
 Corner cases:
 """
 
@@ -49,4 +50,3 @@ class Vector2D(object):
 
 # Test Cases
 if __name__ == "__main__":
-
