@@ -12,7 +12,7 @@
 """
 Algo:
 D.S.:
-
+重复的数不算
 Solution:
 Easy solution:
     1. Sort array, then iterate thru array

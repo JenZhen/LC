@@ -9,6 +9,11 @@ D.S.: iteration/recursion
 
 Solution:
 Similar to Tree, BFS, iteration with queue/stack and recursion methods
+Solution1:
+递归： DFS
+
+Solution2:
+queue/stack: BFS
 Corner cases:
 """
 
