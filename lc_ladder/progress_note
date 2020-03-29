@@ -23,3 +23,14 @@ Tree serialization/deserialization
 segment tree
 
 union find 模板
+
+
+Binary Search
+- Copy_Books, Wood_Cut
+- Egg drop
+- sqrt(x), divide(x, n) --> math, bit manipulation, power(x, n) --> recusion method to expand scalec
+
+
+TOOD:
+https://leetcode.com/problems/maximum-average-subarray-ii/
+https://leetcode.com/problems/divide-two-integers/

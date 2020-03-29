@@ -25,7 +25,10 @@ D.S.: deque implmented queue;
 Solution:
 BFS -- Same with Level Order traversal, just need to append at head or reverse the whole order
 Time: O(N)
+<<<<<<< HEAD:lc_ladder/graph-bfs-dfs/BFS/Binary_Tree_Level_Order_Traversal_II.py
 
+=======
+>>>>>>> 6e6be9f8502d513d22931fd09d42ab273e367d36:lc_ladder/Basic_Algo/graph-bfs-dfs/BFS/Binary_Tree_Level_Order_Traversal_II.py
 Corner cases:
 Pitfall:
 return res.reverse() is an empty list []
