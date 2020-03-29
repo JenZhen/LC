@@ -47,6 +47,7 @@ class Stack(object):
         while self.q1.qsize() > 1:
             self.q2.put(self.q1.get())
         poppedItem = self.q1.get()
+        self.q2.put(poppedItem)
         self.q1, self.q2 = self.q2, self.q1
         return poppedItem
 
