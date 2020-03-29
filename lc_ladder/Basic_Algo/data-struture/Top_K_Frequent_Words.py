@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # http://lintcode.com/en/problem/top-k-frequent-words/
+# https://leetcode.com/problems/top-k-frequent-words/
 # Example
 # Given a non-empty list of words, return the k most frequent elements.
 #
@@ -23,7 +24,7 @@
 # Try to solve it in O(n log k) time and O(n) extra space.
 
 """
-Algo:
+Algo: heap sort comparator
 D.S.:
 
 Solution:
@@ -31,6 +32,15 @@ Solution:
 TODO: python 的各种sort
 - built-in sorted(list, key: )
 - list.sort(cmp=comparator)
+
+Solution2:
+heap sort 排序
+如果是MIN HEAP FREQ 升序，WORD 也是升序
+如果用positive freq:
+[(1, 'a'), (1, 'day'), (2, 'sunny'), (3, 'is'), (4, 'the')]
+如果用negative freq:
+[(-4, 'the'), (-3, 'is'), (-1, 'a'), (-1, 'day'), (-2, 'sunny')]
+区别在于相同freq的Word 排序
 
 Corner cases:
 """
@@ -73,6 +83,17 @@ def topKFrequentWords(self, words, k):
         for i in xrange(k):
             result.append(wordList[i][0])
         return result
+
+
+class Solution2:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        from heapq import heappush, heappop, heapify
+        count = collections.Counter(words)
+        # heap: min heap, freq 升序 Word 也是升序 Time：O(nlogn)
+        heap = [(-freq, word) for word, freq in count.items()]
+        heapq.heapify(heap)
+        return [heapq.heappop(heap)[1] for _ in range(k)]
+
 
 # Test Cases
 if __name__ == "__main__":
