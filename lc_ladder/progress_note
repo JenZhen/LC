@@ -17,6 +17,7 @@
     Quick select
         partition**
     要会第Kth大 和 第kth小
+    median of two sorted array
 
 List/Array:
     LRU cache
