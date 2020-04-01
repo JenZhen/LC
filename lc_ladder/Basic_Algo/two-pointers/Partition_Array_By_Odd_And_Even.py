@@ -10,27 +10,25 @@ Algo: two pointers
 D.S.:
 
 Solution:
-Solution2 and 3 mapps to Parition Array solution 2 and 3
-Solution1 takes extra O(n) space
+Time: O(n)
+Space: O(1)
+
+可以使用Quick sort partition 模板
 Corner cases:
 """
 
-class Solution1:
+class Solution:
     """
     @param: nums: an array of integers
     @return: nothing
     """
     def partitionArray(self, nums):
         # write your code here
-        # In the example, original order is maintained
-        odd = []
-        even = []
-        for n in nums:
-            if n % 2 == 1:
-                odd.append(n)
-            else:
-                even.append(n)
-        return odd + even
+        p = -1
+        for i in range(len(nums)):
+            if nums[i] % 2 == 1:
+                p += 1
+                nums[i], nums[p] = nums[p], nums[i]
 
 
 class Solution2:
