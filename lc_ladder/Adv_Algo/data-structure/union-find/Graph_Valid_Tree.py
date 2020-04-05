@@ -15,7 +15,7 @@ Solution:
 Time: O(n) n * O(1) -- n nodes, n - 1 valid edges, 2(n - 1) union-find operation on those nodes
 
 2. BFS
-TODO:
+See Basic_Algo/graph-bfs-dfs/BFS
 Corner cases:
 - Invalid input: n - 1 != len(edges)
 

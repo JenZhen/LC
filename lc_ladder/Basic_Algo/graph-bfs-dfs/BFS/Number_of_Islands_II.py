@@ -1,11 +1,11 @@
 #! /usr/local/bin/python3
 
-# Requirement
+# https://leetcode.com/problems/number-of-islands-ii/submissions/
 # Example
 
 """
 Algo:
-D.S.:
+D.S.: UnionFind
 
 Solution:
 

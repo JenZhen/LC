@@ -8,6 +8,8 @@
      中序iteration
      后序iteration
 
+     serialize/deserialize Basic_Algo/graph-bfs-dfs/BFS
+        - BFS and DFS
 排序：
     merge sort
     quick sort
@@ -27,8 +29,18 @@ Tree serialization/deserialization
 
 segment tree
 
-union find 模板
+BFS
 
+union find 模板
+    熟练默写
+        - init size = n
+        - init size = 0
+
+    Account Merge (FB)
+
+DFS
+    # TODO: Critical path
+    
 双指针
     triangle count
 
