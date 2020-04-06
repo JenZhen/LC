@@ -49,30 +49,58 @@ Algo:
 D.S.:
 
 Solution1:
-# # TODO: didn't pass oj ????
 
 BFS 暴力rescale 形状，并遍历所有的可能性
 
 set 可以hash list of strings, 不能hash list of list
 
 形状变形
+t1 = tuple(rows)
+t2 = tuple(rows[::-1])
+t3 = tuple([s[::-1] for s in rows])
+t4 = tuple([s[::-1] for s in rows[::-1]])
 
-        t1 = tuple(rows)
-        t2 = tuple(rows[::-1])
-        t3 = tuple([s[::-1] for s in rows])
-        t4 = tuple([s[::-1] for s in rows[::-1]])
+t5 = tuple(cols)
+t6 = tuple(cols[::-1])
+t7 = tuple([s[::-1] for s in cols])
+t8 = tuple([s[::-1] for s in cols[::-1]])
 
-        t5 = tuple(cols)
-        t6 = tuple(cols[::-1])
-        t7 = tuple([s[::-1] for s in cols])
-        t8 = tuple([s[::-1] for s in cols[::-1]])
+t1 111
+   001
+t2 001
+   111
+t3 111
+   100
+t4 100
+   111
+
+t5 10
+   10
+   11
+t6 11
+   10
+   10
+t7 01
+   01
+   11
+t8 11
+   01
+   01
+
+为什么取到形状之后要把-1变回0
+01110
+01000
+11011
+11000
+11110
+在这个例子中，一个范围里有2个岛
 
 Solution2:
 Canonical Hash Method to identify unique shape
 # # TODO: syntax not pass python3 OJ
 Corner cases:
 """
-class Solution_BFS(object):
+class Solution(object):
     def numDistinctIslands2(self, grid):
         """
         :type grid: List[List[int]]
@@ -143,6 +171,8 @@ class Solution_BFS(object):
             for i in range(top, bottom + 1):
                 if grid[i][j] == -1:
                     col += '1'
+                    # IMPORTANT to change to 0
+                    grid[i][j] = 0
                 else:
                     col += '0'
             cols_present.append(col)
@@ -169,43 +199,6 @@ class Solution_BFS(object):
         if t7 in shape_set: return
         if t8 in shape_set: return
 
-        shape_set.add(t1)
-
-class Solution_Canonical:
-    def numDistinctIslands2(self, grid: List[List[int]]) -> int:
-        seen = set()
-        def explore(r, c):
-            if (0 <= r < len(grid) and 0 <= c < len(grid[0]) and
-                    grid[r][c] and (r, c) not in seen):
-                seen.add((r, c))
-                shape.add(complex(r, c))
-                explore(r+1, c)
-                explore(r-1, c)
-                explore(r, c+1)
-                explore(r, c-1)
-
-        def canonical(shape):
-            def translate(shape):
-                w = complex(min(z.real for z in shape),
-                            min(z.imag for z in shape))
-                return sorted(str(z-w) for z in shape)
-
-            ans = None
-            for k in range(4):
-                ans = max(ans, translate([z * (1j)**k for z in shape]))
-                ans = max(ans,  translate([complex(z.imag, z.real) * (1j)**k
-                                           for z in shape]))
-            return tuple(ans)
-
-        shapes = set()
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                shape = set()
-                explore(r, c)
-                if shape:
-                    shapes.add(canonical(shape))
-
-        return len(shapes)
-# Test Cases
+        shape_set.add(t1)# Test Cases
 if __name__ == "__main__":
     solution = Solution()
