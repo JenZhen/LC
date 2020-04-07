@@ -23,3 +23,8 @@
 1) Max/Min 2) Yes/No 3) Count
 
 - Input type of data cannot be sorted/swapped
+
+
+LIS 题型
+    - 普通 O(n ^ 2)
+    - 二分 O(nlogn)

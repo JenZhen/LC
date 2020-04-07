@@ -12,6 +12,8 @@ Algo: Sequence DP
 D.S.:
 
 Solution:
+经典基本题型
+
 - State: f[i]: ends with nums[i], how long the increasing sub-sequence is
 - Function: f[i] = max(f[i], f[j] + 1)
 - Initialization: f[] init as all 1 since worst case -- decreasing sequence -- value of be 1 (the min case)
@@ -21,6 +23,12 @@ Solution:
 
 Time: O(n ^ 2)
 Space: O(n)
+
+Solution2
+DP + Binary Search
+Time: O(nlogn)
+Space: O(n)
+
 
 Corner cases:
 """
@@ -43,6 +51,20 @@ class Solution:
                 else:
                     f[i] = max(f[i], f[j] + 1)
         return max(f)
+
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        dp = []
+
+        for i in nums:
+            idx = bisect.bisect_left(dp, i)
+            if idx == len(dp):
+                dp.append(i)
+            else:
+                dp[idx] = i
+        return len(dp)
 
 # Test Cases
 if __name__ == "__main__":

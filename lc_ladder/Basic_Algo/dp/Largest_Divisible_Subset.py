@@ -46,40 +46,36 @@ class Solution:
     """
     def largestDivisibleSubset(self, nums):
         # write your code here
-        if not nums:
-            return None
-        if len(nums) <= 1:
-            return nums
-        # init
-        length = len(nums)
+        if not nums: return []
         nums.sort()
-        seq = [1] * length
-        pre = [-1] * length
-        # iterate through to calculate
-        for i in range(1, length):
+
+        # init and prepare pre and seq
+        pre = [-1] * len(nums)
+        seq = [1] * len(nums)
+
+        for i in range(1, len(nums)):
             for j in range(i):
                 if nums[i] % nums[j] == 0:
-                    seq[i] = seq[j] + 1
-                    pre[i] = j
-        # get answer array
-        res = []
-        maxSeq = 0
+                    if seq[j] + 1 > seq[i]:
+                        seq[i] = seq[j] + 1
+                        pre[i] = j
+
+        # find the end of the longest seq
+        maxSeq = 1
         maxIdx = 0
         maxPre = -1
-        for i in range(length):
+        for i in range(len(nums)):
             if seq[i] > maxSeq:
                 maxSeq = seq[i]
                 maxPre = pre[i]
                 maxIdx = i
 
-        res.append(nums[maxIdx])
+        # reversely find the set
+        res = [nums[maxIdx]]
         while maxPre != -1:
             res.append(nums[maxPre])
             maxPre = pre[maxPre]
-        repr(seq)
-        repr(pre)
-        res.reverse()
-        return res
+        return res[::-1]
 
 def repr(arr):
     if not arr:
