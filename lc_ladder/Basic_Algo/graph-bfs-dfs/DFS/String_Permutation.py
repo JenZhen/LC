@@ -1,8 +1,24 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/string-permutation/
+# https://leetcode.com/problems/permutation-in-string/submissions/
 # Example
-# abcd is a permutation of bcad, but abbe is not a permutation of abe
+# Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. 
+# In other words, one of the first string's permutations is the substring of the second string.
+# Example 1:
+#
+# Input: s1 = "ab" s2 = "eidbaooo"
+# Output: True
+# Explanation: s2 contains one permutation of s1 ("ba").
+# Example 2:
+#
+# Input:s1= "ab" s2 = "eidboaoo"
+# Output: False
+#
+#
+# Note:
+#
+# The input strings only contain lower case letters.
+# The length of both given strings is in range [1, 10,000].
 
 """
 Algo:
@@ -17,25 +33,27 @@ Corner cases:
 """
 
 class Solution:
-    """
-    @param A: a string
-    @param B: a string
-    @return: a boolean
-    """
-    def Permutation(self, A, B):
-        # write your code here
-        if A is None or B is None or len(A) != len(B):
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s2) < len(s1):
             return False
 
-        arrA = [0 for i in range(256)]
-        arrB = [0 for i in range(256)]
-        for char in A:
-            arrA[ord(char)] += 1
-        for char in B:
-            arrB[ord(char)] += 1
+        s1_slot = [0] * 256
+        for ch in s1:
+            s1_slot[ord(ch)] += 1
 
-        for i in range(256):
-            if arrA[i] != arrB[i]:
+        for i in range(len(s2) - len(s1) + 1):
+            if s1_slot[ord(s2[i])] > 0:
+                s2_slot = [0] * 256
+                for j in range(i, i + len(s1)):
+                    # build s2_slot
+                    s2_slot[ord(s2[j])] += 1
+                if self.match(s1_slot, s2_slot):
+                    return True
+        return False
+
+    def match(self, s1_slot, s2_slot):
+        for i in range(len(s1_slot)):
+            if s1_slot[i] != s2_slot[i]:
                 return False
         return True
 
