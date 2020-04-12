@@ -70,7 +70,7 @@ class Solution1:
             res.append(path[:])
             return
         for word in self._get_next_words(from_word, dict):
-            if distance[word] < distance[from_word]:
+            if word in distance and distance[word] < distance[from_word]:
                 path.append(word)
                 self.dfs(word, to_word, distance, dict, path, res)
                 path.pop()

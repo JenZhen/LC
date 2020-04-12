@@ -27,14 +27,27 @@
 Algo: 经典BFS
 D.S.:
 
-Solution:
+Solution1:
+超时
 - 层级BFS数层数 模板
 - 注意一些细节：end 应该先加在dict中
+优化点在getPossibleVariations 每个数
+共有M个词，每个数L长度
+O(M * L * 26）
+另外 nextWord in dict 是O(M) 因为是LIST 查询不是SET
+Time: O(M * L * 26 * M）
+
+Solution2:
+用一个模糊查询词来存可能的变形
+准备dict O(M * L * 26)
+BFS O(M * L)
+总共 Time: O(M * L) + O(M * L * 26)
+Space: O(M * L) -- dict key number
 
 Corner cases:
 """
 
-class Solution:
+class Solution1:
     """
     @param: start: a string
     @param: end: a string
@@ -70,7 +83,7 @@ class Solution:
                     visited.add(word)
         return 0
 
-    # O(26 * L^2)
+    # O(26 * L)
     # L is the length of word
     def getPossibleVariations(self, word):
         chars = "abcdefghijklmnopqrstuvwxyz"
@@ -83,7 +96,42 @@ class Solution:
                 ans.append(newWord)
         return ans
 
+class Solution_Optimal:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if not beginWord or not endWord or not wordList:
+            return 0
 
+        # build wordMap
+        # key: 'h*t' val: {'hit', 'hot'}
+        wordMap = {}
+        for word in wordList:
+            for i in range(len(word)):
+                vagueWord = word[:i] + '*' + word[i + 1 :]
+                if vagueWord not in wordMap:
+                    wordMap[vagueWord] = set()
+                wordMap[vagueWord].add(word)
+
+        # Prepare BFS 数层模板
+        visited = set([beginWord])
+        step = 0
+        q = collections.deque([beginWord])
+
+        while q:
+            step += 1
+            size = len(q)
+            for _ in range(size):
+                curWord = q.popleft()
+                if curWord == endWord:
+                    return step
+                # 根据当前 的 模糊 字符 来选择下一个变形
+                for i in range(len(curWord)):
+                    vagueWord = curWord[:i] + '*' + curWord[i + 1 :]
+                    if vagueWord in wordMap:
+                        for word in wordMap[vagueWord]:
+                            if word not in visited:
+                                q.append(word)
+                                visited.add(word)
+        return 0
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

@@ -44,6 +44,7 @@ DFS
         Permutation， Permutation_II
         Combination, Combinaton_II
 
+
 双指针
     triangle count
 
@@ -53,6 +54,9 @@ Binary Search
 - sqrt(x), divide(x, n) --> math, bit manipulation, power(x, n) --> recusion method to expand scalec
 
 
+DP:
+类似的题：
+    LC 1278, LC 813 -- TODO
 TOOD:
 https://leetcode.com/problems/maximum-average-subarray-ii/
 https://leetcode.com/problems/divide-two-integers/
