@@ -1,8 +1,16 @@
 #!/usr/bin/python
 import linkedlist
-# http://www.jiuzhang.com/solution/insert-into-a-cyclic-sorted-list/
+# https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/
 # Singly linked list, sorted, given a node of it and a value
 # Return the node where the new value is inserted
+# Given a node from a Circular Linked List which is sorted in ascending order,
+#write a function to insert a value insertVal into the list such that it remains a sorted circular list. The given node can be a reference to any single node in the list, and may not be necessarily the smallest value in the circular list.
+
+# If there are multiple suitable places for insertion, you may choose any place to insert the new value.
+# After the insertion, the circular list should remain sorted.
+#
+# If the list is empty (i.e., given node is null), you should create a new single circular list and
+# return the reference to that single node. Otherwise, you should return the original given node.
 
 """
 Algo: Traverse a singly list
@@ -17,56 +25,50 @@ Based on where the given node is, find the position new nodes shold be.
 3. Given node = 1, x = 7
 4. Given node = 1, x = 0
 
-Keep a small searching window of 2 nodes, p1, p2, where p1.next = p2
-Case1. p1 < p1 (mostly) and p1 <= x <= p2, x should be in-between
-	Very important, this case handle value equal case
-Case2. p1 > p2 (p1 max, p2 min),
-	if x > p1, x > max, insert after p1
-	if x < p2, x < min, insert before p2 (after p1)
+Consider cases:
+1. [] head is None
+2. [1] single node circle
+3. [1, 3] 2 or [1, 3] 1 or [1, 3] 3 put in betwee
+4. [3, 1] 2 or [3, 1] 3 or [3, 1] 1
+5. [1, 2] 3
+6. [1, 2] 0
+7. [1, 1] 3
+8. [1, 1] 0
 
-Time Complexity: O(N) iterate thru the whole list
-Corner cases:
-1. Given node is None, list is empty
-2. Given list has one node (can be merged in regular case)
-Consider value equal case
+case 7. 8 需要判断cursor是不是又回到 head
 """
-
-"""
-Definition of ListNode
-class ListNode(object):
-
-	def __init__(self, val, next=None):
-		self.val = val
-		self.next = next
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, next=None):
+        self.val = val
+        self.next = next
 """
 class Solution:
-	# @param {ListNode} node a list node in the list
-	# @param {int} x an integer
-	# @return {ListNode} the inserted new list node
-	def insert(self, node, x):
-		# Write your code here
-		if node is None:
-			curNode = listNode(x)
-			curNode.next = curNode
-			return curNode
+    def insert(self, head: 'Node', insertVal: int) -> 'Node':
+        if not head:
+            node = Node(insertVal)
+            node.next = node
+            return node
+        p1 = head
+        p2 = head.next
 
-		p1 = node
-		p2 = node.next
-		while True:
-			# case 1 and p1 == p2 case
-			if p1.val <= x and p2.val:
-				break
-			# case 2
-			if p1.val > p1.val and (x > p1.val or x < p2.val):
-				break
-			p1 = p2
-			p2 = p2.next
+        while True:
+			# break represents finding the location to insert
+			# 1.r
+            if p1.val <= insertVal <= p2.val:
+                break
+            if p1.val > p2.val and (p1.val <= insertVal or insertVal <= p2.val):
+                break
+            p1 = p2
+            p2 = p2.next
 
-		# Insert in between p1, p2
-		curNode = listNode(x)
-		p1.next = curNode
-		curNode.next = p2
-		return curNode
+            if p1 == head:
+                break
+
+        node = Node(insertVal)
+        p1.next = node
+        node.next = p2
+        return head
 
 
 # Test Cases

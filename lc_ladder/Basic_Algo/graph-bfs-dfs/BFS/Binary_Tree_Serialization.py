@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/serialize-and-deserialize-binary-tree/description
+# https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 # Example
 # {1,#,2}
 #   1

@@ -1,91 +1,70 @@
 #! /usr/local/bin/python3
 
-# https://lintcode.com/problem/clone-graph/description
+# https://leetcode.com/problems/clone-graph/submissions/
 # Example
 
 """
-Algo: BFS
+Algo: BFS/DFS
 D.S.: deque implemented queue, map
 
 Solution:
+BFS:
 Time: O(n)
+Space: O(n)
+
+DFS:
+Time: O(n)
+Space: O(n)
 
 Corner cases:
 """
+
 """
-Definition for a undirected graph node
-class UndirectedGraphNode:
-    def __init__(self, x):
-        self.label = x
-        self.neighbors = []
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = []):
+        self.val = val
+        self.neighbors = neighbors
 """
 
-from collections import deque
-class Solution:
-    """
-    @param: node: A undirected graph node
-    @return: A undirected graph node
-    """
-    def cloneGraph(self, node):
-        # write your code here
-        root = node
+class Solution_BFS:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+
+        q = collections.deque([node])
+        node_map = {}
+        node_map[node] = Node(node.val, [])
+
+        while q:
+            cur_node = q.popleft()
+            for n in cur_node.neighbors:
+                # 一定要考虑是否访问过NODE n
+                if n not in node_map:
+                    node_map[n] = Node(n.val)
+                    q.append(n)
+                node_map[cur_node].neighbors.append(node_map[n])
+        return node_map[node]
+
+
+class Solution_DFS:
+    def __init__(self):
+        self.map = {}
+    def cloneGraph(self, node: 'Node') -> 'Node':
+
         if not node:
             return node
 
-        nodes = self.getNodes(node)
-        nodeMap = {}
-        # copy nodes
-        for node in nodes:
-            nodeMap[node] = UndirectedGraphNode(node.label)
-        # copy edges/neighbors
-        for node in nodes:
-            for neighbor in node.neighbors:
-                nodeMap[node].neighbors.append(nodeMap[neighbor])
-        # IMPORTANT:
-        # return nodeMap[node], is wrong in lintcode, need a copy of node
-        # Even tho I don't think value of node is modified
-        return nodeMap[root]
+        if node in self.map:
+            return self.map[node]
 
-    def getNodes(self, node):
-        s = set()
-        q = deque([])
-        q.append(node)
-        s.add(node)
-        while len(q):
-            cur = q.popleft()
-            for neighbor in cur.neighbors:
-                if neighbor not in s:
-                    q.append(neighbor)
-                    s.add(neighbor)
-        return s
+        clone_node = Node(node.val)
 
-#  additionally, compare 2 methods of getting all nodes
-def getNodes(self, node):
-        s1 = set()
+        self.map[node] = clone_node
 
-        q1 = deque([])
-        q1.append(node)
-        s1.add(node)
-        while len(q1):
-            cur = q1.popleft()
-            for neighbor in cur.neighbors:
-                if neighbor not in s1:
-                    q1.append(neighbor)
-                    s1.add(neighbor)
-        print("s1: %s" %(','.join([str(ele.label) for ele in s1])))
-        s2 = set()
-        q2 = [node]
-        s2.add(node)
-        idx = 0
-        while idx < len(q2):
-            cur = q2[idx]
-            for neighbor in cur.neighbors:
-                if neighbor not in s2:
-                    q2.append(neighbor)
-                    s2.add(neighbor)
-            idx += 1
-        print("s2: %s" %(','.join([str(ele.label) for ele in s2])))
-        return s2
+        clone_node.neighbors = [self.cloneGraph(n) for n in node.neighbors]
+
+        return clone_node
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

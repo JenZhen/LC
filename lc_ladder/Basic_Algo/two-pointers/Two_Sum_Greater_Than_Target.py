@@ -2,7 +2,8 @@
 
 # http://www.jiuzhang.com/solution/two-sum-greater-than-target/
 # Example
-# Given an array of integers, find how many pairs in the array such that their sum is bigger than a specific target number. Please return the number of pairs.
+# Given an array of integers, find how many pairs in the array such that
+# their sum is bigger than a specific target number. Please return the number of pairs.
 
 """
 Algo: Sort, two pointers

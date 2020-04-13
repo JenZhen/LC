@@ -52,25 +52,22 @@ class Solution1:
                     f[i] = max(f[i], f[j] + 1)
         return max(f)
 
-class Solution2:
-    """
-    @param: envelopes: a number of envelopes with widths and heights
-    @return: the maximum number of envelopes
-    """
-    def maxEnvelopes(self, envelopes):
-        # Write your code here
-        height = [a[1] for a in sorted(envelopes, key = lambda x: (x[0], -x[1]))]
-        dp, length = [0] * len(height), 0
-        print("dp: %s" %repr(dp))
-        import bisect
-        for h in height:
-            i = bisect.bisect_left(dp, h, 0, length)
-            print("i: %s" %(i))
-            dp[i] = h
-            if i == length:
-                length += 1
-                print("length: %s" %(length))
-        return length
+cclass Solution:
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        envelopes.sort(key=lambda x: (x[0], -x[1]))
+        print(envelopes)
+        def lis(nums):
+            dp = []
+            for i in range(len(nums)):
+                idx = bisect_left(dp, nums[i])
+                if idx == len(dp):
+                    dp.append(nums[i])
+                else:
+                    dp[idx] = nums[i]
+            print(dp)
+            return len(dp)
+        # extract the second dimension and run the LIS
+        return lis([i[1] for i in envelopes])
 
 # Test Cases
 if __name__ == "__main__":

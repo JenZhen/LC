@@ -32,7 +32,7 @@ class ConnectingGraph2:
     """
     def __init__(self, n):
         # do intialization if necessary
-        self.count = [1] * (n + 1)
+        self.count = [1] * (n + 1) # 以i为ROOT的GROUP有几个元素
         self.father = [i for i in range(n + 1)]
 
     def find(self, a):

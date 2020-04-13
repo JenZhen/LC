@@ -9,63 +9,50 @@ D.S.: deque-implemented queue
 
 Solution:
 Solution1:Same as lc_ladder/advanced/data-structure/union-find
+
 Solution2: BFS
 Define of invalid tree
 1. loop
 2. not connected dot
 
 conditions
-1.
-len(edges) == n - 1
-2.
-connectedSet size == n
-
+1.len(edges) == n - 1
+2.ConnectedSet size == n
 Time: O(n)
 
 Corner cases:
 """
 
 class Solution:
-    """
-    @param n: An integer
-    @param edges: a list of undirected edges
-    @return: true if it's a valid tree, or false
-    """
-    def validTree(self, n, edges):
-        # write your code here
-        from collections import deque
-
-        if not n or edges is None or len(edges) != (n - 1):
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        # 很重要的一个CORNER CASE
+        # 只有一个节点 没有边
+        if n == 1 and len(edges) == 0:
+            return True
+        if not n or not edges or len(edges) != n - 1:
             return False
 
-        treeGraph = self.getTreeGraph(n, edges)
-        q = deque([])
-        visited = set()
-        q.append(0)
-        visited.add(0) # visited used to make sure visted node not visted again, so q won't be inifinte loop
-        while len(q):
-            cur = q.popleft()
-            neighbors = treeGraph[cur]
-            print("%s 's neigh: %s" %(cur, neighbors))
-            for nei in neighbors:
-                if nei in visited:
-                    continue
-                q.append(nei)
-                visited.add(nei)
-        print("visited size: %s, %s" %(len(visited), n))
+        graph = self.getTreeGraph(n, edges)
+
+        visited = set([0])
+        q = collections.deque([0])
+
+        while q:
+            cur_node = q.popleft()
+            for node in graph[cur_node]:
+                if node not in visited:
+                    visited.add(node)
+                    q.append(node)
         return len(visited) == n
 
-
     def getTreeGraph(self, n, edges):
-        graph = {}
-        for i in range(n):
-            graph[i] = set()
-
+        graph = [[] for _ in range(n)]
         for e in edges:
             u, v = e[0], e[1]
-            graph[u].add(v)
-            graph[v].add(u)
+            graph[u].append(v)
+            graph[v].append(u)
         return graph
+
 
 # Test Cases
 if __name__ == "__main__":

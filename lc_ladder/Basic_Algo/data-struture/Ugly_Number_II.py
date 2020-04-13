@@ -26,6 +26,10 @@ x*5, x*5, x*5, x*5, x*5, x*5, --- * 5
 
 essentially it's 4 sorted array merge find the top k
 
+Solution2:
+DP
+Time: O(n)
+Space: O(n)
 Corner cases:
 """
 
@@ -53,7 +57,31 @@ class Solution(object):
             n -= 1
         return val
 
+class Solution2:
+    def nthUglyNumber(self, n: int) -> int:
+        if not n:
+            return 0
 
+        arr = [0 for _ in range(n)]
+        arr[0] = 1 # the 1st number is 1
+        idx2, idx3, idx5 = 0, 0, 0 # 2, 3, 5 init at arr[0] position
+
+        # the n-th ugly number at idx n - 1
+        for i in range(1, n):
+            val2 = 2 * arr[idx2]
+            val3 = 3 * arr[idx3]
+            val5 = 5 * arr[idx5]
+
+            val = min([val2, val3, val5])
+            print(val)
+            arr[i] = val
+            if val == val2:
+                idx2 += 1
+            if val == val3:
+                idx3 += 1
+            if val == val5:
+                idx5 += 1
+        return arr[n - 1]
 # Test Cases
 if __name__ == "__main__":
 	solution = Solution()

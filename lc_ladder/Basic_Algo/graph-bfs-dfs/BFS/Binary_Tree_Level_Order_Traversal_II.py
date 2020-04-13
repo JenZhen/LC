@@ -25,11 +25,7 @@ D.S.: deque implmented queue;
 Solution:
 BFS -- Same with Level Order traversal, just need to append at head or reverse the whole order
 Time: O(N)
-<<<<<<< HEAD:lc_ladder/graph-bfs-dfs/BFS/Binary_Tree_Level_Order_Traversal_II.py
 
-=======
->>>>>>> 6e6be9f8502d513d22931fd09d42ab273e367d36:lc_ladder/Basic_Algo/graph-bfs-dfs/BFS/Binary_Tree_Level_Order_Traversal_II.py
-Corner cases:
 Pitfall:
 return res.reverse() is an empty list []
 should do res.reverse(), then return res
@@ -45,25 +41,23 @@ class TreeNode:
 """
 class Solution:
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        from collections import deque
         if not root:
             return []
-        from collections import deque
-        res = []
         q = deque([root])
+        res = []
         while q:
-            size = len(q)
-            level_tmp = []
-            for i in range(size):
-                cur = q.popleft()
-                level_tmp.append(cur.val)
-                if cur.left:
-                    q.append(cur.left)
-                if cur.right:
-                    q.append(cur.right)
-            res.append(level_tmp[:])
-        res.reverse()
-        return res
-
+            level_size = len(q)
+            level = []
+            for _ in range(level_size):
+                cur_node = q.popleft()
+                level.append(cur_node.val)
+                if cur_node.left:
+                    q.append(cur_node.left)
+                if cur_node.right:
+                    q.append(cur_node.right)
+            res.append(level[:])
+        return res[::-1]
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

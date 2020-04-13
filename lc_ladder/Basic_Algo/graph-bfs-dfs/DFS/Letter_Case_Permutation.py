@@ -61,6 +61,28 @@ class Solution1:
         if 'A' <= S[i] <= 'Z':
             return S[i].lower()
 
+class Solution_BFS:
+    def letterCasePermutation(self, S: str) -> List[str]:
+        res = [[]]
+
+        for ch in S:
+            size = len(res)
+            if ch.isalpha():
+                # if is a letter
+                for i in range(size):
+                    newlist = res[i][:]
+                    res[i].append(ch.lower())
+                    newlist.append(ch.upper())
+                    res.append(newlist)
+            else:
+                # if a number
+                for i in range(size):
+                    res[i].append(ch)
+        ans = []
+        for li in res:
+            ans.append(''.join(li))
+        return ans
+
 class Solution_DFS_BEST:
     """
     @param S: a string

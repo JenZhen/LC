@@ -15,7 +15,7 @@ D.S.:
 Solution:
 Using Partition Array Solution1 idea
 Time: O(N)
-Space: O(1
+Space: O(1）
 
 Corner cases:
 - while loop condition is to i <= r, r meaning everything after r are examined

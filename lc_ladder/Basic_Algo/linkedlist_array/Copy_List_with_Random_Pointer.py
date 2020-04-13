@@ -16,7 +16,7 @@ Solution:
 Time Complexity: O(2 * N)
 Space Compelxity: O(N)
 
-2. 1 roudn of travese
+2. 1 round of travese
 	- Copy next node and random node at same time
 	- for next and random check hashMap if exist then connects
 

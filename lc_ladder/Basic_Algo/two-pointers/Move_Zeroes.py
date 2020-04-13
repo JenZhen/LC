@@ -16,6 +16,19 @@ Solution:
 This is a classic case of partition while keep original order
 Corner cases:
 """
+
+class Solution_Partition:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        p = -1
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                p += 1
+                nums[p], nums[i] = nums[i], nums[p]
+
+
 class Solution(object):
     def moveZeroes(self, nums):
         """
