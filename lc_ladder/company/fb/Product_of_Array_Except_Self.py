@@ -34,6 +34,10 @@ Algo: 数组左右各扫一遍
 D.S.: Array
 
 Solution:
+origin [1,2,3,4]
+left   [1,1,2,6]
+right  [24,12,4,1]
+res 
 Time：O(n)
 Space：O(n)
 

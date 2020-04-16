@@ -44,6 +44,9 @@ DFS
         Permutation， Permutation_II
         Combination, Combinaton_II
 
+        DFS + Trie
+            Word search/Word Squares/Boggle Game
+
 
 双指针
     triangle count
@@ -63,3 +66,6 @@ https://leetcode.com/problems/divide-two-integers/
 
 Sweep-Line:
     Skyline Problem
+
+Trie:
+    advanced/data-structure/trie-tree/Design search and autocomplete 非常好非常重要的题
