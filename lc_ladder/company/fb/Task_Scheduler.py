@@ -35,6 +35,7 @@ Solution:
 if other char is of A's length + 1, is less than A's length just take  - space no more
 
 Time: O(n)
+Space: O(1)
 
 Corner cases:
 """
