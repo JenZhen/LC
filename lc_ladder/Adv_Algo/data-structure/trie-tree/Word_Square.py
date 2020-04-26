@@ -53,71 +53,71 @@ Time Complexity:
 
 题中说明是无重复单词，所以不用查重
 
+TrieNode设计：
+使用start_with list 比 is_end有效
+如果使用is_end: 找到prefix之后要 DFS 遍历所有的词
+如果是用start_with: 在加入单词的时候就已经准备好了， 所以用空间换时间
+
 Corner cases:
 """
 class TrieNode:
-    def __init__(self, char):
-        self.char = char
-        self.children = {} # key: "char", val: TrieNode
-        self.startWith = []
+    def __init__(self, val):
+        self.val = val
+        self.children = {} #key: val, val: TrieNode of var
+        self.start_with = [] #list of words start with prefix ending here
 
 class TrieTree:
     def __init__(self):
         self.root = TrieNode("*")
 
-    def addWord(self, word):
+    def add(self, word):
         cur = self.root
-        for w in word:
-            if not w in cur.children:
-                cur.children[w] = TrieNode(w)
-            cur.children[w].startWith.append(word)
-            cur = cur.children[w]
+        for char in word:
+            if char not in cur.children:
+                cur.children[char] = TrieNode(char)
+            cur.children[char].start_with.append(word)
+            cur = cur.children[char]
+        cur.isEnd = True
 
-    def getStartWith(self, prefix):
+    def start_with(self, prefix): # 这里使用start_with list 比 is_end有效
         cur = self.root
-        res = []
-        for w in prefix:
-            if w not in cur.children:
-                return res
-            cur = cur.children[w]
-        res.extend(cur.startWith)
-        return res
+        for char in prefix:
+            if char not in cur.children:
+                return []
+            cur = cur.children[char]
+        return cur.start_with
+
 
 class Solution:
-    """
-    @param: words: a set of words without duplicates
-    @return: all word squares
-    """
-    def wordSquares(self, words):
-        # write your code here
-        if not words:
-            return []
-
+    def wordSquares(self, words: List[str]) -> List[List[str]]:
+        res = []
         trie = TrieTree()
         for word in words:
-            trie.addWord(word)
+            trie.add(word)
 
-        res = []
         for word in words:
-            build = [word]
-            self.dfs(res, build, trie)
-            build.pop()
+            path = [word]
+            self.dfs(trie, path, res)
         return res
 
-    def dfs(self, res, build, trie):
-        if len(build) == len(build[0]):
-            res.append(build[:])
+    def dfs(self, trie, path, res):
+        if len(path) == len(path[0]):
+            # row count == col count
+            res.append(path[:])
             return
+
         prefix = ""
-        for word in build:
-            prefix += word[len(build)]
-        # print("prefix: " + prefix)
-        options = trie.getStartWith(prefix)
-        # print("options: %s" %repr(options))
+        n = len(path) # if path has 2 words, then look for 3rd one based on idx = len(path)
+        for w in path:
+            prefix += w[n]
+
+        options = trie.start_with(prefix)
         for opt in options:
-            build.append(opt)
-            self.dfs(res, build, trie)
-            build.pop()
+            if len(opt) != len(path[0]): # 注意 不要把过长或过短的单词夹加进来
+                continue
+            path.append(opt)
+            self.dfs(trie, path, res)
+            path.pop()
 
 # Test Cases
 if __name__ == "__main__":

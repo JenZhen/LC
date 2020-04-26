@@ -49,6 +49,11 @@ Solution:
 10岁向11岁发的请求有10 * 20 个
 10岁向10岁发的请求有10 * （10 - 1）个，排除想自己发
 
+Time: O(n)
+    O(n) -- populate age_cnt
+    two loop of age_cnt is on fixed length
+Space: O(1) -- age_cnt O(1)
+
 Corner cases:
 """
 
@@ -75,6 +80,7 @@ class Solution:
                         cnt += age_cnt[a] * age_cnt[b]
         return cnt
     def request(self, a, b):
+        # <100 >100 条件可以忽略
         return not (b <= 0.5 * a + 7 or b > a)
 
 # Test Cases

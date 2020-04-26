@@ -61,20 +61,13 @@ class Solution:
         visited[i][j] = True
 
         # search next 4 directions
-        found = False
         found = self.dfs(board, word, visited, i - 1, j, idx + 1) or \
                 self.dfs(board, word, visited, i, j - 1, idx + 1) or \
                 self.dfs(board, word, visited, i + 1, j, idx + 1) or \
                 self.dfs(board, word, visited, i, j + 1, idx + 1)
-        # 注意结尾
-        # 如果找到 直接返回True 不要把visited[i][j] 标记为 False
-        if found:
-            return True
-        else:
-            # 只有在找不到时候才能标记为FALSE ``
-            visited[i][j] = False
 
-        return False
+        visited[i][j] = False
+        return found
 
 # Test Cases
 if __name__ == "__main__":

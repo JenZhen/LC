@@ -23,7 +23,8 @@ D.S.: Trie + DFS
 
 Solution:
 
-首先将字典单词插入trie树，然后从(0,0)开始搜索，一个辅助函数getNextWords(i,j)表示从当前位置能获取到的下一个单词，显然可能有多条路径，我们用一个list存下来，然后一个主函数findWords(x,y)表示从(x,y)开始能得到的单词。
+首先将字典单词插入trie树，然后从(0,0)开始搜索，一个辅助函数getNextWords(i,j)表示从当前位置能获取到的下一个单词，显然可能有多条路径，
+我们用一个list存下来，然后一个主函数findWords(x,y)表示从(x,y)开始能得到的单词。
 大概的流程就是
 1.以(x,y)开始搜索，先用getNextWords(x,y)获取到从(x,y)开始能得到的单词，并记录下来路径。
 2.枚举获取到的每一个单词word[i]，将word[i]的路径标记一下，更新一下ans,然后继续findWords(next_x,next_y)，回溯的时侯将之前标记的word[i]的路径标记取消掉。
@@ -121,7 +122,7 @@ class Solution:
         node = node.children[self.board[i][j]]
         if node.isWord:
             temp.append((i,j))
-            path.append(temp[:])
+            path.append(temp[:]) # list of tuples
             temp.pop()
             return
 
