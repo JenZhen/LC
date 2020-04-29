@@ -37,14 +37,19 @@ Solution:
 origin [1,2,3,4]
 left   [1,1,2,6]
 right  [24,12,4,1]
-res 
+res
 Time：O(n)
 Space：O(n)
+
+Solution2:
+优化：从右向左 只用一个整数代替整个数组
+Time：O(n)
+Space：O(1)
 
 Corner cases:
 """
 
-class Solution:
+class Solution1:
     """
     @param nums: an array of integers
     @return: the product of all the elements of nums except nums[i].
@@ -64,6 +69,20 @@ class Solution:
         print(from_left)
         print(from_right)
         print(res)
+        return res
+
+class Solution2:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = [1] * len(nums)
+        # from left
+        for i in range(1, len(nums)):
+            res[i] = res[i - 1] * nums[i - 1]
+        # from right:
+
+        R = 1
+        for i in range(len(nums) - 1, -1, -1):
+            res[i] = R * res[i]
+            R = R * nums[i]
         return res
 
 # Test Cases

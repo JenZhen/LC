@@ -32,7 +32,7 @@ j 先往前移动，直至找到一个match，i再往前移动，缩小范围，
 
 Corner cases:
 """
-class Solution:
+class Solution1:
     """
     @param source : A string
     @param target: A string
