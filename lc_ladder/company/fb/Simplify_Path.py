@@ -50,22 +50,18 @@ class Solution:
     """
     def simplifyPath(self, path):
         # write your code here
-        path = path[1:] if path[0] == '/' else path
-        path = path[:-1] if path[-1] == '/'  else path
-        dirs = path.split('/')
-        print(dirs)
-        stack = []
-        for dir in dirs:
-            if dir == '.':
+        if not path: return path
+        st = []
+        parts = path.split('/')
+        print(parts)
+        for p in parts:
+            if p == '..':
+                if st: st.pop()
+            elif p == '.' or not p:
                 continue
-            elif dir == '..':
-                if len(stack):
-                    stack.pop()
             else:
-                if len(dir):
-                    stack.append(dir)
-        return '/' + '/'.join(stack)
-
+                st.append(p)
+        return '/' + '/'.join(st)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

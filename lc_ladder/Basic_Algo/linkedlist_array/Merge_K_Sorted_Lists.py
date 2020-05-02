@@ -8,7 +8,8 @@ Algo:
 D.S.: Linked List/Array
 
 Solution:
-
+注意： python3 不支持 heap tuple (val , node), Node 不能再tuple中，
+但是python2可以
 Corner cases:
 """
 # Definition for singly-linked list.

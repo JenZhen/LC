@@ -1,78 +1,85 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/decode-ways-ii/description
+# https://leetcode.com/problems/decode-ways-ii/
 # Example
-
+# A message containing letters from A-Z is being encoded to numbers using the following mapping way:
+#
+# 'A' -> 1
+# 'B' -> 2
+# ...
+# 'Z' -> 26
+# Beyond that, now the encoded string can also contain the character '*', which can be treated as one of the numbers from 1 to 9.
+#
+# Given the encoded message containing digits and the character '*', return the total number of ways to decode it.
+#
+# Also, since the answer may be very large, you should return the output mod 109 + 7.
+#
+# Example 1:
+# Input: "*"
+# Output: 9
+# Explanation: The encoded message can be decoded to the string: "A", "B", "C", "D", "E", "F", "G", "H", "I".
+# Example 2:
+# Input: "1*"
+# Output: 9 + 9 = 18
+# Note:
+# The length of the input string will fit in range [1, 105].
+# The input string will only contain the character '*' and digits '0' - '9'.
 """
 Algo: DP
 D.S.:
 
 Solution:
-非常多细节
-要考虑 0， 1-9， 和* 的情况
-以及前面一个字符分别是 0， 1， 2， 3-9， 和*的情况
-
-注意* 代表 1- 9， 所以 x* 就排除了10， 20的可能
-
-Time: O(n)
-Space: O(n) -- 可以滚动数组
-
+考虑一下情况
+- 数数 （其中0是个特殊情况）
+- *数
+- 数*
+- * *
+    2个一位数 = 9 * 9 = 81
+    1个两位数 = 15 from 11 -> 26 出去 20
+Time: O(len(s))
+Space: O(len(s)) 或是滚动变为O(1)
 Corner cases:
 """
 
 class Solution:
-    """
-    @param s: a message being encoded
-    @return: an integer
-    """
-    def numDecodings(self, s):
-        # write your code here
-        if not s or len(s) == 0:
-            return 0
+    def numDecodings(self, s: str) -> int:
+        if not s: return 0
+        f = [0 for _ in range(len(s) + 1)]
+        # init f[0] and f[1]
+        f[0] = 1
+        # f[1] depends on s[0]
+        if s[0] == '*': f[1] = 9
+        elif s[0] == '0': f[1] = 0
+        else: f[1] = 1
 
-        df = [0] * (len(s) + 1)
-
-        df[0] = 1
-        if s[0] == '0':
-            df[1] = 0
-        elif s[0] == '*':
-            df[1] = 9
-        else:
-            df[1] = 1
-
-        for i in range(1, len(s)):
-            if s[i] == '0':
-                if s[i - 1] == '1' or s[i - 1] == '2':
-                    df[i + 1] += df[i - 1]
-                if s[i - 1] == '*':
-                    df[i + 1] += df[i - 1] * 2
-            elif s[i] == '*':
-                if s[i - 1] == '0':
-                    df[i + 1] += df[i] * 9
-                elif s[i - 1] == '1':
-                    df[i + 1] += df[i - 1] * 9
-                    df[i + 1] += df[i] * 9
-                elif s[i - 1] == '2':
-                    df[i + 1] += df[i] * 9
-                    df[i + 1] += df[i - 1] * 6 # note 0 not included
-                elif '3' <= s[i - 1] <= '9':
-                    df[i + 1] += df[i] * 9
-                else:
-                    df[i + 1] += df[i] * 9
-                    df[i + 1] += df[i - 1] * 15
-            else:
-                # s[i] == 1 - 9
-                df[i + 1] += df[i]
-                if s[i - 1] != '*' and s[i - 1] != '0':
-                    if 1 <= int(s[i - 1: i + 1]) <= 26:
-                        df[i + 1] += df[i - 1]
-                if s[i - 1] == '*':
-                    if '1' <= s[i] <= '6':
-                        df[i + 1] += df[i - 1] * 2
+        for i in range(2, len(f)):
+            if s[i - 1] == '*':
+                if s[i - 2] == '0':
+                    f[i] += f[i - 1] * 9
+                elif s[i - 2] == '1':
+                    f[i] += f[i - 1] * 9 + f[i - 2] * 9
+                elif s[i - 2] == '2':
+                    f[i] += f[i - 1] * 9 + f[i - 2] * 6
+                elif '3' <= s[i - 2] <= '9':
+                    f[i] += f[i - 1] * 9
+                elif s[i - 2] == '*':
+                    f[i] += f[i - 1] * 9 + f[i - 2] * 15
+            elif s[i - 1] == '0':
+                if s[i - 2] == '1' or s[i - 2] == '2':
+                    f[i] += f[i - 2]
+                elif s[i - 2] == '*':
+                    f[i] += f[i - 2] * 2
+            else: # s[i - 1] 1 - 9
+                f[i] += f[i - 1]
+                if s[i - 2] != '*' and 10 <= int(s[i - 2: i]) <= 26:
+                    f[i] += f[i - 2]
+                if s[i - 2] == '*':
+                    if '1' <= s[i - 1] <= '6':
+                        f[i] += f[i - 2] * 2
                     else:
-                        df[i + 1] += df[i - 1]
-        print(df)
-        return df[len(s)] % 1000000007
+                        f[i] += f[i - 2] * 1
+        # 注意最后要MOD 否则不能过
+        return f[-1] % 1000000007
 
 # Test Cases
 if __name__ == "__main__":

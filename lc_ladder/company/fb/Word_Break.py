@@ -57,22 +57,28 @@ class Solution:
         return f[n]
 
 
-class Solution_DFS:
-    """
-    @param: s: A string
-    @param: dict: A dictionary of words dict
-    @return: A boolean
-    """
-    def wordBreak(self, s, dict):
-        # write your code here
-        if s == "":
+class Solution_DFS: #(Suggested)
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # wordDict 和memo 都可以当做参数 或是 self. 使用
+        self.memo = {}
+        dict = set(wordDict)
+        return self.dfs(s, dict)
+
+    def dfs(self, s, dict):
+        if s in self.memo: return self.memo[s]
+        # 整串在此考虑
+        if s in dict:
+            self.memo[s] = True
             return True
-        res = False
-        for i in range(1, len(s) + 1):
-            if s[:i] in dict:
-                print(s[:i])
-                res = res or self.wordBreak(s[i:], dict)
-        return res
+        # 在串中间分隔
+        for j in range(1, len(s)):
+            left = s[:j]
+            right = s[j:]
+            if right in dict and self.dfs(left, dict):
+                self.memo[s] = True
+                return True
+        self.memo[s] = False
+        return False
 
 # Test Cases
 if __name__ == "__main__":

@@ -13,8 +13,10 @@ D.S.: stack
 Solution:
 Time: O(n)
 Space: O(n)
-
+一定要先查ST 是否为空在POP
 Corner cases:
+))((
+(( -- return len(st) == 0
 {}
 {}] -- more right half, but stack is empty, return false
 """

@@ -55,7 +55,19 @@ class Solution1:
             res = max(res, tempLongest)
         return res
 
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        dp = []
 
+        for i in nums:
+            idx = bisect.bisect_left(dp, i)
+            if idx == len(dp):
+                dp.append(i)
+            else:
+                dp[idx] = i
+        return len(dp)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/target-sum/
+# https://leetcode.com/problems/target-sum/submissions/
 # Example
 # 给定一个非负整数的列表a1,a2,...an，再给定一个目标S。现在用+和-两种运算，对于每一个整数，选择一个作为它前面的符号。
 #
@@ -52,6 +53,8 @@ j + nums[i - 1] 说明 nums[i - 1] 前取 -
 
 可以滚动数组，只保存2行
 
+Solution_DP 用更小的空间
+
 DFS:
 暴力解法
 Time: O(2 ^ n)
@@ -59,6 +62,25 @@ Space： O(n)
 
 Corner cases:
 """
+
+class Solution_DP:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        if sum(nums) < abs(S):
+            return 0
+        # init dp
+        dp = [[0 for _ in range(2001)] for _ in range(len(nums))]
+        dp[0][nums[0] + 1000] = 1
+        dp[0][-nums[0] + 1000] += 1
+
+        # dp
+        for i in range(1, len(nums)):
+            for ttl in range(-1000, 1001):
+                if dp[i - 1][ttl + 1000] > 0:
+                    dp[i][ttl + 1000 + nums[i]] += dp[i - 1][ttl + 1000]
+                    dp[i][ttl + 1000 - nums[i]] += dp[i - 1][ttl + 1000]
+
+        return dp[len(nums) - 1][S + 1000]
+
 
 class Solution_DP:
     """

@@ -64,8 +64,9 @@ class Solution:
             front = words[i - 1] + " "
             back = words[i] + " "
             for j in range(min(len(front), len(back)) + 1):
+                # 一定要先考虑 ’ ’ 的情况，否则order_map[' '] 是invalid key
                 if front[j] == " ":
-                    return True
+                    break
                 if back[j] == " ":
                     return False
                 if front[j] == back[j]:

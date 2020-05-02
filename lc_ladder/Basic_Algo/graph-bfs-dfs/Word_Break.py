@@ -51,11 +51,9 @@ class Solution0_DFS_NO_MEMO:
         return False
 
 class Solution1_DFS: #(Suggested)
-    # memo 也可带入DFS 函数做参数
-    def __init__(self):
-        # memo {} key: substring , val: if substring can do wordBreak
-        self.memo = {}
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # wordDict 和memo 都可以当做参数 或是 self. 使用
+        self.memo = {}
         dict = set(wordDict)
         return self.dfs(s, dict)
 

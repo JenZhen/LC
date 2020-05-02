@@ -9,7 +9,8 @@ D.S.:
 
 Solution:
 
-
+Time: O()
+Space: O()
 Corner cases:
 """
 
