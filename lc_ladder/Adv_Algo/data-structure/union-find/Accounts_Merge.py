@@ -47,82 +47,80 @@ Algo:
 D.S.: Union-Find
 
 Solution:
-Time: O(n) Space O(n)
+Time: O(nlogn) -- 最后有个排序
+Space O(n)
 TODO: more practice, try use array strucure of union-fine instead of dictionary structure
 
 Corner cases:
 """
 class Solution:
-    """
-    @param accounts: List[List[str]]
-    @return: return a List[List[str]]
-    """
-    def accountsMerge(self, accounts):
-        # write your code here
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         if not accounts or len(accounts) == 1:
             return accounts
 
-        self.init(len(accounts))
-        # email_to_ids -- key: email, val: [ids]
-        email_to_ids = self.get_email_to_ids(accounts)
-        # union
-        for email, ids in email_to_ids.items():
-            root_id = ids[0] # a email mapps to n ids, use first one as root_id
+        uf = UnionFind(len(accounts))
+
+        # build em to id_list
+        # key: em, val: [list of account ids]
+        em_to_ids = self._build_em_to_id_list(accounts)
+        print(em_to_ids)
+        # union account
+        for em, ids in em_to_ids.items():
+            root_id = ids[0]
             for id in ids[1:]:
-                self.union(id, root_id) # merge other id to root_id
+                uf.union(id, root_id)
+        print(uf.father)
+        # build id to em set from accounts
+        # key: acct_id, val: set(emails)
+        id_to_ems = self._build_id_to_ems(accounts, uf)
+        # print(id_to_ems)
+        # organized id_to_ems to result
+        return self.reorg(id_to_ems, accounts)
 
-        # id_to_email_set -- key: id, val: {emails}
-        id_to_email_set = self.get_id_to_email_set(accounts)
-        print("set: %s" %repr(id_to_email_set))
 
-        merged_accounts = []
-        for id, email_set in id_to_email_set.items():
-            merged_accounts.append([
-                accounts[id][0],
-                *sorted(email_set)
-            ])
-        return merged_accounts
+    def _build_em_to_id_list(self, accounts):
+        em_to_ids = {}
+        for i, acct in enumerate(accounts):
+            for em in acct[1:]:
+                em_to_ids[em] = em_to_ids.get(em, [])
+                em_to_ids[em].append(i)
+        return em_to_ids
 
-    def get_email_to_ids(self, accounts):
-        # key: email, val: [ids]
-        email_to_ids = {}
-        for id, account in enumerate(accounts):
-            # i : 0 -> n, i denotes id for user, a user may have more than one id
-            for email in account[1:]:
-                email_to_ids[email] = email_to_ids.get(email, [])
-                email_to_ids[email].append(id)
-        return email_to_ids
+    def _build_id_to_ems(self, accounts, uf):
+        id_to_ems = {}
+        for i, acct in enumerate(accounts):
+            root_id = uf.find(i)
+            em_set = id_to_ems.get(root_id, set())
+            for em in acct[1:]:
+                em_set.add(em)
+            id_to_ems[root_id] = em_set
+        return id_to_ems
 
-    def get_id_to_email_set(self, accounts):
-        id_to_email_set = {}
-        for id, account in enumerate(accounts):
-            root_id = self.find(id)
-            email_set = id_to_email_set.get(root_id, set())
-            for email in account[1:]:
-                email_set.add(email)
-            id_to_email_set[root_id] = email_set
-        return id_to_email_set
+    def reorg(self, id_to_ems, accounts):
+        res = []
+        for id, ems in id_to_ems.items():
+            name = accounts[id][0]
+            em_list = sorted(ems)
+            res.append([name] + em_list)
+        return res
 
-    def init(self, n):
-        self.father = {}
-        for i in range(n):
-            self.father[i] = i
+class UnionFind:
+    def __init__(self, n):
+        self.father = [i for i in range(n)]
 
-    def union(self, id, root_id):
-        # find id's father and root_id's father
-        # id's father's father is root_id's father
-        self.father[self.find(id)] = self.find(root_id)
+    def union(self, a, b):
+        # a's root union under b's root
+        # 注意 这里是 self.find(a) 找root不是self.father[a]
+        root_a = self.find(a)
+        root_b = self.find(b)
+        if root_a != root_b:
+            self.father[root_a] = root_b
 
-    def find(self, id):
-        path = []
-        while id != self.father[id]:
-            path.append(id)
-            id = self.father[id]
-        # compress all
-        # all nodes in the path should have the same father
-        for node in path:
-            self.father[node] = id
-        return id
+    def find(self, a):
+        if self.father[a] == a:
+            return a
+        self.father[a] = self.find(self.father[a])
+
 # Test Cases
 if __name__ == "__main__":
     s = Solution()
