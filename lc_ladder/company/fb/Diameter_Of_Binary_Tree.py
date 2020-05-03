@@ -44,23 +44,20 @@ class Solution:
     @param root: a root of binary tree
     @return: return a integer
     """
-    max_dia = 0
-    def diameterOfBinaryTree(self, root):
-        # write your code here
-        self.helper(root)
-        return self.max_dia
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        if not root: return 0
+        self.res = 0
+        self.dfs(root)
+        return self.res - 1
 
-    def helper(self, root):
-        if not root.left and not root.right:
-            return 0
-        left = 0
-        right = 0
-        if root.left:
-            left = self.helper(root.left) + 1
-        if root.right:
-            right = self.helper(root.right) + 1
-        self.max_dia = max(self.max_dia, left + right)
-        return max(left, right)
+    def dfs(self, node):
+        if not node: return 0
+        left_depth = self.dfs(node.left)
+        right_depth = self.dfs(node.right)
+
+        self.res = max(self.res, left_depth + right_depth + 1)
+
+        return max(left_depth, right_depth) + 1
 
 # Test Cases
 if __name__ == "__main__":

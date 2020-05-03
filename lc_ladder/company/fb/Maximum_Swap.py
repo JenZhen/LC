@@ -1,78 +1,61 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/maximum-swap/description
+# https://leetcode.com/problems/maximum-swap/solution/
 # Example
-# 给定一个非负整数, 你可以选择交换它的两个数位. 返回你能获得的最大的合法的数.
+# Given a non-negative integer, you could swap two digits at most once to get the maximum valued number. Return the maximum valued number you could get.
 #
-# 样例
-# 样例1:
-#
-# 输入: 2736
-# 输出: 7236
-# 解释: 交换数字2和数字7.
-# 样例2:
-#
-# 输入: 9973
-# 输出: 9973
-# 解释: 不用交换.
-# 注意事项
-# 给定的数字在 [0, 10^8] 范围内
-
+# Example 1:
+# Input: 2736
+# Output: 7236
+# Explanation: Swap the number 2 and the number 7.
+# Example 2:
+# Input: 9973
+# Output: 9973
+# Explanation: No swap.
+# Note:
+# The given number is in the range [0, 108]
 
 """
-Algo: swap array
+Algo:
 D.S.:
 
 Solution:
-Time: O(n)
-Space: O(1)
+1993
+9931
+和最大情况相比，第一位应该是个9
+从后面找那个9个当前比9小的数来swap
+后面有2个9， 要找后面的一个9因为前面的9 肯定比前面要换下去的1大，所以换最后面的9，
+可以从后往前找到最后的一个9
 
-- 如果严格递减 - 无须改动
-- 如果有上升 - 说明后面比较大的就有可能挪到前面来。
- - 先找有没有上升的地方，包括一开始就递增的情况
- - 从上升的位置开始往后找最大值，并记录他的index，如果有多个最大值，记录最后面那个，因为要尽量保证较高位的大值不被swap 成小值
- - 从最左端找第一个比最大值小的数，swap, (找第一个因为在最高位)
-
+Time: O(nlogn) -- n is length of num
+Space: O(n)
 Corner cases:
 """
 
-
 class Solution:
-    """
-    @param num: a non-negative intege
-    @return: the maximum valued number
-    """
-    def maximumSwap(self, num):
-        # Write your code here
+    def maximumSwap(self, num: int) -> int:
         if not num:
             return num
+        origin_s = [c for c in str(num)]
+        sorted_s = sorted(origin_s)[::-1]
+        print(origin_s)
+        print(sorted_s)
+        if origin_s == sorted_s:
+            return num
 
-        num = [i for i in str(num)]
-        asc = False
-        minidx, minval = 0, num[0]
-        maxidx, maxval = None, None
-        for i in range(1, len(num)):
-            if num[i] < minval:
-                minval = num[i]
-                minidx = i
-            else:
-                asc = True
-                maxidx, maxval = i, num[i]
+        i = 0
+        while i < len(origin_s):
+            if origin_s[i] != sorted_s[i]:
                 break
-        if asc == False:
-            return int(''.join(num))
+            i += 1
 
-        for i in range(maxidx, len(num)):
-            # look for the last position of largest value
-            if maxval <= num[i]:
-                maxval = num[i]
-                maxidx = i
-
-        for i in range(maxidx):
-            if num[i] < maxval:
-                num[i], num[maxidx] = num[maxidx], num[i]
+        j = len(origin_s) - 1
+        while j > i:
+            if origin_s[j] == sorted_s[i]:
                 break
-        return int(''.join(num))
+            j -= 1
+        origin_s[i], origin_s[j] = origin_s[j], origin_s[i]
+        return int(''.join(origin_s))
 
 # Test Cases
 if __name__ == "__main__":

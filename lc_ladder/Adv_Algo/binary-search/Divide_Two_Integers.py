@@ -28,24 +28,29 @@ class Solution:
     @param divisor: the divisor
     @return: the result
     """
-    def divide(self, dividend, divisor):
-        # write your code here
-        INT_MAX = 2147483647
+    def divide(self, dividend: int, divisor: int) -> int:
+        INT_MAX = (1 << 31) -1
+        INT_MIN = -(1 << 31)
+        if dividend == 0:
+            return 0
         if divisor == 0:
+            return INT_MAX if dividend > 0 else INT_MIN
+
+        if dividend == INT_MIN and divisor == -1:
             return INT_MAX
-        neg = dividend > 0 and divisor < 0 or dividend < 0 and divisor > 0
+
+        sign = (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0)
+
         a, b = abs(dividend), abs(divisor)
-        ans, shift = 0, 31
-        while shift >= 0:
-            if a >= b << shift:
-                a -= b << shift
-                ans += 1 << shift
-            shift -= 1
-        if neg:
-            ans = - ans
-        if ans > INT_MAX:
-            return INT_MAX
-        return ans
+        res = 0
+        while a >= b:
+            shift = 0
+            while a >= (b << shift):
+                shift += 1
+            a -= (b << (shift - 1))
+            res += (1 << (shift - 1))
+
+        return res if sign else -res
 
 # Test Cases
 if __name__ == "__main__":

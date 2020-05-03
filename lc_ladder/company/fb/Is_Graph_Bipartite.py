@@ -108,6 +108,7 @@ class Solution2_BFS:
         for v in range(n):
             if colors[v] == 0:
                 q = deque([(v, 1)])
+                colors[v] = 1
                 while q:
                     (cur_v, cur_c) = q.popleft()
                     for nei in graph[cur_v]:

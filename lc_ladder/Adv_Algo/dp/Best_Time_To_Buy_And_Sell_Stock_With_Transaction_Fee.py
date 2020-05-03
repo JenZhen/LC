@@ -54,6 +54,8 @@ class Solution:
         sell = 0
         buy = -prices[0]
         for i in range(1, len(prices)):
+            # sell first, then buy
+            # at prices[i] must sell first then buy
             sell = max(sell, prices[i] + buy - fee)
             print("sell" + str(sell))
             buy = max(buy, sell - prices[i])

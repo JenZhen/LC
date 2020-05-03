@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/read-n-characters-given-read4-ii-call-multiple-times/description
+# https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/submissions/
 # Example
 # 接口：int read4(char * buf)一次从文件中读取 4 个字符。
 # 返回值是实际读取的字符数。 例如，如果文件中只剩下 3 个字符，则返回 3。
@@ -55,8 +56,34 @@ The read4 API is already defined for you.
 you can call Reader.read4(buf)
 """
 
+class Solution1:
+    def __init__(self):
+        self.buf4 = ["" for _ in range(4)]
+        self.i4 = 0 # current pointer of buf4
+        self.n4 = 0 # current size of buf4 <= 4
 
-class Solution:
+    def read(self, buf, n):
+        """
+        :type buf: Destination buffer (List[str])
+        :type n: Number of characters to read (int)
+        :rtype: The number of actual characters read (int)
+        """
+        i = 0
+        while i < n:
+            if self.i4 == self.n4: # buf4读完了
+                # 读新的buf4
+                self.n4 = read4(self.buf4)
+                self.i4 = 0
+                if self.n4 == 0:
+                    # 没有更多的了
+                    break
+            buf[i] = self.buf4[self.i4]
+            i += 1
+            self.i4 += 1
+        return i # i <= n
+
+
+class Solution2:
     # 注意global 变量的定义
     buf_ptr = 0 # 当前读到临时Buffer哪个位置
     buf_cnt = 0 # 临时buffer读出来有几位 0 - 4

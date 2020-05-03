@@ -1,64 +1,56 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/decode-ways/description
+# https://leetcode.com/problems/decode-ways/
 # Example
-# 有一个消息包含A-Z通过以下规则编码
+# A message containing letters from A-Z is being encoded to numbers using the following mapping:
 #
 # 'A' -> 1
 # 'B' -> 2
 # ...
 # 'Z' -> 26
-# 现在给你一个加密过后的消息，问有几种解码的方式
+# Given a non-empty string containing only digits, determine the total number of ways to decode it.
 #
-# 样例
-# 样例 1:
+# Example 1:
 #
-# 输入: "12"
-# 输出: 2
-# 解释: 它可以被解码为 AB (1 2) 或 L (12).
-# 样例 2:
+# Input: "12"
+# Output: 2
+# Explanation: It could be decoded as "AB" (1 2) or "L" (12).
+# Example 2:
 #
-# 输入: "10"
-# 输出: 1
+# Input: "226"
+# Output: 3
+# Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 """
 Algo: DP
 D.S.:
 
 Solution:
-直观第一反应是dfs 讨论各种情况，但是复杂度太高，选用dp
-f[i]: 前i个字符能有几种方法
-init f[0] = 1, f[i] = 1 or 0 取决于s第一位是不是有效，即是不是0
-f[i] = f[i - 1] + f[i - 2]
-选用f[i - 1]的条件是这个字符单独有效，ie [1, 9]
-选用f[i - 2]的条件是这个字符和前一个拼起来有效，ie [10, 26] 注意 ‘01’ 无效
+要特殊考虑 ‘0’的情况
+Time: O(len(s))
+Space: O(len(s)) 或是滚动变为O(1)
 Corner cases:
 """
 
 class Solution:
-    """
-    @param s: a string,  encoded message
-    @return: an integer, the number of ways decoding
-    """
-    def numDecodings(self, s):
-        # write your code here
-        if not s:
-            return 0
-        f = [0] * (len(s) + 1)
+    def numDecodings(self, s: str) -> int:
+        if not s: return 0
+        if len(s) == 1:
+            return 0 if s[0] == '0' else 1
+
+        f = [0 for _ in range(len(s) + 1)]
+        # init f[0] and f[1]
         f[0] = 1
-        for i in range(1, len(s) + 1):
-            if i == 1 and '1' <= s[i - 1] <= '9':
-                f[i] = 1
-                continue
+        if '1' <= s[0] <= '9':
+            f[1] = 1
+
+        for i in range(2, len(s) + 1):
             if '1' <= s[i - 1] <= '9':
                 f[i] += f[i - 1]
-            if 10 <= self.sum_pre(s[i - 2], s[i - 1]) <= 26:
+            if 10 <= int(s[i - 2: i]) <= 26:
                 f[i] += f[i - 2]
         print(f)
-        return f[len(s)]
-
-    def sum_pre(self, s1, s2):
-        return int(s1) * 10 + int(s2)
+        return f[-1]
 
 # Test Cases
 if __name__ == "__main__":

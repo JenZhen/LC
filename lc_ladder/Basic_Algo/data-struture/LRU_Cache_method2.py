@@ -123,7 +123,6 @@ class LRUCache(object):
         if key in self.map:
             targetNode = self.map[key]
             targetNode.val = value
-            self.map[key].val = value
             self.cache.removeNode(targetNode)
             self.cache.addAtHead(targetNode)
         else:

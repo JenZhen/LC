@@ -25,6 +25,11 @@ Solution:
 Time: O(n)
 Space：O(256)
 
+Follow up: https://leetcode.com/problems/find-all-anagrams-in-a-string/
+Time: O(n)
+Time: O(1)
+Sliding window
+
 Corner cases:
 """
 
@@ -69,6 +74,41 @@ class Solution:
                 return False
         return True
 
+class Solution_FollowUP:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        if s is None or p is None: return []
+        s_len = len(s)
+        p_len = len(p)
+        if s_len < p_len:
+            return []
+
+        res = []
+
+        # init p_map
+        p_map = [0] * 26
+        for c in p:
+            p_map[ord(c) - ord('a')] += 1
+        # init s_map
+        s_map = [0] * 26
+        for i in range(p_len):
+            s_map[ord(s[i]) - ord('a')] += 1
+        # check the first set
+        if self.match(s_map, p_map):
+            res.append(0)
+
+        for i in range(p_len, s_len):
+            s_map[ord(s[i]) - ord('a')] += 1
+            s_map[ord(s[i - p_len]) - ord('a')] -= 1
+            if self.match(s_map, p_map):
+                # be careful about index
+                res.append(i - p_len + 1)
+        return res
+
+    def match(self, s_map, p_map):
+        for i in range(26):
+            if s_map[i] != p_map[i]:
+                return False
+        return True
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

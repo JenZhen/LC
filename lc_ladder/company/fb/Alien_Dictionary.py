@@ -46,64 +46,57 @@ Space: O(n) 每个char
 Corner cases:
 """
 
+from heapq import heappush, heappop, heapify
 class Solution:
-    """
-    @param words: a list of words
-    @return: a string which is correct order
-    """
-    def alienOrder(self, words):
-        # Write your code here
-        g = self._build_graph(words)
-        return self._get_topo_order(g)
+    def alienOrder(self, words: List[str]) -> str:
+        out_map, in_degree = self._build_order(words)
+        if not out_map or not in_degree:
+            return ''
 
-    def _build_graph(self, words):
-        # build g = {}, where
-        # key is char, value: set of char it points to
-        # for char cannot find relationship to other chars, its neighbor = {}
-        g = {}
-        for word in words:
-            for c in word:
-                g[c] = set()
+        q = []
+        for char, degree in in_degree.items():
+            if degree == 0:
+                q.append(char)
+        heapify(q)
+
+        res = ''
+        while q:
+            cur = heappop(q)
+            res += cur
+            for nei in out_map[cur]:
+                in_degree[nei] -= 1
+                if in_degree[nei] == 0:
+                    heappush(q, nei)
+        if len(res) == len(out_map):
+            return res
+        return ''
+
+    def _build_order(self, words):
+        out_map = {} # key: char, val: set(next char)
+        in_degree = {} # key: char, val: in_degree value
+        # init value
+        for w in words:
+            for c in w:
+                if c not in out_map:
+                    out_map[c] = set()
+                if c not in in_degree:
+                    in_degree[c] = 0
 
         for i in range(1, len(words)):
-            for j in range(min(len(words[i]), len(words[i - 1]))):
-                if words[i][j] != words[i - 1][j]:
-                    g[words[i - 1][j]].add(words[i][j])
+            w1 = words[i - 1] + ' '
+            w2 = words[i] + ' '
+            for k in range(min(len(w1), len(w2)) + 1):
+                if w1[k] == ' ':
                     break
-        return g
-
-    def _get_topo_order(self, g):
-        from collections import deque
-        from heapq import heapify, heappush, heappop
-        # key: char, value: number of indegree to this char
-        indegree = {}
-        # init indegree
-        for node in g:
-            if node not in indegree:
-                indegree[node] = 0
-            for nei in g[node]:
-                ind = indegree.get(nei, 0)
-                indegree[nei] = ind + 1
-
-        # q = deque([node for node in g if indegree[node] == 0])
-        q = [node for node in g if indegree[node] == 0]
-        heapify(q)
-        topo_order = ""
-        while q:
-            # cur_node = q.popleft()
-            cur_node = heappop(q)
-            topo_order += cur_node
-            for nei in g[cur_node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    # q.append(nei)
-                    heappush(q, nei)
-
-        if len(topo_order) == len(g):
-            return topo_order
-        else:
-            return ""
-
+                if w2[k] == ' ':
+                    return None, None
+                if w1[k] != w2[k]:
+                    if w2[k] not in out_map[w1[k]]:
+                        out_map[w1[k]].add(w2[k])
+                        in_degree[w2[k]] += 1
+                    break # break inner for loop
+        return out_map, in_degree
+                    
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

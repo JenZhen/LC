@@ -32,7 +32,8 @@ Algo:
 D.S.:
 
 Solution:
-
+Time: O(n)
+Space: O(1)
 Corner cases:
 """
 
