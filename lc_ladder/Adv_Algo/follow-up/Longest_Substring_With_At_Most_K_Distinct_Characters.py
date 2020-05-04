@@ -24,14 +24,6 @@ class Solution1:
     """
     def lengthOfLongestSubstringKDistinct(self, s, k):
         # write your code here
-        class Solution:
-    """
-    @param s: A string
-    @param k: An integer
-    @return: An integer
-    """
-    def lengthOfLongestSubstringKDistinct(self, s, k):
-        # write your code here
         if not s:
             return 0
 
@@ -62,7 +54,6 @@ class Solution1:
 
             ans = max(ans, j - i)
             delFromDict(s[i])
-
         return ans
 
 
