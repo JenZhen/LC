@@ -1,70 +1,53 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/strobogrammatic-number-ii/description
+# https://leetcode.com/problems/strobogrammatic-number-ii/submissions/
 # Example
-# 对称数是一个旋转180度后(倒过来)看起来与原数相同的数.找到所有长度为 n 的对称数.
+# A strobogrammatic number is a number that looks the same when rotated 180 degrees (looked at upside down).
+# Find all strobogrammatic numbers that are of length = n.
 #
-# 样例
-# 例1:
-#
-# 输入: n = 2,
-# 输出: ["11","69","88","96"]
-# 例2:
-#
-# 输入: n = 1,
-# 输出: ["0","1","8"]
-
+# Example:
+# Input:  n = 2
+# Output: ["11","69","88","96"]
 """
-Algo: DFS, Backtracking,
-D.S.: map
+Algo: DFS, Backtracking
+D.S.:
 
 Solution:
-Time: ## TODO:
-Space: O(n)
 
+Time: O()
+Space: O()
 Corner cases:
 """
-
 class Solution:
-    """
-    @param n: the length of strobogrammatic number
-    @return: All strobogrammatic numbers
-    """
-    def findStrobogrammatic(self, n):
-        # write your code here
-        if not n:
-            return [""]
-
-        res = []
-        path = ["" for _ in range(n)]
-        l, r = 0, n - 1
-        self.helper(l, r, path, res)
-        return res
-
-    def helper(self, l, r, path, res):
-        mp = {
+    def findStrobogrammatic(self, n: int) -> List[str]:
+        MAP = {
             '0': '0',
             '1': '1',
             '6': '9',
             '8': '8',
             '9': '6'
         }
+        LIST = ['0', '1', '6', '8', '9']
+        # 单独处理 长度为0 和 1的情况
+        if not n: return [""]
+        if n == 1: return ['0', '1', '8']
+        res = []
+        tmp = ['' for _ in range(n)]
+        self.dfs(0, len(tmp) - 1, tmp, res, MAP, LIST)
+        return res
+
+    def dfs(self, l, r, tmp, res, MAP, LIST):
         if l > r:
-            res.append("".join(path))
+            res.append(''.join(tmp[:]))
             return
-        if l == r:
-            for ele in ['0', '1', '8']:
-                path[l] = ele
-                self.helper(l + 1, r - 1, path, res)
-
-        if l < r:
-            for ele in ['0', '1', '6', '8', '9']:
-                if l == 0 and ele == '0':
-                    continue
-                path[l] = ele
-                path[r] = mp[ele]
-                self.helper(l + 1, r - 1, path, res)
-
+        for i in range(len(LIST)):
+            if l == 0 and LIST[i] == '0':
+                continue
+            if (l == r) and (LIST[i] == '6' or LIST[i] == '9'):
+                continue
+            tmp[l] = LIST[i]
+            tmp[r] = MAP[tmp[l]]
+            self.dfs(l + 1, r - 1, tmp, res, MAP, LIST)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

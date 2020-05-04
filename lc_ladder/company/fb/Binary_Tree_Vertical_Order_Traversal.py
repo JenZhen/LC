@@ -38,6 +38,19 @@ D.S.: binary tree
 
 Solution:
 纵向的level巧妙记录
+注意 Leetcode 的特殊要求
+     3
+    /\
+   /  \
+   9   8
+  /\  /\
+ /  \/  \
+ 4  21   7
+ 返回  [[4],[9],[3,1,2],[8],[7]]
+3， 2， 1位于同一层，
+3 在最上面
+2，1 在同一层，虽然2 在1左边出现，但是1 更小，所以返回3， 1， 2
+见下 Solution3_BFS_Leetcode 解法
 
 Corner cases:
 """
@@ -108,7 +121,40 @@ class Solution2_BFS_No_Sorting:
         return res
 
 
-class Solution3_DFS:
+class Solution3_BFS_Leetcode:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        level_map = {} # key: vertical level, val: [node val]
+        lower, upper = 0, 0
+        q = collections.deque([(root, 0)])
+        while q:
+            size = len(q)
+            tmp_map = {}
+            for _ in range(size):
+                node, level = q.popleft()
+                lower = min(lower, level)
+                upper = max(upper, level)
+
+                if level not in tmp_map:
+                    tmp_map[level] = []
+                tmp_map[level].append(node.val)
+                if node.left:
+                    q.append((node.left, level - 1))
+                if node.right:
+                    q.append((node.right, level + 1))
+            # from tmp_map to level_mp
+            for level, arr in tmp_map.items():
+                if level not in level_map:
+                    level_map[level] = sorted(arr)
+                else:
+                    level_map[level].extend(sorted(arr))
+        res = []
+        for i in range(lower, upper + 1):
+            res.append(level_map[i])
+        return res
+
+
+class Solution4_DFS:
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root: return []
 
@@ -118,7 +164,7 @@ class Solution3_DFS:
 
         res = []
         for level in range(boundry[0], boundry[1] + 1):
-            # 根据题意 要根据行来排序 
+            # 根据题意 要根据行来排序
             level_map[level].sort(key=lambda x: x[0])
             res.append([x[1] for x in level_map[level]])
         return res
@@ -135,6 +181,7 @@ class Solution3_DFS:
         level_map[level].append((row, node.val))
         self.dfs(node.left, row + 1, level - 1, level_map, boundry)
         self.dfs(node.right, row + 1, level + 1, level_map, boundry)
+
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
