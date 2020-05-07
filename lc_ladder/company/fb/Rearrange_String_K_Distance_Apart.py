@@ -83,6 +83,7 @@ class Solution:
                     tmp_list.append(char)
 
                 if len(heap) == 0:
+                    # s = 'abb', k = 4
                     if i != k - 1 and len(res) != len(s):
                         return ""
                     break # break for loop

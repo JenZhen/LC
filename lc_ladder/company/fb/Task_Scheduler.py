@@ -37,6 +37,12 @@ if other char is of A's length + 1, is less than A's length just take  - space n
 Time: O(n)
 Space: O(1)
 
+Similar:
+767 reorganize string
+https://leetcode.com/problems/reorganize-string/
+358 brearrange-string-k-distance-apart
+https://leetcode.com/problems/rearrange-string-k-distance-apart/
+
 Corner cases:
 """
 
