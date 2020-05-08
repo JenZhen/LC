@@ -59,31 +59,34 @@ class Solution:
     def kClosest(self, points: List[List[int]], K: int) -> List[List[int]]:
         if not points or len(points) == 0 or not K:
             return []
-        self.sort(points, 0, len(points) - 1, K)
+        if len(points) <= K:
+            return points
+        self.sort(points, 0, len(points) - 1, K - 1)
         return points[:K]
 
-    def sort(self, points, start, end, K):
-        if start >= end:
+    def sort(self, points, l, r, K):
+        if l >= r:
             return
-        mid = self.partition(points, start, end)
-        if K < mid - start + 1:
-            self.sort(points, start, mid - 1, K)
-        elif K > mid - start + 1:
-            self.sort(points, mid + 1, end, K - (mid - start + 1))
-        # if K == mid -start + 1, just turn find the place
+        pos = self.partition(points, l, r)
+        if pos == K:
+            return
+        elif pos < K:
+            self.sort(points, pos + 1, r, K)
+        else:
+            self.sort(points, l, pos - 1, K)
 
-    def get_dist(self, point):
-        return point[0] ** 2 + point[1] ** 2
+    def partition(self, points, l, r):
+        pos = l - 1
+        pivot = self.get_distance(points[r])
 
-    def partition(self, points, start, end):
-        i = (start - 1)         # index of smaller element
-        pivot_dist = self.get_dist(points[end])     # pivot value is the right most element
+        for i in range(l, r + 1):
+            if self.get_distance(points[i]) <= pivot:
+                pos += 1
+                points[pos], points[i] = points[i], points[pos]
+        return pos
 
-        for j in range(start, end + 1):
-            if self.get_dist(points[j]) <= pivot_dist:
-                i += 1
-                points[i], points[j] = points[j], points[i]
-        return i
+    def get_distance(self, coor):
+        return coor[0] ** 2 + coor[1] ** 2
 
 # Test Cases
 if __name__ == "__main__":

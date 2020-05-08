@@ -68,7 +68,7 @@ class WordDictionary:
         elif char in curNode.children:
             return self._search(word, depth + 1, curNode.children[char])
         else:
-            return False
+            return False # this last else block is optional
         """
         Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
         """

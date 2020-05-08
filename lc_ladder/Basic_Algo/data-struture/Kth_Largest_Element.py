@@ -94,5 +94,16 @@ class Solution2:
         nums[i], nums[r] = nums[r], nums[i]
         return i
 
+    # parition can be
+    def partition2(self, nums, l, r):
+        i = l - 1 # i + 1 will be next number less than pivot value
+        pivot_value = nums[r]
+
+        for j in range(l, r + 1):
+            if nums[j] <= pivot_value:
+                i += 1
+                nums[i], nums[j] = nums[j], nums[i]
+        return i
+
 # Test Cases
 if __name__ == "__main__":
