@@ -1,5 +1,5 @@
 #! /usr/local/bin/python3
-
+# https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
 # Requirement
 # Example
 # Given the root of a binary tree, find the maximum value V for which there exists different nodes A and B where V = |A.val - B.val| and A is an ancestor of B.
@@ -64,7 +64,8 @@ class Solution:
             self.res = max(self.res, abs(node.val - rmax))
             curmin = min(curmin, rmin)
             curmax = max(curmax, rmax)
-
+        #  切记不可在最后更新self.max 因为可能不是同一个node 下的最大差
+        # self.res = max(self.res, curmax - curmin)
         return curmin, curmax
 # Test Cases
 if __name__ == "__main__":

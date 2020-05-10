@@ -39,54 +39,49 @@ class Solution:
         """
         if not head: return head
 
-        size = 0
+        s, f = head, head
+        while f.next and f.next.next:
+            s = s.next
+            f = f.next.next
+        head2 = s.next
+        s.next = None
+
+        head3 = self.reverse(head2)
+        # self.print(head)
+        # self.print(head3)
+        return self.merge(head, head3)
+
+    def reverse(self, head):
+        pre = None
         cur = head
         while cur:
-            size += 1
-            cur = cur.next
+            tmp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = tmp
+        return pre
 
-        half_size = 0
-        if size % 2 == 1:
-            # 长度为5，断在2后面
-            half_size = size // 2
-        else:
-            # 长度为4，断在2后面
-            half_size = size // 2
-
-        cur = head
-        i = 1
-        while i < half_size:
-            cur = cur.next
-            i += 1
-        # break after half
-        head2 = cur.next
-        cur.next = None
-
-        # reverse from head2
-        prev = None
-        cur = head2
-        while cur:
-            nxt = cur.next
-            cur.next = prev
-            prev = cur
-            cur = nxt
-        head2 = prev
-
-        # merge head & head2, head2 is longer if ttl is odd number
+    def merge(self, h1, h2):
         dummy = ListNode()
         cur = dummy
-        c1, c2 = head, head2
-        print(head)
-        print(head2)
-        while c1 and c2:
-            cur.next = c1
-            c1 = c1.next
+        while h1 and h2:
+            cur.next = h1
+            h1 = h1.next
             cur = cur.next
-            cur.next = c2
-            c2 = c2.next
+            cur.next = h2
+            h2 = h2.next
             cur = cur.next
-        return dummy.next
+        if h1:
+            cur.next = h1
+        head = dummy.next
 
+    def print(self, head):
+        res = []
+        cur = head
+        while cur:
+            res.append(cur.val)
+            cur = cur.next
+        print(res)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

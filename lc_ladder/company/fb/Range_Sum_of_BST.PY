@@ -44,6 +44,8 @@ class Solution:
         if not node: return
         if L <= node.val <= R:
             self.res += node.val
+            self.dfs(node.left, L, R)
+            self.dfs(node.right, L, R)
         if L < node.val:
             self.dfs(node.left, L, R)
         if R > node.val:

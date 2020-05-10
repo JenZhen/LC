@@ -37,12 +37,12 @@ class Solution:
         minval = min(p.val, q.val)
         maxval = max(p.val, q.val)
         while cur:
-            if cur.val < minval:
-                cur = cur.right
-            elif cur.val > maxval:
-                cur = cur.left
-            else:
+            if minval <= cur.val <= maxval:
                 return cur
+            elif cur.val < minval:
+                cur = cur.right
+            else:
+                cur = cur.left
         return cur
 # Test Cases
 if __name__ == "__main__":

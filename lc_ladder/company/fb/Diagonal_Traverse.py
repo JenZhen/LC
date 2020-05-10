@@ -18,15 +18,49 @@
 Algo:
 D.S.:
 
-Solution:
+Solution1:
 Time: O(m * n)
-Space: O(m)
+Space: O(1)
+Simulation of the process.
+
+Solution2:
+读每一条， 根据方向reverse 需要额外空间
+Time: O(m * n)
+Space: O(max(m, n))
 
 注意方向的设定
 Corner cases:
 """
+class Solution1:
+    def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
+        if not matrix or not matrix[0]: return []
+        m, n = len(matrix), len(matrix[0])
+        res = []
+        i, j = 0, 0
+        FLAG = 1
+        dirs = {
+            1: (-1, 1),
+            0: (1, -1)
+        }
+        while 0 <= i < m and 0 <= j < n:
+            res.append(matrix[i][j])
+            ni, nj = dirs[FLAG][0] + i, dirs[FLAG][1] + j
+            if 0 <= ni < m and 0 <= nj < n:
+                i = ni
+                j = nj
+            else:
+                # 重要 方向装换
+                if FLAG:
+                    i += (j == n - 1)
+                    j += (j < n - 1)
+                else:
+                    j += (i == m - 1)
+                    i += (i < m - 1)
+                FLAG = 1 - FLAG
+        return res
 
-class Solution:
+
+class Solution2:
     def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
         if not matrix or not matrix[0]: return []
         m, n = len(matrix), len(matrix[0])
@@ -58,7 +92,7 @@ class Solution:
                 res.extend(li)
             flag = not flag
         return res
-        
+
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
