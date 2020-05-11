@@ -25,8 +25,9 @@ D.S.:
 
 Solution:
 
-Time: O()
-Space: O()
+Time: O(n * 4^n)
+每个数字之间可以填+，-，*或者不填，一共四种选择，所以一共有 4n−14n−1 种方案，每个表达式求值需要 O(n)O(n) 的时间复杂度，所以总时间复杂度是 O(n4n)
+Space: O(n)
 Corner cases:
 """
 class Solution:

@@ -25,8 +25,8 @@ Solution:
 2. 结尾一定要再次查是否valid再能放入res List
 3. dfs 要带着每层的startIdx
 
-Time：O(2 ^(l + r)) recursion depth l + r ~ n
-Space: O((l + r) ^ 2) ~ O(n^2)
+Time：O(2 ^(l + r) *  n) recursion depth l + r ~ n, 最坏情况，所有的都要删除))((
+Space: O((l + r)） ~ O(n)
 
 Corner cases:
 """

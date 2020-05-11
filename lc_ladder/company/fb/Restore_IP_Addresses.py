@@ -16,8 +16,8 @@ D.S.:
 
 Solution:
 
-Time: O()
-Space: O()
+Time: O(2 ^ n) --> n is limited so it's constant
+Space: O(n)
 Corner cases:
 """
 class Solution:

@@ -48,21 +48,47 @@ D.S.:
 如果根节点大于要查找的节点, 则暂存左子树递归查找的结果, 如果是 null, 则直接返回当前根节点; 反之返回左子树递归查找的结果.
 在递归实现中, 暂存左子树递归查找的结果就相当于循环实现中维护的祖先节点.
 
-Solution:
-
+Solution1:
+利用BST 性质
+1. 先找到P节点
+2. 同时记录STACK 只记录比较大的
+3. 找到P之后，先看他有没有右孩子，再stack中记录的比他大的就是in order successor
 
 Corner cases:
 """
 
-"""
-Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-"""
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution1:
+    def inorderSuccessor(self, root: 'TreeNode', p: 'TreeNode') -> 'TreeNode':
+        cur = root
+        stack = [root]
+        while cur:
+            if cur == p:
+                break
+            if cur.val > p.val:
+                stack.append(cur.left)
+                cur = cur.left
+            else:
+                stack.pop()
+                stack.append(cur.right)
+                cur = cur.right
+        if cur == None: return None
+        if p.right:
+            p = p.right
+            while p.left:
+                p = p.left
+            return p
+        stack.pop()
+        if stack:
+            return stack.pop()
+        else:
+            return None
 
 class Solution:
     """
