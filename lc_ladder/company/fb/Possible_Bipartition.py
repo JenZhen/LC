@@ -47,6 +47,41 @@ Space: O(V + E)
 Corner cases:
 """
 
+class Solution_BFS:
+    def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
+        if not dislikes: return True
+        g = self._build_graph(dislikes)
+        colors = [0] * (N + 1)
+        for i in range(1, N + 1):
+            if colors[i] == 0: # 开始一轮新的BFS的条件
+                q = collections.deque([(i, 1)])
+                colors[i] = 1
+                while q:
+                    cur_node, cur_color = q.popleft()
+                    # 注意 Cornercase: 有可能这个节点就不在dislikes 里面所以要查 在不在graph中
+                    # 也可以把 graph 对所有node 建key, 这个方式更好！！
+                    if cur_node not in g:
+                        continue
+                    for nei in g[cur_node]:
+                        if colors[nei] == 0:
+                            colors[nei] = cur_color * (-1)
+                            q.append((nei, colors[nei]))
+                        elif colors[nei] == cur_color:
+                            return False
+        return True
+
+    def _build_graph(self, dislikes):
+        g = {} # key: node, val: [list of node it doesn't like]
+        for u, v in dislikes:
+            if u not in g:
+                g[u] = []
+            g[u].append(v)
+            if v not in g:
+                g[v] = []
+            g[v].append(u)
+        return g
+
+
 class Solution:
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
         colors = [0] * (N + 1)

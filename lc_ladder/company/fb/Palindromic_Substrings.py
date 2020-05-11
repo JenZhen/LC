@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/palindromic-substrings/description
+# https://leetcode.com/problems/palindromic-substrings/solution/
 # Example
 # 给定一个字符串，你的任务是数出有多少个回文子串在这个字符串内。
 # 一个子串不同于其他的子串，当且仅当开始和结束位置不同。
@@ -26,8 +27,9 @@
 Algo:
 D.S.:
 
-Solution:
-
+Solution1:
+Time: O(n ^ 2)
+Space: O(1)
 
 Corner cases:
 """

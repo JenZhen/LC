@@ -120,6 +120,7 @@ class UnionFind:
         if self.father[a] == a:
             return a
         self.father[a] = self.find(self.father[a])
+        return self.father[a]
 
 # Test Cases
 if __name__ == "__main__":

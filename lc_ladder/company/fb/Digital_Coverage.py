@@ -1,4 +1,4 @@
-     #! /usr/local/bin/python3
+#! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/digital-coverage/description
 # Example

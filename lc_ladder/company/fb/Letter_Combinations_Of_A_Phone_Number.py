@@ -45,8 +45,9 @@ Algo: DFS, Backtracking
 D.S.:
 
 Solution:
-Time: O(N ^ 3)
-Space: O(N) -- path
+Time: O(3^M * 4^N * (M + N))
+M is count of # has 3 possibilites, N is count of # of 4 (7 and 9)
+Space: O(3^M * 4^N) this many possible values stored in res
 
 Corner cases:
 """

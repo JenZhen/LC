@@ -88,14 +88,16 @@ class Solution:
         :rtype: The number of actual characters read (int)
         """
         buf4 = ["" for _ in range(4)]
-        offset = 0
+        offset = 0 # pointer of total read
         while True:
             size = read4(buf4)
-            i = 0
+            i = 0 # pointer of how much a read4 block is read
             while i < size and offset < n:
                 buf[offset] = buf4[i]
                 offset += 1
                 i += 1
+            # size == 0: 说明要读出来的比 文件大
+            # offset == n: 说明 读够量了
             if size == 0 or offset == n:
                 return offset
 

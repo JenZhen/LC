@@ -36,6 +36,24 @@ Minimum Window Substring
 
 Corner cases:
 """
+
+class Solution_Suggested:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s: return 0
+        i, j, res = 0, 0, 0
+        char_set = set()
+        while i < len(s):
+            while j < len(s):
+                if s[j] not in char_set:
+                    char_set.add(s[j])
+                else:
+                    break
+                j += 1
+            res = max(res, j - i)
+            char_set.remove(s[i])
+            i += 1
+        return res
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if not s: return 0

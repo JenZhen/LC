@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/course-schedule/description
+# https://leetcode.com/problems/course-schedule/submissions/c
 # There are a total of n courses you have to take, labeled from 0 to n - 1.
 # Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
 # Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
@@ -25,6 +26,8 @@ Corner cases:
 IMPORTANT: Use list in stead of set() in outMap, in case of duplicate as [1, 9] [1, 9]
 1's inDegree would count twice, 9's outMap list would contain two 1
 
+Solution2:
+DFS (not recommended)
 """
 
 class Solution:
@@ -65,6 +68,32 @@ class Solution:
                     q.append(node)
         return cnt == numCourses
 
+
+class Solution_DFS:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        if not numCourses or not prerequisites:
+            return True
+
+        outMap = [[] for _ in range(numCourses)]
+        for u, v in prerequisites:
+            outMap[v].append(u)
+
+        visited = [False for _ in range(numCourses)]
+        checkCycle = [False for _ in range(numCourses)] # starting for node i if has cycle
+        for i in range(numCourses):
+            if visited[i] == True or self.hasCycle(outMap, visited, i, checkCycle):
+                return False
+        return True
+
+    def hasCycle(self, outMap, visited, curCourse, checkCycle):
+        if checkCycle[curCourse]: return False
+        visited[curCourse] = True
+        for next_course in outMap[curCourse]:
+            if visited[next_course] or self.hasCycle(outMap, visited, next_course, checkCycle):
+                return False
+        visited[curCourse] = False
+        checkCycle[curCourse] = False
+        return False
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

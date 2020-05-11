@@ -25,8 +25,8 @@ Solution:
 2. 结尾一定要再次查是否valid再能放入res List
 3. dfs 要带着每层的startIdx
 
-Time：O(2 ^(l + r)) recursion depth l + r ~ n
-Space: O((l + r) ^ 2) ~ O(n^2)
+Time：O(2 ^(l + r) *  n) recursion depth l + r ~ n, 最坏情况，所有的都要删除))((
+Space: O((l + r)） ~ O(n)
 
 Corner cases:
 """
@@ -45,13 +45,28 @@ class Solution:
         # cnt of '(' and cnt of ')' to remove to make it valid
         l, r = 0, 0
         for char in s:
-            l += (char == "(")
-            if l == 0:
-                # find extra )
-                r += (char == ")")
-            else:
-                # offset extra (
-                l -= (char == ")")
+            if c == '(':
+                l += 1
+            if c == ')':
+                if l > 0:
+                    l -= 1
+                else:
+                    r += 1
+            # option2
+            # if c == '(':
+            #     l += 1
+            # if l == 0:
+            #     r += c == ')'
+            # else:
+            #     l -= c == ')'
+            # option3
+            # l += (char == "(")
+            # if l == 0:
+            #     # find extra )
+            #     r += (char == ")")
+            # else:
+            #     # offset extra (
+            #     l -= (char == ")")
 
         res = []
         self.dfs(s, 0, l, r, res)

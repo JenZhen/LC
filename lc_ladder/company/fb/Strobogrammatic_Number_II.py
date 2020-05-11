@@ -14,8 +14,8 @@ D.S.:
 
 Solution:
 
-Time: O()
-Space: O()
+Time: O(5 ^ n)
+Space: O(5 ^ n) -- carry the results
 Corner cases:
 """
 class Solution:
