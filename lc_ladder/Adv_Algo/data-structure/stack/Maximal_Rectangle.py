@@ -100,7 +100,7 @@ class Solution1:
         return res
 
 
-class Solution2:
+class Solution_DP:
     """
     @param matrix: a boolean 2D matrix
     @return: an integer
@@ -109,36 +109,34 @@ class Solution2:
         # write your code here
         if not matrix or not matrix[0]:
             return 0
-        res = 0
-        m, n = len(matrix), len(matrix[0])
-        hRow = [0 for j in range(n + 1)] # a row of n + 1 col
 
-        # populate hGrid using matrix value
-        # leave last col as 0
-        for i in range(m):
-            for j in range(n):
-                if not matrix[i][j]:
-                    hRow[j] = 0
+        row = len(matrix)
+        col = len(matrix[0])
+
+        h = [[0] * col for i in range(row)]
+        l = [[0] * col for i in range(row)]
+        r = [[col - 1] * col for i in range(row)]
+
+        res = 0
+        for i in range(row):
+            curLeft = 0
+            curRight = col - 1
+            for j in range(col):
+                if matrix[i][j] == True:
+                    h[i][j] = h[i - 1][j] + 1
+                    l[i][j] = max(curLeft, l[i - 1][j])
                 else:
-                    if i == 0:
-                        hRow[j] = 1
-                    else:
-                        hRow[j] = hRow[j] + 1
-            res = max(res, self.getMaxAreaPerRow(hRow))
-        return res
-
-    # This is the template from Largest_Rectangle_in_Histogram.py
-    def getMaxAreaPerRow(self, row):
-        stack = []
-        maxAraea = 0
-        res = 0
-        for i in range(len(row)): # n + 1
-            curHeight = row[i]
-            while len(stack) and curHeight <= row[stack[-1]]:
-                h = row[stack.pop()]
-                w = i if (len(stack) == 0) else i - stack[-1] - 1
-                res = max(res, h * w)
-            stack.append(i)
+                    h[i][j] = 0
+                    l[i][j] = 0
+                    curLeft = j + 1 #j is False, first left True is j + 1 position
+            for j in range(col - 1, -1, -1):
+                if matrix[i][j] == True:
+                    r[i][j] = min(curRight, r[i - 1][j])
+                else:
+                    r[i][j] = col - 1
+                    curRight = j - 1
+            for j in range(col):
+                res = max(res, (r[i][j] - l[i][j] + 1) * h[i][j])
         return res
 
 # Test Cases
