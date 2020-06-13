@@ -27,6 +27,8 @@ Corner cases:
 """
 
 class Solution1:
+    # TODO:
+    # 不知道为什么不用初始化第一行 也不会越界
     """
     @param matrix: a boolean 2D matrix
     @return: an integer
@@ -63,6 +65,63 @@ class Solution1:
                     curRight = j - 1
             for j in range(col):
                 res = max(res, (r[i][j] - l[i][j] + 1) * h[i][j])
+        return res
+
+class Solution_with_init:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix or not matrix[0]:
+            return 0
+
+        row = len(matrix)
+        col = len(matrix[0])
+
+        h = [[0 for _ in range(col)] for _ in range(row)]
+        l = [[0 for _ in range(col)] for _ in range(row)]
+        r = [[col - 1 for _ in range(col)] for _ in range(row)]
+
+        res = 0
+        # init first row
+        curLeft = 0
+        curRight = col - 1
+        for j in range(col):
+            if matrix[0][j] == '1':
+                h[0][j] = 1
+                l[0][j] = curLeft
+            else:
+                h[0][j] = 0
+                l[0][j] = 0
+                curLeft = j + 1
+        for j in range(col - 1, -1, -1):
+            if matrix[0][j] == '1':
+                r[0][j] = curRight
+            else:
+                r[0][j] = col - 1
+                curRight = j - 1
+        for j in range(col):
+            res = max(res, (r[0][j] - l[0][j] + 1) * h[0][j])
+
+        for i in range(1, row):
+            curLeft = 0
+            curRight = col - 1
+            for j in range(col):
+                if matrix[i][j] == '1':
+                    h[i][j] = h[i - 1][j] + 1
+                    l[i][j] = max(curLeft, l[i - 1][j])
+                else:
+                    h[i][j] = 0
+                    l[i][j] = 0
+                    curLeft = j + 1 #j is False, first left True is j + 1 position
+            for j in range(col - 1, -1, -1):
+                if matrix[i][j] == '1':
+                    r[i][j] = min(curRight, r[i - 1][j])
+                else:
+                    r[i][j] = col - 1
+                    curRight = j - 1
+            for j in range(col):
+                res = max(res, (r[i][j] - l[i][j] + 1) * h[i][j])
+        print(h)
+        print(l)
+        print(r)
         return res
 
 class Solution2:
