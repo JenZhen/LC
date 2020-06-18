@@ -52,7 +52,7 @@ class Solution1:
                     f[i] = max(f[i], f[j] + 1)
         return max(f)
 
-cclass Solution:
+class Solution:
     def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
         envelopes.sort(key=lambda x: (x[0], -x[1]))
         print(envelopes)
