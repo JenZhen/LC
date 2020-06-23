@@ -58,6 +58,8 @@ you can call Reader.read4(buf)
 
 class Solution1:
     def __init__(self):
+        # 上一次读，有可能buf4还有数据没有读完
+        # 所以Buf4 的信息要脱离read 函数保留下来
         self.buf4 = ["" for _ in range(4)]
         self.i4 = 0 # current pointer of buf4
         self.n4 = 0 # current size of buf4 <= 4
@@ -75,7 +77,7 @@ class Solution1:
                 self.n4 = read4(self.buf4)
                 self.i4 = 0
                 if self.n4 == 0:
-                    # 没有更多的了
+                    # 没有更多的了，返回的i没有n大
                     break
             buf[i] = self.buf4[self.i4]
             i += 1

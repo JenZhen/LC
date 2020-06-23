@@ -78,6 +78,30 @@ class Solution:
                         return False
         return True
 
+
+class Solution:
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        ord_mp = {}
+        for i in range(len(order)):
+            ord_mp[order[i]] = i
+
+        for i in range(1, len(words)):
+            w1 = words[i - 1] + ' '
+            w2 = words[i] + ' '
+            for k in range(min(len(w1), len(w2))):
+                c1, c2 = w1[k], w2[k]
+                # 第一个条件，比较是否到词尾，要先考虑这个，因为‘ ’不在order_mp中
+                # if w1到词尾，break 表示这一组成立
+                if c1 == ' ': break
+                # elif w2词尾，表示w1没有到词尾，返回错
+                elif c2 == ' ': return False
+
+                # 第二个条件，字符比较
+                # 如果w1 比w2靠后，直接返回错
+                # 如果w1 比w2靠后，这组成立，break 去查下一组词
+                if ord_mp[c1] > ord_mp[c2]: return False
+                elif ord_mp[c1] < ord_mp[c2]: break
+        return True
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
