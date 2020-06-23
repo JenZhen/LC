@@ -15,6 +15,24 @@ Carry 在最后面不要忘了查是不是等于1
 ‘999’ +
 ’1’
 """
+
+class Solution_1:
+    def addStrings(self, num1: str, num2: str) -> str:
+        diff = abs(len(num1) - len(num2))
+        if len(num1) < len(num2):
+            num1 = '0' * diff + num1
+        else:
+            num2 = '0' * diff + num2
+        res = ''
+        carry = 0
+        for i in range(len(num1) - 1, -1, -1):
+            ttl = int(num1[i]) + int(num2[i]) + carry
+            res = str(ttl % 10) + res
+            carry = ttl // 10
+        if carry:
+            res = '1' + res
+        return res
+
 class Solution:
     """
     @param num1: a non-negative integers
