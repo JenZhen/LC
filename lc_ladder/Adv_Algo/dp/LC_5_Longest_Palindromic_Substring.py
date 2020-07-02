@@ -29,6 +29,10 @@ Space O(n^2)
 Time O(n^2)
 Space O(1)
 
+3. Manacher's_algorithm
+Time: O(n)
+https://leetcode.com/problems/longest-palindromic-substring/solution/
+https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
 Corner cases:
 """
 

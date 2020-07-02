@@ -1,67 +1,110 @@
 #! /usr/local/bin/python3
 
-# https://www.lintcode.com/problem/my-calendar-i/description
-# Example
-# 实现MyCalendar类来存储您的活动。 如果新添加的活动没有重复，则可以添加。
+# https://leetcode.com/problems/my-calendar-i/submissions/
+# Implement a MyCalendar class to store your events. A new event can be added if adding the event will not cause a double booking.
+# Your class will have the method, book(int start, int end). Formally, this represents a booking on the half open interval [start, end),
+# the range of real numbers x such that start <= x < end.
 #
-# 你的类将有方法book(int start，int end)。 这代表左闭右开的间隔[start，end)有了预定，范围内的实数x，都满足start <= x < end。
+# A double booking happens when two events have some non-empty intersection (ie., there is some time that is common to both events.)
+# For each call to the method MyCalendar.book, return true if the event can be added to the calendar successfully without causing a double booking.
+# Otherwise, return false and do not add the event to the calendar.
 #
-# 当两个事件有一些非空交集时（即，两个事件在共同的时间都有预定），就会发生重复预订。
+# Your class will be called like this: MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end)
+# Example 1:
 #
-# 每次调用MyCalendar.book方法时，如果没有发生重复预定，那么事件可以成功添加到日历，且返回true。 否则，返回false，并且事件不会添加到日历中。
-#
-# 你的类以此方式被调用：MyCalendar cal = new MyCalendar(); MyCalendar.book(start, end);
-#
-# 样例
 # MyCalendar();
-# MyCalendar.book(10, 20); // 返回true
-# MyCalendar.book(15, 25); // 返回false
-# MyCalendar.book(20, 30); // 返回true
-# 解释:
-# 第一个事件可以预定。 第二个不行，因为15已经被预定。
-# 第三个事件可以预定，因为第一个事件预定了20以前的时间，但不包括20.
-# 注意事项
-# 每个测试样例调用 MyCalendar.book 的次数最多为 1000。
-# 调用MyCalendar.book(start, end)时, start 和 end 都是 [0, 10^9]范围内的整数。
-
+# MyCalendar.book(10, 20); // returns true
+# MyCalendar.book(15, 25); // returns false
+# MyCalendar.book(20, 30); // returns true
+# Explanation:
+# The first event can be booked.  The second can't because time 15 is already booked by another event.
+# The third event can be booked, as the first event takes every time less than 20, but not including 20.
+#
+#
+# Note:
+#
+# The number of calls to MyCalendar.book per test case will be at most 1000.
+# In calls to MyCalendar.book(start, end), start and end are integers in the range [0, 10^9].
 """
 Algo:
-D.S.: list
+D.S.:
+
 Solution:
-1. 需要遍历现所有schedule来判断是否有没有重复
-O(N): 对于每一次查询，O(N^2) 对于所有N次查询
-2. 扫描线法（要求排序） 先将区间放入已有区间，然后扫描线看有没有重复的，有的话就将它再删除
-扫面线需要排序的特点要求
+
+两个interval是否有交集的判断条件
+start < e and end > s:
+
+Solution1：suggested
+balanced tree (ideally)
+for python 没有treemap -- ordered hashmap
+average: O(nlogn) worst case: O(n^2) when biased tree
+
+for java use treemap structure O(nlogn)
+
+Space: O(N)
+Solution2：
+暴力解法，每次添加一个新的interval 都要去和之前加进去的每一个比较
+Time：O(n^2)
+Space: O(n)
 
 Corner cases:
 """
-
-class MyCalendar:
+class MyCalendar1:
 
     def __init__(self):
-        # (st, end) save tuple of event start and end
-        self.calendar = []
+        self.root = None
 
-    def book(self, start, end):
-        """
-        :type start: int
-        :type end: int
-        :rtype: bool
-        """
-        if not self.calendar:
-            self.calendar.append((start, end))
+    def book(self, start: int, end: int) -> bool:
+        if self.root is None:
+            self.root = Node(start, end)
             return True
-        for cal in self.calendar:
-            if not (end <= cal[0] or cal[1] <= start):
-                return False
-        self.calendar.append((start, end))
-        return True
+        return self.root.insert(start, end)
 
 
 # Your MyCalendar object will be instantiated and called as such:
 # obj = MyCalendar()
 # param_1 = obj.book(start,end)
 
+class Node:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.left = self.right = None
+
+    def insert(self, start, end):
+        cur = self
+        pre = None
+        while cur:
+            if end <= cur.start:
+                pre = cur
+                cur = cur.left
+            elif start >= cur.end:
+                pre = cur
+                cur = cur.right
+            elif start < cur.end and end > cur.start:
+                return False
+        if end <= pre.start:
+            pre.left = Node(start, end)
+        elif start >= pre.end:
+            pre.right = Node(start, end)
+        return True
+
+class MyCalendar_Brutal_Force:
+
+    def __init__(self):
+        self.bookings = []
+
+    def book(self, start: int, end: int) -> bool:
+        for s, e in self.bookings:
+            if start < e and end > s:
+                return False
+        self.bookings.append((start, end))
+        return True
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

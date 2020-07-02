@@ -16,11 +16,26 @@ only price greater than current max price or less than current min price matters
 it doesn't matter if equal or between.
 
 Time：O(n), Space: O(1)
+arr       3  2  3  1  2
+maxsell   0  -1 1  -1 1
+   buy   -3  -2 -3 -1 -2
+maxbuy   -3  -2 -2 -1 -1
 
 Corner cases:
 no element or one element
 
 """
+class Solution_Suggested:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices or len(prices) == 1:
+            return 0
+        maxsell = 0
+        maxbuy = -prices[0]
+
+        for i in range(1, len(prices)):
+            maxsell = max(maxsell, maxbuy + prices[i])
+            maxbuy = max(-prices[i], maxbuy)
+        return maxsell
 
 class Solution:
     """

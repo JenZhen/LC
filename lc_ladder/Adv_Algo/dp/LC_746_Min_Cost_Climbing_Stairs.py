@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/min-cost-climbing-stairs/description
+# https://leetcode.com/problems/min-cost-climbing-stairs/
 # Example
 # On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
 # Once you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach the top of the floor,
@@ -49,6 +50,19 @@ class Solution:
             f[i % 2] = min(f[(i - 1) % 2], f[(i - 2) % 2]) + cost[i]
         return min(f)
 
+class Solution2:
+    # 没有pre-padding
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        if not cost: return 0
+        if len(cost) == 1: return cost[-1]
+
+        arr = [0, 0]
+        arr[0] = cost[0]
+        arr[1] = cost[1]
+
+        for i in range(2, len(cost)):
+            arr[i % 2] = min(arr[(i - 2) % 2], arr[(i - 1) % 2]) + cost[i]
+        return min(arr)
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

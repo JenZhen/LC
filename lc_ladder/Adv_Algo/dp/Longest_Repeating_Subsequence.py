@@ -2,7 +2,8 @@
 
 # https://www.lintcode.com/problem/longest-repeating-subsequence/description
 # Example
-# Given a string, find length of the longest repeating subsequence such that the two subsequence don’t have same string character at same position, i.e., any ith character in the two subsequences shouldn’t have the same index in the original string.
+# Given a string, find length of the longest repeating subsequence such that the two subsequence
+# don’t have same string character at same position, i.e., any ith character in the two subsequences shouldn’t have the same index in the original string.
 #
 # Example
 # str = abc, return 0, There is no repeating subsequence

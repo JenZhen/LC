@@ -53,6 +53,8 @@ TODO: 自己再好好做做
 Corner cases:
 """
 
+
+# DFS WITHOUT MEMO
 class Solution:
     """
     @param s1: A string

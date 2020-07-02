@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/maximal-rectangle/description
+# https://leetcode.com/problems/maximal-rectangle/
 # Example
 # Given a 2D boolean matrix filled with False and True,
 # find the largest rectangle containing all True and return its area.

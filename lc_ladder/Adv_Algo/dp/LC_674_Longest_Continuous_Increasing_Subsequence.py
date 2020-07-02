@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/longest-continuous-increasing-subsequence/description
+# https://leetcode.com/problems/longest-continuous-increasing-subsequence/
 # Example
 # Give an integer array，find the longest increasing continuous subsequence in this array.
 #
