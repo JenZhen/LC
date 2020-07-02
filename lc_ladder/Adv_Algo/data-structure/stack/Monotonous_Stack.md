@@ -26,9 +26,9 @@
 ### 同理，从右往左可以找到右起第一个比当前数字大、小的元素
 
 ### 题目
-LC 84  https://leetcode.com/problems/largest-rectangle-in-histogram/
-LC 239 https://leetcode.com/problems/sliding-window-maximum/
-LC 496 https://leetcode.com/problems/next-greater-element-i/
-LC 503 https://leetcode.com/problems/next-greater-element-ii/
-LC 739 https://leetcode.com/problems/daily-temperatures/
-LC 901 https://leetcode.com/problems/online-stock-span/
+* LC 84  https://leetcode.com/problems/largest-rectangle-in-histogram/
+* LC 239 https://leetcode.com/problems/sliding-window-maximum/
+* LC 496 https://leetcode.com/problems/next-greater-element-i/
+* LC 503 https://leetcode.com/problems/next-greater-element-ii/
+* LC 739 https://leetcode.com/problems/daily-temperatures/
+* LC 901 https://leetcode.com/problems/online-stock-span/
