@@ -1,6 +1,8 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/longest-continuous-increasing-subsequence-ii/description
+# https://leetcode.com/problems/longest-increasing-path-in-a-matrix/submissions/
+# Same as LC329 Longest Increasing Path in a Matrix
 # Example -- 从山顶滑雪问题， 最长下山路径
 # Give you an integer matrix (with row size n, column size m)，find the longest increasing continuous subsequence in this matrix.
 # (The definition of the longest increasing continuous subsequence here can start at any row or column and go up/down/right/left any direction).

@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/longest-common-subsequence/
+# https://leetcode.com/problems/longest-common-subsequence/submissions/
 # Example
 # 给出两个字符串，找到最长公共子序列(LCS)，返回LCS的长度。
 #

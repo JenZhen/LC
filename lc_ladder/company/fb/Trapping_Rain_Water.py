@@ -4,14 +4,19 @@
 # Example
 
 """
-Algo: Two-side
+Algo: Two-side， monotonous stack
 D.S.:
 
-Solution:
+Solution1:
 两边夹算法
 Time: O(n)
-Time: O(1)
+Space: O(1)
 
+Solution2:
+monotonous stack 单调栈 （栈内递减）
+严格递减 或是 不严格递减 都可以
+Time: O(n)
+Space: O(n)
 Corner cases:
 """
 class Solution:
@@ -44,6 +49,23 @@ class Solution:
                     rHeight = heights[r]
         return res
 
+class Solution2:
+    def trap(self, height: List[int]) -> int:
+        res = 0
+        i = 0
+        st = []
+        while i < len(height):
+            # height[i] >= height[st[-1]] or height[i] > height[st[-1]]
+            while (st and height[i] >= height[st[-1]]):
+                lowest_idx = st.pop()
+                if len(st) == 0:
+                    break # break inner while try next i
+                width = i - st[-1] - 1
+                depth = min(height[i], height[st[-1]]) - height[lowest_idx]
+                res += (width * depth)
+            st.append(i)
+            i += 1
+        return res
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

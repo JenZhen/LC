@@ -8,7 +8,7 @@
 # 样例
 # 给出一个数组样例[2,1,2,0,1], 返回 2
 """
-Algo:
+Algo: Greedy
 D.S.:
 
 Solution:

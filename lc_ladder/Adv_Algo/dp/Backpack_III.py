@@ -40,8 +40,10 @@ class Solution1:
         # first row 0
         for i in range(1, n + 1):
             for j in range(0, m + 1):
+                 # 如果不拿第i个，和只拿前i-1结果一样
                 dp[i][j] = dp[i - 1][j]
                 if A[i - 1] <= j:
+                    #如果拿第i个,可以之前拿过第i个，结果从dp[i]这一行增加
                     dp[i][j] = max(dp[i][j], dp[i][j - A[i - 1]] + V[i - 1])
         print(dp)
         return dp[n][m]

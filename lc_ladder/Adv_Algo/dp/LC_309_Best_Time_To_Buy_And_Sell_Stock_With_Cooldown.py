@@ -31,7 +31,11 @@ buy[i] 买进操作的最大利润。它需要考虑的是，第i天是否买进
 所以，显然有状态转移方程
 
 buy[i] = max(buy[i-1] , sell[i-2] – prices[i])  // 休息一天在买入，所以是sell[i-2]在状态转移
+        buy[i - 1] --> max profit when not buy at time i
+        sell[i-2] – prices[i] --> the max profit when buy at time i
 sell[i] = max(sell[i-1], buy[i-1] + prices[i])
+        sell[i - 1] --> max profit when not sell at time i
+        buy[i-1] + prices[i] --> max profit when sell at time i
 最后显然有sell[n-1] > buy[n-1] 所以我们返回sell[n-1]
 Time: O(n)
 Space: O(n) rolling space: O(1)
@@ -63,6 +67,7 @@ class Solution:
         sell[1] = max(sell[0], prices[1] - prices[0])
 
         for i in range(2, n):
+            # 先更新buy or sell 是一样的
             buy[i] = max(buy[i - 1], sell[i - 2] - prices[i])
             sell[i] = max(sell[i - 1], buy[i - 1] + prices[i])
         print(buy)
