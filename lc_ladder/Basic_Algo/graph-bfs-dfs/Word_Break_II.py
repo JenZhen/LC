@@ -45,6 +45,11 @@ D.S.:
 Solution:
 https://www.youtube.com/watch?v=JqOIRBC0_9c
 
+左右两半分开后，DFS 哪一边都可以
+一定要用memo 否则会超时
+超时例子
+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
 
 Corner cases:
 """

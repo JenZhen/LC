@@ -49,16 +49,13 @@ Space: O(n)
 
 Corner cases:
 """
-class MyCalendar1:
+class MyCalendar:
 
     def __init__(self):
-        self.root = None
+        self.tree = Tree()
 
     def book(self, start: int, end: int) -> bool:
-        if self.root is None:
-            self.root = Node(start, end)
-            return True
-        return self.root.insert(start, end)
+        return self.tree.insert(start, end)
 
 
 # Your MyCalendar object will be instantiated and called as such:
@@ -70,9 +67,15 @@ class Node:
         self.start = start
         self.end = end
         self.left = self.right = None
-
+class Tree:
+    def __init__(self):
+        self.root = None
     def insert(self, start, end):
-        cur = self
+        if self.root is None:
+            self.root = Node(start, end)
+            return True
+
+        cur = self.root
         pre = None
         while cur:
             if end <= cur.start:

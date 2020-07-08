@@ -16,11 +16,32 @@ Algo: circualr queue
 D.S.:
 
 Solution:
+1. Using deque
+2. Using fix length array as ring
 Time: O(1)
 Space: O(size of queue)
 
 Corner cases:
 """
+
+class MovingAverage:
+
+    def __init__(self, size: int):
+        """
+        Initialize your data structure here.
+        """
+        self.q = collections.deque([])
+        self.size = size
+        self.ttl = 0
+
+    def next(self, val: int) -> float:
+        self.ttl += val
+        self.q.append(val)
+        if len(self.q) > self.size:
+            self.ttl -= self.q[0]
+            self.q.popleft()
+        return self.ttl / (len(self.q) * 1.0)
+
 class MovingAverage:
 
     def __init__(self, size: int):

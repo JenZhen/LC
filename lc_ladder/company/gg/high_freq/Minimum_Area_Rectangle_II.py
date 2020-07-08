@@ -2,7 +2,22 @@
 
 # https://leetcode.com/problems/minimum-area-rectangle-ii
 # Example
-
+# Given a set of points in the xy-plane, determine the minimum area of any rectangle formed from these points, 
+# with sides not necessarily parallel to the x and y axes.
+#
+# If there isn't any rectangle, return 0.
+#
+# Input: [[1,2],[2,1],[1,0],[0,1]]
+# Output: 2.00000
+# Explanation: The minimum area rectangle occurs at [1,2],[2,1],[1,0],[0,1], with an area of 2.
+#
+# Input: [[0,1],[2,1],[1,1],[1,0],[2,0]]
+# Output: 1.00000
+# Explanation: The minimum area rectangle occurs at [1,0],[1,1],[2,1],[2,0], with an area of 1.
+#
+# Input: [[0,3],[1,2],[3,1],[1,3],[2,1]]
+# Output: 0
+# Explanation: There is no possible rectangle to form from these points.
 """
 Algo:
 D.S.:

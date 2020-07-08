@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3
 
-# Requirement
+# https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 # Example
 # Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
 #
@@ -33,7 +33,7 @@
 Algo:
 D.S.:
 
-Solution:
+Solution: Stack, BST iteration
 1. recursion:
 Time: O(n)
 Space: O(n)

@@ -41,8 +41,8 @@ Solution:
 Time: O(n)
 Space: O(n)
 
-2. TODO
-count from back to from and compare
+2.
+count from back to front and compare
 use Space O(1)
 
 Corner cases:
@@ -66,6 +66,26 @@ class Solution1:
                     res.pop()
         return res
 
+class Solution2:
+    def backspaceCompare(self, S: str, T: str) -> bool:
+        s = self.calc(S)
+        t = self.calc(T)
+        if s == t:
+            return True
+        return False
+
+    def calc(self, s):
+        res = ''
+        cnt = 0
+        for c in s[::-1]:
+            if c == '#':
+                cnt += 1
+            else:
+                if cnt > 0:
+                    cnt -= 1
+                else:
+                    res = c + res
+        return res
 
 # Test Cases
 if __name__ == "__main__":

@@ -18,7 +18,8 @@
 # 三个function会被反复调用，实现function细节。
 #
 # getOrder函数的实现。一般大家好像是preorder traversel，但是看到有面试官要求O(1)实现，不知道有没有朋友有O（1）的做法？
-# 用树形结构存，然后preOrder来找最先找到的非dead的node返回。如果要实现O(1)查询，可以每次调用dead()的时候把这个node从树里面删除，由它的长子来顶替它的位置，也就是说长子会成为次子的父亲。这样复杂度是amortized O(1)。
+# 用树形结构存，然后preOrder来找最先找到的非dead的node返回。如果要实现O(1)查询，可以每次调用dead()的时候把这个node从树里面删除，
+# 由它的长子来顶替它的位置，也就是说长子会成为次子的父亲。这样复杂度是amortized O(1)。
 #
 # https://www.1point3acres.com/bbs ... read&tid=464318
 # https://www.1point3acres.com/bbs ... read&tid=429208
