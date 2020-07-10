@@ -109,12 +109,13 @@ class TrieTree:
     def dfs(self, prefix, node, res):
         if node.freq > 0:
             res.append((node.freq, prefix))
-        for i in range(26):
+        for i in range(27):
             if node.children[i] is not None:
-                char = chr(ord("a") + i)
-                self.dfs(prefix + char, node.children[i], res)
-        if node.children[26] is not None:
-            self.dfs(prefix + " ", node.children[26], res)
+                if i == 26:
+                    self.dfs(prefix + " ", node.children[26], res)
+                else:
+                    char = chr(ord("a") + i)
+                    self.dfs(prefix + char, node.children[i], res)         
 
 
 class AutocompleteSystem:

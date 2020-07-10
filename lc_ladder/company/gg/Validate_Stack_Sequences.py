@@ -24,14 +24,25 @@
 Algo: stack
 D.S.:
 
-Solution:
+Solution1:
 Time: O(n)
 Space: O(n)
+
+Solution2:
+Time: O(n ^ 2)
+Space: O(1)
+以时间换空间
+重要常考的follow up
+pushed: 1, 2, 3, 4, 5
+popped: 4, 5, 3, 2, 1
+用stack的好处：[1,2,3,4] - 4 pop 之后，是5，5pop之后 直接暴露3 快速知道4已经pop了
+如果不用stack，需要遍历 之前poped 的数 来看 4是否已经pop 过
+
 
 Corner cases:
 """
 
-class Solution:
+class Solution1:
     def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
         j = 0
         st = []
@@ -42,6 +53,28 @@ class Solution:
                 j += 1
         return j == len(popped)
 
+class Solution2:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        pop_idx = 0
+        for i in range(len(pushed)):
+            push_idx = i
+            while push_idx >= 0 and pop_idx < len(popped) and pushed[push_idx] == popped[pop_idx]:
+                push_idx -= 1
+                pop_idx += 1
+
+                # hasPopped 看前一个push 进去的元素是否已经pop 过
+                while push_idx >= 0 and self.hasPopped(pushed[push_idx], popped, pop_idx - 1):
+                    # 如果pop 过，push_idx 往前挪一位，然后继续看这一位有没有 pop
+                    push_idx -= 1
+        return pop_idx == len(popped)
+
+    def hasPopped(self, pushed_value, popped, pop_idx):
+        # 固定一个pushed_value，popped 数组往前找，
+        while pop_idx >= 0:
+            if pushed_value == popped[pop_idx]:
+                return True
+            pop_idx -= 1
+        return False
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

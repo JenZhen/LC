@@ -34,3 +34,5 @@
 * LC 739 https://leetcode.com/problems/daily-temperatures/
 * LC 768 https://leetcode.com/problems/max-chunks-to-make-sorted-ii/
 * LC 901 https://leetcode.com/problems/online-stock-span/
+* LC 862 https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/submissions/
+* LC 1438 https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
