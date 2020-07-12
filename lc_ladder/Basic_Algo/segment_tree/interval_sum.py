@@ -1,5 +1,9 @@
 #! /usr/local/bin/python3
 
+# 给定一个整数数组（下标由 0 到 n-1，其中 n 表示数组的规模），以及一个查询列表。每一个查询列表有两个整数 [start, end] 。
+# 对于每个查询，计算出数组中从下标 start 到 end 之间的数的总和，并返回在结果列表中。
+#
+# 每一次查询的时间复杂度为O(logN)
 """
 Definition of Interval
 """

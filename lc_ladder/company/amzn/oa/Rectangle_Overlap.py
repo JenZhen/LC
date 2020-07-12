@@ -48,21 +48,29 @@ class Solution:
         # corner cases
         if not l1 or not r1 or not l2 or not r2:
             return False
-        x1 = [l1.x, r1.x]
-        y1 = [r1.y, l1.y]
-        x2 = [l2.x, r2.x]
-        y2 = [r2.y, l2.y]
+        x1 = [l1.x, r1.x] # first point: x range
+        y1 = [r1.y, l1.y] # first point: y range
+        x2 = [l2.x, r2.x] # second point: x range
+        y2 = [r2.y, l2.y] # second point: y range
 
         def hasOverlap(itv1, itv2):
             if itv1[0] > itv2[1] or itv2[0] > itv1[1]:
                 return False
             else:
                 return True
+
+        def overlap2(self, range1, range2):
+            # 一个的起点 比 另一个的终点大
+            # 如果两个相邻 也算重合 要 >=
+            if range1[0] >= range2[1] or range2[0] >= range1[1]:
+                return False
+            return True
+
         if hasOverlap(x1, x2) and hasOverlap(y1, y2):
             return True
         else:
             return False
-            
+
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
