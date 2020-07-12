@@ -53,7 +53,7 @@ class Solution:
             return 0
         time_list = []
         for i in range(len(position)):
-            time_to_target = (target - position[i]) / speed[i]
+            time_to_target = (target - position[i]) / speed[i] # USE FLOAT
             time_list.append([position[i], time_to_target])
         time_list = sorted(time_list, key=lambda x: x[0])
         print(time_list)

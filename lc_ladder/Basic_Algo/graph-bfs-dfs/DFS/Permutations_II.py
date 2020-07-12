@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/permutations-ii/description
+# https://leetcode.com/problems/permutations-ii/submissions/
 # With duplication
 # Example
 # For numbers [1,2,2] the unique permutations are:
@@ -63,6 +64,26 @@ class Solution:
             self.dfs(nums, visited, perm, res)
             visited[i] = False
             perm.pop()
+
+
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        tmp = []
+        result = set()
+        self.dfs(nums, tmp, result)
+        return result
+
+    def dfs(self, arr, tmp, result):
+        if not arr and tuple(tmp) not in result:
+            result.add(tuple(tmp))
+            return
+
+        for i in range(len(arr)):
+            item = arr[i]
+            new_arr = arr[:i] + arr[i + 1:]
+            tmp.append(item)
+            self.dfs(new_arr, tmp, result)
+            tmp.pop()
 
 # Test Cases
 if __name__ == "__main__":

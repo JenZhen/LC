@@ -29,114 +29,61 @@ Algo:
 D.S.:
 
 Solution:
-
-
+Time: O(n * 26 ^ l), n -- len(words), l -- length of word
+Space: O(n + k * l)
 Corner cases:
 """
 
-class Solution1:
-    """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
-    @return: a list of lists of string
-    """
-    def findLadders(self, start, end, dict):
-        # write your code here
-        dict.add(start)
-        dict.add(end)
-        distance = {} # key: node, val: distance to end, end to end is 0
-        self.bfs(end, start, distance, dict)
-        path = [start]
+class Solution:
+    def findLadders(self, start: str, end: str, words: List[str]) -> List[List[str]]:
         res = []
-        self.dfs(start, end, distance, dict, path, res)
+
+        # key: vague_word(h*g), val: [origin_word_idx] (hog_idx)
+        neigh = defaultdict(list)
+
+        for idx, word in enumerate(words):
+            for k in range(len(word)):
+                x = word[:k] + '*' + word[k+1:]
+                neigh[x].append(idx)
+
+        # key: original_word(hig), val: [parent] (hog) change from hog to hig
+        parents = defaultdict(list)
+        self.bfs(start, end, neigh, words, parents)
+
+        path = [end]
+        # earch from end back to start, then reverse
+        self.dfs(parents, res, path, start, end)
+        for li in res:
+            li.reverse()
         return res
 
-    def bfs(self, from_word, to_word, distance, dict):
-        from collections import deque
-        distance[from_word] = 0
-        q = deque([from_word])
-        while q:
-            cur_word = q.popleft()
-            next_words = self._get_next_words(cur_word, dict)
-            for word in next_words:
-                if word not in distance:
-                    # same check as if word not visited
-                    distance[word] = distance[cur_word] + 1
-                    q.append(word)
+    def bfs(self, start, end, neigh, words, parents):
+        q = deque()
+        q.append((start, 1))
+        visited = defaultdict(tuple)
+        res = 0
+        while(q):
+            word, step = q.popleft()
+            for idx, char in enumerate(word):
+                vague_word = word[:idx] + '*' + word[idx + 1:]
+                for i in neigh[vague_word]:
+                    # print('nei: ', neigh[vague_word])
+                    if words[i] not in visited:
+                        # mark as visited and add step to it, enqueue
+                        visited[words[i]] = (True, step + 1)
+                        q.append((words[i], step + 1))
+                    # add a new parent make sure it's not parent to itself
+                    if visited[words[i]][1] == step + 1 and words[i] != word:
+                        parents[words[i]].append(word)
 
-    def dfs(self, from_word, to_word, distance, dict, path, res):
-        if from_word == to_word:
+    def dfs(self, parents, res, path, start, curr_word):
+        if curr_word == start:
             res.append(path[:])
             return
-        for word in self._get_next_words(from_word, dict):
-            if word in distance and distance[word] < distance[from_word]:
-                path.append(word)
-                self.dfs(word, to_word, distance, dict, path, res)
-                path.pop()
-
-    def _get_next_words(self, word, dict):
-        res = []
-        for i in range(len(word)):
-            for char in "abcdefghijklmnopqrstuvwxyz":
-                # str is not mutable, cannot modify on word
-                next_word = word[:i] + char + word[i + 1:]
-                if next_word in dict:
-                    res.append(next_word)
-        return res
-
-class Solution2:
-    """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
-    @return: a list of lists of string
-    """
-    def findLadders(self, start, end, dict):
-        # write your code here
-        dict.add(start)
-        dict.add(end)
-        distance = {} # key: node, val: distance to end, end to end is 0
-        self.bfs(end, start, distance, dict)
-        path = [start]
-        res = []
-        self.dfs(start, end, distance, dict, path, res)
-        return res
-
-    def bfs(self, from_word, to_word, distance, dict):
-        from collections import deque
-        distance[from_word] = 0
-        q = deque([from_word])
-        while q:
-            cur_word = q.popleft()
-            next_words = self._get_next_words(cur_word, dict)
-            for word in next_words:
-                if word not in distance:
-                    # same check as if word not visited
-                    distance[word] = distance[cur_word] + 1
-                    q.append(word)
-                if to_word in distance and distance[word] > distance[to_word]:
-                    return
-
-    def dfs(self, from_word, to_word, distance, dict, path, res):
-        if from_word == to_word:
-            res.append(path[:])
-            return
-        for word in self._get_next_words(from_word, dict):
-            if word in distance and distance[word] < distance[from_word]:
-                path.append(word)
-                self.dfs(word, to_word, distance, dict, path, res)
-                path.pop()
-
-    def _get_next_words(self, word, dict):
-        res = []
-        for i in range(len(word)):
-            for char in "abcdefghijklmnopqrstuvwxyz":
-                # str is not mutable, cannot modify on word
-                next_word = word[:i] + char + word[i + 1:]
-                if next_word in dict:
-                    res.append(next_word)
-        return res
+        for parent_word in parents[curr_word]:
+            path.append(parent_word)
+            self.dfs(parents, res, path, start, parent_word)
+            path.pop()
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

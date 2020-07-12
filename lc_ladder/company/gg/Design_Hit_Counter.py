@@ -36,7 +36,10 @@ Algo:
 D.S.:
 
 Solution:
-
+1. linear clean up
+2. bianry search clean up
+ts = 350, 需要删除ts <= 50
+bisect_right 50, pos 右侧都是合法的，左侧都是过期要删除的
 
 Corner cases:
 """
@@ -55,6 +58,8 @@ class HitCounter:
         Record a hit.
         @param timestamp - The current timestamp (in seconds granularity).
         """
+        # hit 经常被call，可以不做clean up 操作，总体效率会提升
+        # self._clean_up(timestamp)
         self.q.append(timestamp)
 
 
@@ -63,9 +68,22 @@ class HitCounter:
         Return the number of hits in the past 5 minutes.
         @param timestamp - The current timestamp (in seconds granularity).
         """
+        self._clean_up(timestamp)
+        return len(self.q)
+
+    def _clean_up_liner(self, timestamp):
         while self.q and timestamp - self.q[0] >= 300:
             self.q.popleft()
-        return len(self.q)
+
+    def _clean_up_binary_search(self, timestamp):
+        pos = bisect.bisect_right(self.q, timestamp - 300)
+        for i in range(pos):
+            self.q.popleft()
+
+# Your HitCounter object will be instantiated and called as such:
+# obj = HitCounter()
+# obj.hit(timestamp)
+# param_2 = obj.getHits(timestamp)
 
 
 # Your HitCounter object will be instantiated and called as such:

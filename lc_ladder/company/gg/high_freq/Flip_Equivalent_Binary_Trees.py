@@ -19,8 +19,13 @@
 Algo: divide-conquer,
 D.S.: binary tree
 
-Solution:
+Solution1:
+Time: O(min(size of tree1, size of tree2)) -- 每个Node都被访问1遍
+Time: O(min(height of tree1, height of tree2)
 
+Solution1:
+Time: O(size of tree1 + size of tree2) -- 每个Node都被访问1遍
+Time: O(size of tree1 + size of tree2)
 
 Corner cases:
 """
@@ -31,7 +36,7 @@ Corner cases:
 #         self.left = None
 #         self.right = None
 
-class Solution:
+class Solution1:
     def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
         if not root1: return not root2
         if not root2: return not root1
@@ -39,6 +44,35 @@ class Solution:
             return False
         return (self.flipEquiv(root1.left, root2.left) and self.flipEquiv(root1.right, root2.right)) or (self.flipEquiv(root1.left, root2.right) and self.flipEquiv(root1.right, root2.left))
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution2s:
+    def flipEquiv(self, root1: TreeNode, root2: TreeNode) -> bool:
+        val1, val2 = [], []
+        self.dfs(root1, val1)
+        self.dfs(root2, val2)
+        print(val1)
+        print(val2)
+        return val1 == val2
+
+    def dfs(self, node, val):
+        if not node: return
+        val.append(node.val)
+        l = node.left.val if node.left else -1
+        r = node.right.val if node.right else -1
+
+        if l < r:
+            self.dfs(node.left, val)
+            self.dfs(node.right, val)
+        else:
+            self.dfs(node.right, val)
+            self.dfs(node.left, val)
+        val.append('#')
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
