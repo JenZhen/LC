@@ -73,6 +73,11 @@ class Solution:
                 mp_left[presum_left] = []
             mp_left[presum_left].append(i)
 
+        """
+        # 以下计算len_right 方式和计算len_left一样
+        # 但是还有跟简单的办法
+        # 根据算好的len_left 的终点 和长度 算出来len_right
+
         mp_right = {}
         mp_right[0] = [len(arr)]
         len_right = [len(arr)] * len(arr)
@@ -85,24 +90,27 @@ class Solution:
             if presum_right not in mp_right:
                 mp_right[presum_right] = []
             mp_right[presum_right].append(i)
+        """
 
-        # print(len_left)
-        # print(len_right)
+        len_right2 = [len(arr)] * len(arr)
+        for i in range(len(len_left)):
+            if len_left[i] != len(arr):
+                start = i - len_left[i] + 1
+                len_right2[start] = len_left[i]
 
-        i, j = 0, len(arr) - 1
+        # dp_left[i] 以i 位结尾(包含i) 最短满足条件的长度 从左向右
+        # dp_right[i] 以i 位结尾(包含i) 最短满足条件的长度 从右向左
+        dp_left = len_left
+        for i in range(1, len(len_left)):
+            dp_left[i] = min(dp_left[i], dp_left[i - 1])
+        dp_right = len_right
+        for i in range(len(len_right) - 2, -1, -1):
+            dp_right[i] = min(dp_right[i], dp_right[i + 1])
         res = len(arr) + 1
-        while i < j:
-            if len_left[i] == len(arr):
-                i += 1
-            elif len_right[j] == len(arr):
-                j -= 1
-            else:
-                res = min(res, len_left[i] + len_right[j])
-                if len_left[i] <= len_right[j]:
-                    j -= 1
-                else:
-                    i += 1
-        return -1 if res == len(arr) + 1 else res
+        for i in range(len(dp_left) - 1):
+            res = min(res, dp_left[i] + dp_right[i + 1])
+
+        return res if res != len(arr) + 1 else -1
 
 
 

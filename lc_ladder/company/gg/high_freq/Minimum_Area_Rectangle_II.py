@@ -2,7 +2,7 @@
 
 # https://leetcode.com/problems/minimum-area-rectangle-ii
 # Example
-# Given a set of points in the xy-plane, determine the minimum area of any rectangle formed from these points, 
+# Given a set of points in the xy-plane, determine the minimum area of any rectangle formed from these points,
 # with sides not necessarily parallel to the x and y axes.
 #
 # If there isn't any rectangle, return 0.
@@ -22,7 +22,21 @@
 Algo:
 D.S.:
 
-Solution:
+Solution1:
+构成矩形条件，对角线中点在一起，对角线长度一样
+若是要求正方形，还需要 对角线垂直
+
+遍历所有的边：
+建立map:
+# mp = {
+#     (mid_x, mid_y): {
+#         length: [(p1, p2), (p3, p4)]
+#     }
+# }
+中点坐标:
+    边长：[(p1, p2), (p3, p4)] 这样 p1,p2,p3,p4 可以构成一个矩形
+
+Solution2:
 Time: O(n^3)
 1. 遍历3个点可以构成一个三角形
 2. 通过求点积算是这个3个点是否构成一个直角三角形 (math)
@@ -35,7 +49,44 @@ Time: O(n^3)
 Corner cases:
 """
 
-class Solution:
+class Solution1:
+    def minAreaFreeRect(self, points: List[List[int]]) -> float:
+        if not points:
+            return 0
+
+        # mp = {
+        #     (mid_x, mid_y): {
+        #         length: [(p1, p2), (p3, p4)]
+        #     }
+        # }
+        mp = {}
+        n = len(points)
+        for i in range(n):
+            for j in range(i + 1, n):
+                p1, p2 = points[i], points[j]
+                midx, midy = (p1[0] + p2[0]) / 2.0, (p1[1] + p2[1]) / 2.0
+                dist = (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
+                if (midx, midy) not in mp:
+                    mp[(midx, midy)] = {}
+                if dist not in mp[(midx, midy)]:
+                    mp[(midx, midy)][dist] = []
+                mp[(midx, midy)][dist].append((p1, p2))
+
+        res = sys.maxsize
+        for key, val in mp.items():
+            for length, pair_list in val.items():
+                n = len(pair_list) # number of edges
+                for i in range(n):
+                    for j in range(i + 1, n):
+                        p1, p2 = pair_list[i][0], pair_list[i][1]
+                        p3, p4 = pair_list[j][0], pair_list[j][1]
+                        e1 = ((p1[0] - p3[0]) ** 2 + (p1[1] - p3[1]) ** 2) ** 0.5
+                        e2 = ((p1[0] - p4[0]) ** 2 + (p1[1] - p4[1]) ** 2) ** 0.5
+                        area = e1 * e2
+                        res = min(res, area)
+        return res if res != sys.maxsize else 0
+
+class Solution2:
     def minAreaFreeRect(self, points: List[List[int]]) -> float:
         if not points:
             return 0

@@ -1,5 +1,10 @@
 #! /usr/local/bin/python3
 
+# Time Complexity:
+# Build:  O(n)
+# Query:  O(logn)
+# Modify: O(logn)
+
 # import math # for python# (1 + 2) / 2 = 1.5
 """
 Definition of SegmentTreeNode:

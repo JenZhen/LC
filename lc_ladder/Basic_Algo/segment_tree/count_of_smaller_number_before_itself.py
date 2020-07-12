@@ -51,7 +51,7 @@ class SegmentTreeCnt(object):
 
     def _query(self, root, start, end):
         if root is None:
-            return None
+            return 0
         if start > end: # query cnt before 0; ie (0, -1) -> cnt: 0
             return 0
         if start <= root.start and root.end <= end:

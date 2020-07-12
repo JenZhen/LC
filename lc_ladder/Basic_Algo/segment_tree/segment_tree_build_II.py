@@ -1,5 +1,10 @@
 #! /usr/local/bin/python3
 
+# Time Complexity:
+# Build:  O(n)
+# Query:  O(logn)
+# Modify: O(logn)
+
 """
 Definition of SegmentTreeNode:
 """

@@ -1,5 +1,12 @@
 #! /usr/local/bin/python3
 
+# https://leetcode.com/problems/range-sum-query-mutable/submissions/
+# 在类的构造函数中给一个整数数组, 实现两个方法 query(start, end) 和 modify(index, value):
+#
+# 对于 query(start, end), 返回数组中下标 start 到 end 的 和。
+# 对于 modify(index, value), 修改数组中下标为 index 上的数为 value.
+# query 和 modify的时间复杂度需要为O(logN).
+
 """
 Definition of SegmentTreeNode
 """
@@ -35,9 +42,9 @@ class SegmentTreeSum(object):
 
     def _query(self, root, start, end):
         if root is None:
-            return None
+            return 0
         if start > end: # unneccessary check
-            return None
+            return 0
         if start <= root.start and root.end <= end:
             return root.sum
         mid = (root.start + root.end) // 2

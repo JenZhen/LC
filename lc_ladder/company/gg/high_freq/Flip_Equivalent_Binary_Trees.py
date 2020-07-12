@@ -23,7 +23,7 @@ Solution1:
 Time: O(min(size of tree1, size of tree2)) -- 每个Node都被访问1遍
 Time: O(min(height of tree1, height of tree2)
 
-Solution1:
+Solution2:
 Time: O(size of tree1 + size of tree2) -- 每个Node都被访问1遍
 Time: O(size of tree1 + size of tree2)
 

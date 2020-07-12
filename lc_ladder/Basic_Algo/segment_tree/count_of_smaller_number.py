@@ -1,5 +1,14 @@
 #! /usr/local/bin/python3
 
+# https://www.jiuzhang.com/problem/count-of-smaller-number/
+# 给定一个整数数组 （下标由 0 到 n-1，其中 n 表示数组的规模，数值范围由 0 到 10000），以及一个 查询列表。
+# 对于每一个查询，将会给你一个整数，请你返回该数组中小于给定整数的元素的数量。
+#
+# 可否用一下三种方法完成以上题目。
+# 仅用循环方法
+# 分类搜索 和 二进制搜索
+# 构建 线段树 和 搜索
+
 """
 Solution1: use cnt array
 A length n, queries m (ignore)
