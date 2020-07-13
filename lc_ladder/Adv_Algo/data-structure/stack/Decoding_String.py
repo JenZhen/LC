@@ -1,6 +1,7 @@
 #! /usr/local/bin/python3
 
 # https://www.lintcode.com/problem/decode-string/description
+# https://leetcode.com/problems/decode-string/
 # Example
 # s = abc3[a] return abcaaa
 # s = 3[abc] return abcabcabc
@@ -18,8 +19,12 @@ Same with "/data-structure/Expression_Expand"
 
 Corner cases:
 Be careful about details
+注意区别: 数字后面一定跟着[]吗？
+"2dc2[a]"
+- "dcaaaaaaaaaaaaaaaaaaaaaa" or
+- "2dcaa"
 """
-class Solution:
+class Solution1_Stack:
     """
     @param s: an expression includes numbers, letters and brackets
     @return: a string
@@ -54,7 +59,7 @@ class Solution:
 
 
 
-class Solution_DFS:
+class Solution2_DFS:
     def decodeString(self, s: str) -> str:
         self.idx = 0 # 这个一定是递归结构以外的变量，递归中会不断增加它的值，如果传入递归，跳出来之后，增加的值没有了
         return self.decode(s) # start from index 0
