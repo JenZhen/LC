@@ -21,7 +21,7 @@
 Algo:
 D.S.:
 
-Solution:
+Solution1:
 Inspired by Expression Add Operators
 Time: O(N)
 Space: O(1)
@@ -31,6 +31,11 @@ in python
 -3 /2 = -2
 3/ 2 = 1
 在这里如果prev_val < 0 要转成正数 除后加上符号 得到 tmp_val
+
+Solution2:
+计算 模板
+Time: O(N)
+Space: O(N)
 Corner cases:
 """
 
@@ -74,6 +79,72 @@ class Solution:
                 prev_op = s[i]
                 i += 1
         return val
+
+class Solution2_Standard:
+    def calculate(self, s: str) -> int:
+        parsed_list = self.parse(s)
+        st_num = []
+        st_op = []
+        print(parsed_list)
+        priority = {
+            '+': 1,
+            '-': 1,
+            '/': 2,
+            '*': 2,
+        }
+        for ele in parsed_list:
+            if ele.isdigit():
+                st_num.append(int(ele))
+            else:
+                #注意这里 优先级是>=  - + 要先算 - 再算 +
+                while st_op and priority[st_op[-1]] >= priority[ele]:
+                    op = st_op.pop()
+                    if len(st_num) < 2:
+                        raise "Invalid input"
+                    n2 = st_num.pop()
+                    n1 = st_num.pop()
+                    st_num.append(self.calc(n1, n2, op))
+                st_op.append(ele)
+
+        while st_op:
+            op = st_op.pop()
+            if len(st_num) < 2:
+                raise "Invalid input"
+            n2 = st_num.pop()
+            n1 = st_num.pop()
+            st_num.append(self.calc(n1, n2, op))
+        return st_num[-1]
+
+    def calc(self, n1, n2, op):
+        if op == '+':
+            return n1 + n2
+        elif op == '-':
+            return n1 - n2
+        elif op == '*':
+            return n1 * n2
+        elif op == '/':
+            sign = 1 if (n1 >= 0 and n2 > 0) or (n1 <= 0 and n2 < 0) else -1
+            return n1 // n2 * (sign)
+
+    def parse(self, s):
+        n = len(s)
+        i = 0
+        res = []
+        while i < n:
+            c = s[i]
+            if c.isdigit():
+                j = i + 1
+                while j < n and s[j].isdigit():
+                    j += 1
+                res.append(s[i:j])
+                i = j
+            elif c == '+' or c == '-' or c == '*' or c == '/':
+                res.append(c)
+                i += 1
+            elif c == ' ':
+                i += 1
+                continue
+        return res
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()

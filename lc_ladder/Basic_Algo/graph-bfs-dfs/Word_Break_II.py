@@ -62,9 +62,10 @@ class Solution:
     def dfs(self, s, dict, memo):
         if s in memo:
             return memo[s]
-        # if len(s) == 0:
-        #     return []
+
         ans = []
+        if s in dict:
+            ans.append(s)
         for j in range(1, len(s)):
             left = s[:j]
             right = s[j:]
@@ -76,8 +77,7 @@ class Solution:
             for sub_ans in left_ans:
                 ans.append(sub_ans + " " + right)
 
-        if s in dict:
-            ans.append(s)
+
         memo[s] = ans
         return ans
 

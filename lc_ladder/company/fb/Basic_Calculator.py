@@ -29,10 +29,17 @@ Solution:
 
 Time: O()
 Space: O()
+
+Solution2:
+套用expression计算模板
+lc_ladder/Adv_Algo/data-structure/stack/Expression_Evaluation.py
+Time: O(n)
+Space: O(n)
+
 Corner cases:
 """
 
-class Solution:
+class Solution1:
     def calculate(self, s: str) -> int:
         stack = []
         n, operand = 0, 0
@@ -72,6 +79,73 @@ class Solution:
                 res -= stack.pop()
         return res
 
+
+class Solution2_Standard:
+    def calculate(self, s: str) -> int:
+
+        parsed_list = self.parse(s)
+        st_num = []
+        st_op = []
+        for ele in parsed_list:
+            if ele.isdigit():
+                st_num.append(int(ele))
+            else:
+                if ele == ')':
+                    while st_op and st_op[-1] != '(':
+                        op = st_op.pop()
+                        if len(st_num) < 2:
+                            raise "Invalid input"
+                        n2 = st_num.pop()
+                        n1 = st_num.pop()
+                        st_num.append(self.calc(n1, n2, op))
+                    if st_op[-1] == '(':
+                        st_op.pop()
+                elif ele == '(':
+                    st_op.append(ele)
+                elif ele == '+' or ele == '-':
+                    while st_op and st_op[-1] != '(':
+                        op = st_op.pop()
+                        if len(st_num) < 2:
+                            raise "Invalid input"
+                        n2 = st_num.pop()
+                        n1 = st_num.pop()
+                        st_num.append(self.calc(n1, n2, op))
+                    st_op.append(ele)
+
+        while st_op:
+            op = st_op.pop()
+            if len(st_num) < 2:
+                raise "Invalid input"
+            n2 = st_num.pop()
+            n1 = st_num.pop()
+            st_num.append(self.calc(n1, n2, op))
+        return st_num[-1]
+
+    def calc(self, n1, n2, op):
+        if op == '+':
+            return n1 + n2
+        elif op == '-':
+            return n1 - n2
+
+    def parse(self, s):
+        n = len(s)
+        i = 0
+        res = []
+        while i < n:
+            c = s[i]
+            if c.isdigit():
+                j = i + 1
+                while j < n and s[j].isdigit():
+                    j += 1
+                res.append(s[i:j])
+                i = j
+            elif c == '+' or c == '-' or c == '(' or c == ')':
+                res.append(c)
+                i += 1
+            elif c == ' ':
+                i += 1
+                continue
+        return res
 # Test Cases
 if __name__ == "__main__":
     solution = Solution()
