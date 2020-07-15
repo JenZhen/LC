@@ -71,8 +71,111 @@ Trie:
     advanced/data-structure/trie-tree/Design search and autocomplete 非常好非常重要的题
 
 
-
-图求距离的题：
+图求距离的题
 Adv_Algo/dp/Build_Post_Office_I.py
 Adv_Algo/dp/LC_317_Build_Post_Office_II.py
 Adv_Algo/dp/Post_Office_Problem.py
+company/gg/high_freq/Exam_Room.py  https://leetcode.com/problems/exam-room/
+company/gg/high_freq/Maximize_Distance_To_Closest_Person.py   (similar to exam-room)
+company/gg/high_freq/Minimize_Max_Distance_To_Gas_Station.py
+https://leetcode.com/problems/best-meeting-point/submissions/  --> sort x, y axis, get median number
+
+
+Backtracking
+https://leetcode.com/problems/combination-sum/
+https://leetcode.com/problems/word-search/
+https://leetcode.com/problems/subsets/
+https://leetcode.com/problems/palindrome-partitioning/
+https://leetcode.com/problems/additive-number/submissions/  -> + - * /
+https://leetcode.com/problems/tiling-a-rectangle-with-the-fewest-squares/submissions/
+    https://www.youtube.com/watch?v=2QRUgAT7sGc
+https://leetcode.com/problems/permutations-ii/submissions/
+https://leetcode.com/problems/combination-sum-iii/
+https://leetcode.com/problems/concatenated-words/ vs word break i & ii
+
+
+Rectangle and Square related
+sweepline
+https://leetcode.com/problems/rectangle-area/
+https://leetcode.com/problems/rectangle-area-ii/
+
+DP
+https://leetcode.com/problems/maximal-square/
+https://www.lintcode.com/problem/maximal-square-ii
+https://leetcode.com/problems/maximal-rectangle/
+
+https://leetcode.com/problems/count-submatrices-with-all-ones/submissions/
+https://leetcode.com/problems/count-square-submatrices-with-all-ones/
+
+hashmap
+https://leetcode.com/problems/minimum-area-rectangle/      四边平行于轴
+https://leetcode.com/problems/minimum-area-rectangle-ii/   四边可以不平行于轴 -- 对角线中点在一起，长度一样 （如果是正方形，对角线还需要相互垂直）
+https://leetcode.com/problems/number-of-corner-rectangles/
+
+pick random with weight (bisect_left)
+https://leetcode.com/problems/random-pick-with-weight/
+
+Monotonous Stack
+https://leetcode.com/problems/sliding-window-maximum/ (stack 存 idx和数值)
+Monotonous Queue
+https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/submissions/ (Monotonous queue over presum)
+
+
+Matching DP
+Wildcard matching
+https://leetcode.com/problems/wildcard-matching/solution/
+Regular expression matching
+https://leetcode.com/problems/regular-expression-matching/
+
+Stone Game I II III (leetcode version)
+
+
+Expression 表达式
+
+嵌套式
+stack 和 递归 两种做法 重点题型
+** https://leetcode.com/problems/decode-string/
+
+表达式求值
+Stack
+https://leetcode.com/problems/evaluate-reverse-polish-notation/submissions/
+** lc_ladder/Adv_Algo/data-structure/stack/Expression_Evaluation.py
+    2 个stack, 1个存数，1个存operator，遇到 + - 要把之前的 * / 先算完， 遇到（括号 进栈，遇到）一直算到上一个（
+
+
+Special questions:
+logger 计数 https://leetcode.com/problems/logger-rate-limiter/
+https://leetcode.com/problems/design-hit-counter/
+最近1分钟几次，10分钟几次，1小时几次？
+居上一次不能少于K 分钟
+
+诡异题目：https://leetcode.com/problems/string-transforms-into-another-string/
+https://leetcode.com/problems/my-calendar-ii/
+https://leetcode.com/problems/my-calendar-i/
+
+https://leetcode.com/problems/delete-nodes-and-return-forest/
+
+https://leetcode.com/problems/decode-string/
+https://leetcode.com/problems/guess-the-word/submissions/
+
+https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+
+https://leetcode.com/problems/minimum-window-substring/submissions/
+
+https://leetcode.com/problems/palindrome-pairs/
+
+https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
+类似的有 求2个不相交的子数组 满足和都是target
+https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays/
+https://leetcode.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum/
+
+
+
+1. Print expressions with special syntax representing repetitive substrings. E.g. 'abc(d)<2>e' --> 'abcdde', 'a(bcd)<2>e' --> 'abcdbcde', 'a(b(c)<3>d)<2>e' --> 'abcccdbcccde'. 括号中的部分是重复的string, <>中的数字是重复多少次。
+
+解法: 用recursion或者stack来展开重复的部分。每次遇到'('的时候叫这个recursion function.
+time O(n), n 是output string的length
+space O(n^2), worst case 是recursion在每一个字母都发生。
+
+Follow-up: Does you code handle <0> situation? How to handle ill-formed input string?
+扫的时候确认下，每一个'(' 一定有 一个')'，以及<>中间的可以convert成non-negative integer, 否则报错。
